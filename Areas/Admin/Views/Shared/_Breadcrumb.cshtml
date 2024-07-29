@@ -1,0 +1,11 @@
+﻿@using MvcSiteMapProvider.Web.Html
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        @if (ViewBag.Title != null) {
+            <h2>@ViewBag.Title</h2>
+        }
+        <ol class="breadcrumb">
+            @Html.MvcSiteMap().SiteMapPath()
+        </ol>
+</div>
+</div>

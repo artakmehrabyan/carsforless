@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "Cars";
+}
+<article class="block cars-list" ng-controller="CarListController" ng-cloak infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+    <form ng-submit="Search()">
+        <a class="filter-button" href="@Url.Action("Filter", "Car")">
+            <i class="fa fa-filter"></i>
+        </a>
+        <input type="text" class="search-box"
+               name="search"
+               placeholder="Search.."
+               ng-model="Model.Search">
+
+    </form>
+    
+    <div class="color-red" ng-show="Data.length==0 && Loading!=true">
+        <b>No cars found that satisfy your query</b>
+    </div>
+    <div ng-repeat="item in VisibleData track by item.Id" >
+        <div class="car">
+            <h3 class="car-title">
+                <a href="@Url.Action("Details", "Car")?id={{item.Id}}" class="car-title">{{item.Make}} {{item.Model}}</a>
+                <span class="car-price">{{item.RetailCost|retail}}</span>
+            </h3>
+            <a href="@Url.Action("Details", "Car")?id={{item.Id}}" class="item-link">
+                <img ng-if="item.ImageUrl==null"
+                     ng-src="{{AppServices.Management.GetImageUrl('no-car-image-md.jpg')}}" alt="Picture">
+                <img ng-if="item.ImageUrl!=null"
+                     class="img-shadow"
+                     ng-src="{{item.ImageUrl}}" alt="Picture">
+            </a>
+
+            <div class="car-options">
+                <div class="option" ng-show="item.SuggestedPrice!=null">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
+                            <div class="option-name">Suggested Retail Price</div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            <div class="option-value price">
+                                {{item.SuggestedPrice|retail}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" ng-show="item.FinancePrice!=null">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
+                            <div class="option-name">Finance Price</div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            <div class="option-value price">
+                                {{item.FinancePrice|retail}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
+                            <div class="option-name">Year</div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            <div class="option-value">
+                                {{item.Year}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
+                            <div class="option-name">Body</div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            <div class="option-value">
+                                {{item.Type}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
+                            <div class="option-name">Miles</div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            <div class="option-value">
+                                {{item.Mileage}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
+                            <div class="option-name">Vin</div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            <div class="option-value vin">
+                                {{item.Vin}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
+                            <div class="option-name">Title Brand</div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6"
+                             ng-if="(item.Brand.Description=='Clear' || item.Brand.Description=='Clean')"
+                             ng-class="{'brand-clear':(item.Brand.Description=='Clean' ||item.Brand.Description=='Clear')}">
+                            <div class="option-value">
+                                Clear
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6"
+                             ng-if="item.Brand.Description!='Clear' && item.Brand.Description!='Clean'">
+                            <div class="option-value">
+                                Reconstructed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="option"
+                     ng-class="{'damaged':item.IsDamaged==true,'not-damaged':item.IsDamaged==false}">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-6 col-xs-6">
+                            <div class="option-name">Car Condition</div>
+                        </div>
+                        <div class="col-md-7 col-sm-6 col-xs-6">
+                            <div class="option-value">
+                                {{item.CarCondition}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<ul class="detail-list" style="display: block;">
+
+            <li ng-repeat="item in Data track by item.Id">
+                <a href="@Url.Action("Details", "Car")?id={{item.Id}}" class="item-link">
+                    <span class="overlay">Overlay</span>
+                    <img ng-if="item.ImageMd==null" ng-src="/Content/saved/pic/no-car-image-md.jpg" alt="Picture">
+                    <img ng-if="item.ImageMd!=null" class="img-shadow" ng-src="/Content/saved/pic/{{item.Id}}/{{item.ImageMd}}" alt="Picture">
+                </a>
+                <div class="text-content">
+                    <div class="layer-one">
+                        <h3>
+                            <a href="@Url.Action("Details", "Car")?id={{item.Id}}" class="car-title">{{item.Make}} {{item.Model}}</a>
+                        </h3>
+                        <span class="price-tag">Sale Price: {{item.RetailCost|retail}}</span><br />
+                        <span class="price-tag" ng-show="item.SuggestedPrice!=null">Suggested Retail Price: {{item.SuggestedPrice|retail}}</span>
+                    </div>
+                    <ul class="item-specs layer-two">
+                        <li>Year {{item.Year}}</li>
+                        <li>Body {{item.Type}}</li>
+                        <li>Miles {{item.Mileage}}</li>
+                        <li>Vin {{item.Vin}}</li>
+                    </ul>
+                    <ul class="item-specs layer-two">
+                        <li ng-if="(item.Brand.Description=='Clear' || item.Brand.Description=='Clean')"
+                            ng-class="{'brand-clear':(item.Brand.Description=='Clean' || item.Brand.Description=='Clear')}">Title Brand:<span class="value">Clear</span></li>
+                        <li ng-if="item.Brand.Description!='Clear' && item.Brand.Description!='Clean'">Title Brand: Reconstructed</li>
+                        <li ng-class="{'damaged':item.IsDamaged==true,'not-damaged':item.IsDamaged==false}">Car Condition: <span class="value">{{item.CarCondition}}</span></li>
+                    </ul>
+                    <div class="layer-three">
+                        <a href="@Url.Action("Details","Car")?id={{item.Id}}" class="details-link">View details</a>
+                    </div>
+
+                </div>
+            </li>
+        </ul>*@
+</article>

@@ -1,0 +1,69 @@
+﻿
+
+<div class="col-lg-9 animated fadeInLeft"  ng-show="LoadingImages==false">
+    <div class="row">
+        <div class="col-lg-12"
+             id="#itemImages" 
+             as-sortable="dragControlListeners" 
+             ng-model="Medias">
+            <div contextmenu="grid.contextmenu" class="dropdown contextmenu">
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="javascript:void(0);"
+                           ng-show="grid.contextmenu.$item.MediaFolder=='client' && grid.contextmenu.$item.MediaPath!=EditableObject.ImageUrl"
+                           ng-click="SetAsMainImage(grid.contextmenu.$item.MediaPath)">
+                            <i class="fa fa-image"></i> Set As Main Image
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);"
+                           ng-click="DeleteImage(grid.contextmenu.$item)">
+                            <i class="fa fa-remove"></i> Delete
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);"
+                           ng-click="OpenMediaEditDialog(grid.contextmenu.$item)">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="file-box lightup-on-hover" 
+                 ng-repeat="m in Medias track by m.MediaId"
+                 ng-show="LoadingImages==false"
+                 as-sortable-item>
+                <div class="file" 
+                     as-sortable-item-handle
+                     ng-class="{'selected':m.MediaPath==EditableObject.ImageUrl}"
+                     contextmenu-container="grid.contextmenu"
+                     contextmenu-item="m">
+                    <a target="_blank">
+                        <span class="corner"></span>
+                        <div class="image">
+                            <img alt="image" class="img-responsive"
+                                 style="width: 198px; height: 148px"
+                                 ng-src="{{m.MediaPath}}">
+
+                        </div>
+                        <div class="file-name">
+                            <a target="_blank" ng-href="{{m.MediaPath}}">{{m.MediaName | truncate:20}}</a>
+                            <br/>
+                            <small>Added: {{m.CreatedOn | date:'MMM dd, yyyy'}}</small>
+                            <br/>
+                            <small>Size: {{ m.ContentLength/1024/1024|number:2 }} MB</small>
+                            <br />
+                            <small>Type: {{ m.MediaType }}</small>
+                        </div>
+                        <div class="file-commands">
+                            <i class="fa fa-check" ng-show="m.MediaPath==EditableObject.ImageUrl"></i>
+                            <i class="fa fa-times delete"
+                               ng-click="DeleteImage(m)">
+                            </i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

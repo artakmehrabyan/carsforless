@@ -1,0 +1,345 @@
+﻿@{
+    ViewBag.Title = "Plates Trucking";
+}
+
+<div class="ibox" ng-controller="PlateTruckingController" infinite-scroll='LoadMoreData()' infinite-scroll-distance='2'>
+    <div contextmenu="grid.contextmenu" class="dropdown contextmenu">
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="javascript:void(0);"
+                   ng-click="AddNew()"
+                   ng-if="CanAddRow()">
+                    <i class="fa fa-plus"></i> Add New
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a role="menuitem" tabindex="-1" href ng-click="AppServices.Common.CopySelectionToClipboard()">
+                    <i class="fa fa-copy"></i> Copy
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            <li>
+                <a href="javascript:void(0);"
+                   ng-click="BeginEditRow(grid.contextmenu.$item)"
+                   ng-if="CanUpdateRow(grid.contextmenu.$item)">
+                    <i class="fa fa-edit"></i> Edit
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);"
+                   ng-click="Save()">
+                    <i class="fa fa-save"></i> Save
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);"
+                   ng-click="DeleteRow(grid.contextmenu.$item,true)"
+                   ng-if="CanDeleteRow(grid.contextmenu.$item)">
+                    <i class="fa fa-remove"></i> Delete
+                </a>
+            </li>
+        </ul>
+    </div>
+    <form class="form-horizontal" role="form" id="plateTruckingForm" name="plateTruckingForm">
+        <div class="ibox-content">
+            <div class="toolbar clearfix">
+                <div class="form-group pull-left form-inline">
+                    <div class="btn-group">
+                        <button class="btn btn-white btn-sm" ng-click="AddNew()">
+                            <i class="fa fa-plus"></i> Add New
+                        </button>
+                        <button class="btn btn-white btn-sm ml5" ng-click="Save()">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group pull-left form-inline">
+                    <div class="input-group">
+                        <input type="text"
+                               ng-enter="Refresh()"
+                               class="form-control input-sm"
+                               id="Search"
+                               ng-model="GridModel.Search"
+                               placeholder="Search">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="Refresh()">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                            <button type="button" class="btn btn-white btn-sm" ng-click="ClearFilter(true)">
+                                <i class="fa fa-close"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table small m-t-sm">
+                    <tbody>
+                        <tr>
+                            <td ng-repeat="row in Statuses" ng-show="row.Count!=null">{{row.Name}} - <strong>({{row.Count}})</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="table-scrollable mt25 clearfix">
+                <table st-table="VisibleRows"
+                       st-safe-src="Rows"
+                       st-pipe="LoadData"
+                       contextmenu-container="grid.contextmenu"
+                       class="table table-striped table-bordered table-advance table-hover">
+                    <thead>
+                    
+                    <tr>
+                        <th class="checkbox-cell">
+                            <label class="i-checks">
+                                <input icheck
+                                       type="checkbox"
+                                       ng-model="Selection.AllSelected">
+                            </label>
+                        </th>
+                        <th st-sort="No">License Plate</th>
+                        <th st-sort="Status">Status</th>
+                        <th st-sort="Insured">Insured</th>
+                        <th st-sort="Fees">Fees</th>
+                        <th st-sort="FeesPaid">Fees Paid</th>
+                        <th st-sort="FeesOutstanding">Fees Outstanding</th>
+                        <th class="width-200" st-sort="GivenTo">GivenTo</th>
+                        <th class="width-200" st-sort="Address">Address</th>
+                        <th class="width-200" st-sort="ContactInfo">Contact Info</th>
+                        <th st-sort="Make.Name">Make</th>
+                        <th st-sort="Model.Name">Model</th>
+                        <th st-sort="Vin">Vin</th>
+                        <th st-sort="Year">Year</th>
+                        <th st-sort="GivenDate">Given Date</th>
+                        <th st-sort="ExpectedDate">Expected Date</th>
+                        <th st-sort="ReturnDate">Return Date</th>
+                        <th st-sort="DaysLate">Days Late</th>
+                        <th st-sort="Comments">Comments</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr tabindex="0"
+
+                            ng-esc="CancelEditRow(row)"
+                            ng-focus="OnRowClicked(row)"
+                            ng-dblclick="BeginEditRow(row)"
+                            contextmenu-item="row"
+                            ng-class="{'editing':row.Editing==true,'dirty':row.IsDirty,'color-red':row.DaysLate>0 && row.ReturnDate==null || row.Insured==false}"
+                            ng-repeat="row in VisibleRows|filter:SetRowVisibility"
+                            ng-include="GetTemplate(row)"></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="14">
+                                <div st-pagination="" st-items-by-page="GridModel.Take" class="pull-right">
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="form-group clearfix">
+                <div class="col-sm-offset-4 col-sm-10">
+                    <button type="button"
+                            ng-click="Save()"
+                            class="btn btn-sm btn-primary">
+                        <i class="fa fa-save"></i> Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/ng-template" id="display">
+    <td class="checkbox-cell">
+        <label class="i-checks">
+            <input icheck
+                   type="checkbox"
+                   ng-click="SelectRow(row)"
+                   ng-model="row.Selected">
+        </label>
+    </td>
+    <td>{{row.No}}</td>
+    <td>{{GetStatusText(row.Status)}}</td>
+    <td class="checkbox-cell">
+        <label class="i-checks">
+            <input icheck
+                   type="checkbox"
+                   disabled="disabled"
+                   ng-model="row.Insured">
+        </label></td>
+    <td>{{row.Fees | currency}}</td>
+    <td>{{row.FeesPaid |currency}}</td>
+    <td>{{row.FeesOutstanding |currency}}</td>
+    <td>{{row.GivenTo}}</td>
+    <td>{{row.Address}}</td>
+    <td>{{row.ContactInfo}}</td>
+    <td>{{row.Make.Name}}</td>
+    <td>{{row.Model.Name}}</td>
+    <td>{{row.Vin}}</td>
+    <td>{{row.Year}}</td>
+    <td>{{row.GivenDate | date: 'MM/dd/yyyy'}}</td>
+    <td>{{row.ExpectedDate |date: 'MM/dd/yyyy'}}</td>
+    <td>{{row.ReturnDate|date: 'MM/dd/yyyy'}}</td>
+    <td>{{row.DaysLate}}</td>
+    
+    <td>{{row.Comments}}</td>
+</script>
+
+<script type="text/ng-template" id="edit">
+    <td class="checkbox-cell">
+        <label class="i-checks">
+            <input icheck
+                   type="checkbox"
+                   ng-click="SelectRow(row)"
+                   ng-model="row.Selected">
+        </label>
+    </td>
+    <td>
+        <input type="text"
+               ng-do-focus="true"
+               class="form-control input-sm"
+               placeholder=""
+               required
+               ng-model="row.No">
+    </td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.Status" class="form-control input-sm"
+                    ng-change="OnStatusChanged(row)"
+                    ng-options="t.Id as t.Name for t in Statuses"></select>
+        </div>
+    </td>
+    <td class="checkbox-cell">
+        <label class="i-checks">
+            <input icheck
+                   type="checkbox"
+                   ng-model="row.Insured">
+        </label>
+    </td>
+    <td>
+        <input type="number"
+               class="form-control input-sm"
+               placeholder=""
+               ng-change="FeesChanged(row)"
+               ng-model="row.Fees">
+    </td>
+    <td>
+        <input type="number"
+               class="form-control input-sm"
+               placeholder=""
+               ng-change="FeesPaidChanged(row)"
+               ng-model="row.FeesPaid">
+    </td>
+    <td>
+        <input type="number"
+               class="form-control input-sm"
+               placeholder=""
+               ng-change="FeesOutstandingChanged(row)"
+               ng-model="row.FeesOutstanding">
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-sm"
+               placeholder=""
+               required
+               ng-model="row.GivenTo">
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-sm"
+               placeholder=""
+               required
+               ng-model="row.Address">
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-sm"
+               placeholder=""
+               required
+               ng-model="row.ContactInfo">
+    </td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.MakeId" 
+                    class="form-control input-sm"
+                    ng-change="MakeChanged(row)"
+                    ng-init="SelectAccordingModel(row.MakeId)"
+                    required=""
+                     id="MakeId" 
+                    ng-options="t.Id as t.Name for t in Manufacturers"></select>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-white btn-sm" ng-click="OpenManufacturersPage()">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </span>
+        </div>
+    </td>
+
+    <td>
+        <div class="input-group">
+            <select ng-model="row.ModelId"
+                    class="form-control input-sm"
+                    required=""
+                    id="ModelId"
+                    ng-options="t.Id as t.Name for t in Models"></select>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-white btn-sm" ng-click="OpenModelsPage()">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </span>
+        </div>
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-sm"
+               id="Vin"
+               placeholder=""
+               ng-model="row.Vin">
+    </td>
+    <td>
+        <select class="form-control input-sm"
+                ng-model="row.Year"
+                ng-options="o as o for o in Years track by o"></select>
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-sm" 
+               id="GivenDate" 
+               date-pick 
+               placeholder="" 
+               ng-model="row.GivenDate">
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-sm"
+               id="ExpectedDate"
+               date-pick
+               placeholder=""
+               ng-model="row.ExpectedDate"
+               >
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-sm"
+               id="ReturnDate"
+               date-pick
+               placeholder=""
+               ng-model="row.ReturnDate"
+               >
+    </td>
+    <td>
+        {{row.DaysLate}}
+    </td>
+   
+    <td>
+        <textarea class="form-control input-sm" 
+                  id="AdminComment" 
+                  placeholder="" 
+                  ng-model="row.Comments"
+                  rows="4">
+        </textarea>
+    </td>
+</script>

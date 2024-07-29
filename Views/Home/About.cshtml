@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "About Us";
+}
+<section id="car-pagination">
+    <div class="content-holder">
+        <div class="page-main-heading extra-space">
+            <div class="heading-location">
+                <h2><span class="bold">About</span> Us</h2>
+                <p class="page-location">
+                    <a href="@Url.Action("Index")">Home </a>
+                    <span class="greater-than">&gt;&gt;</span>
+                    <a href="@Url.Action("About")">About Us</a>
+                </p>
+            </div>
+            <div class="extra-info">
+                <h2 class="bold text-shadow title-color">Used Cars Remarketing Factory Outlet</h2>
+                <h5>654 W Bridge St, Morrisville, PA 19067, United States</h5>
+                <h5>Phone: (215)295-1515</h5>
+                <h5>Text: ‎(267)800-6119 </h5>
+                <h5>Fax: (215)-428-4932</h5>
+                <h5>Email: autoprestigeimports@gmail.com</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="sell-your-vehicle">
+    <div class="content-holder">
+        <div class="full-width light-grey-corner-box box-text-default">
+            <p>
+                Prestige Imports Auto Sales incorporation was established in 2004.
+                We take pride in our reputation for excellent customer service; both before and long after the sale.
+                <br />
+                Our clientele includes the most famous celebrities and royalty.
+                The reason they keep coming back is simple: "High quality sales, service and satisfaction". Guaranteed!?
+                <br />
+                Our customers buy from the best and stay with the best because we always have and always will be the best.
+                <img style="float: left; margin: 5px 5px 5px 0;" 
+                     ng-src="{{AppServices.Management.GetImageUrl('mdx.jpg')}}" alt="Acura image"/>
+                Our sales department has one purpose: to exceed your expectations from test drive to delivery. 
+                <br />
+                Our friendly, knowledgeable sales professionals will provide you with the information you need to make an educated buying decision. 
+                <br />
+                Our goal is for you to feel that the vehicle you drive away in is the perfect one for you. 
+                <br />
+                Our online inventory new and pre-owned vehicles is updated daily. 
+                We invite you to schedule a test drive or stop by our showroom to experience all that we have to offer.	
+            </p>
+            <p>
+                Our service department offers the best in automotive service to our customers.
+                Our state-of-the-art facility features the most current diagnostic and repair equipment available and our highly skilled factory-trained technicians will deliver efficient, quality vehicle care.
+                <div class="clearfix"></div>
+            </p>
+        </div>
+        <div id="preview-list" class="full-width">
+            <div class="one-third grey-corner-box">
+                <h3><span class="bold">Sales </span>Department Hours</h3>
+                <ul>
+                    <li>Mon-Fri 9:00 AM - 9:00 PM</li>
+                    <li>Sat 9:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+            <div class="one-third grey-corner-box">
+                <h3><span class="bold">Service</span> Department Hours</h3>
+                <ul>
+                    <li>Mon-Fri 10:00 AM - 9:00 PM</li>
+                    <li>Sat 9:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

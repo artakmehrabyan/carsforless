@@ -1,0 +1,101 @@
+﻿
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>@ViewBag.Title - Prestige Imports</title>
+    @Styles.Render("~/Content/mobile/css")
+    @Styles.Render("~/content/assets/css")
+    @Styles.Render("~/content/bootstrap/css")
+    @RenderSection("styles", required: false)
+</head>
+<body ng-controller="AppController" ng-cloak>
+    <div id="outer-wrap">
+        <div id="inner-wrap">
+            <header id="top" role="banner">
+                <div class="block">
+                    <h5 class="block-title">PRESTIGE IMPORTS</h5>
+                    <a class="nav-btn" id="nav-open-btn" href="#nav">Navigation</a>
+                </div>
+            </header>
+
+            <nav id="nav" role="navigation">
+                <div class="block">
+                    <h2 class="block-title">Chapters</h2>
+                    <ul>
+                        @*<li class="current-item">
+                            <a href="@Url.Action("Index", "Home")">
+                                <i class="fa fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>*@
+                        
+                        <li>
+                            <a href="@Url.Action("List", "Car")">
+                                <i class="fa fa-car"></i>
+                                <span>Cars</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Shipping", "Home")">
+                                <i class="fa fa-truck"></i>
+                                <span>Shipping</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Faq", "Home")">
+                                <i class="fa fa-question-circle"></i>
+                                <span>Q & A</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("About", "Home")">
+                                <i class="fa fa-buysellads"></i>
+                                <span>About</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Contact", "Home")">
+                                <i class="fa fa-globe"></i>
+                                <span>Contact</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <a class="close-btn" id="nav-close-btn" href="#top">Return to Content</a>
+                </div>
+            </nav>
+
+            <div id="main" role="main">
+
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="footer">
+            <a href="#" data-topbar-language="ro" class="footer__language">English</a>
+            <a class="footer__full-version-link" href="@Url.Action("SwitchView","Home",new {mobile=false,returnUrl=Request.Url.AbsoluteUri})">Desktop Version</a>
+        </footer>
+        <!--/#inner-wrap-->
+    </div>
+
+    <div ng-helper-busy="{{busyMessage='Please wait...'}}"></div>
+
+
+
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/angular/js")
+    @Scripts.Render("~/bundles/assets/js")
+    @Scripts.Render("~/bundles/app/js")
+    @Scripts.Render("~/bundles/app/angular/js")
+    @Scripts.Render("~/bundles/app/angular/client/js")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/client/mobile.js"></script>
+    <script type="text/javascript">
+        var isMobile = '@Request.Browser.IsMobileDevice';
+        if (isMobile == 'True') {
+            App.IsMobile = true;
+        }
+    </script>
+</body>
+</html>

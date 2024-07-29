@@ -1,0 +1,50 @@
+﻿<style>
+    .modal-footer {
+        padding: 0;
+        border-top: none!important;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h4 class="modal-title">Edit Media</h4>
+</div>
+<div class="modal-body">
+    <form role="form" class="form-horizontal">
+        <div class="form-group">
+            <label for="Name" class="col-sm-2">Name:</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control input-sm" ng-do-focus="true" disabled="" id="MediaName" placeholder="" required="" ng-model="EditingImage.MediaName">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MediaFolderDisplay" class="col-sm-2">Folder:</label>
+            <div class="col-sm-7">
+                <input type="text" disabled class="form-control input-sm" id="MediaFolderDisplay" placeholder="" required="" ng-model="EditingImage.MediaFolderDisplay">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="SetAsMainImage" class="col-sm-2">Is Main:</label>
+            <div class="col-sm-1 col-md-1 col-lg-1">
+                <label class="i-checks">
+                    <input icheck
+                           id="SetAsMainImage"
+                           type="checkbox"
+                           ng-change="SetAsMain(EditingImage.SetAsMainImage)"
+                           ng-model="EditingImage.SetAsMainImage">
+                </label>
+            </div>
+        </div>
+        <div class="form-group" ng-show="EditingImage.SetAsMainImage==false">
+            <h5>Folders</h5>
+            <ul class="folder-list" style="padding: 0">
+                <li ng-class="{'selected':EditingImage.MediaFolder=='client'}"><a href="" ng-click="SetFolder('client')"><i class="fa fa-folder"></i> Client</a></li>
+                <li ng-class="{'selected':EditingImage.MediaFolder=='auction'}"><a href="" ng-click="SetFolder('auction')"><i class="fa fa-folder"></i> Auction</a></li>
+            </ul>
+        </div>
+       
+        <div class="modal-footer">
+            <button class="btn btn-primary btn-sm" ng-click="Close()">Save</button>
+            <button class="btn btn-warning btn-sm" type="button" ng-click="Cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

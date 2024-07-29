@@ -1,0 +1,254 @@
+﻿@using System.Security.Policy
+@using Freemoded.Automotive.Frame.Web.Mvc
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="admin">
+<head>
+
+    <link href="~/Content/print.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>DEALER REGISTRATION PLATE PERMIT</title>
+    @Styles.Render("~/content/bootstrap/css")
+    @Styles.Render("~/content/ng-sortable")
+    @Styles.Render("~/content/assets/css")
+
+    <link href="~/Content/billofsale.css" rel="stylesheet"/>
+</head>
+
+<body ng-controller="BillOfSaleController" class="reg-permit" reg-permit>
+    
+<div class="bill-of-sale">
+    <div class="logo">
+        <img src="@Html.MixImg("DealerRegPermit.png")" alt="Car" />
+    </div>
+<div class="title">
+    DEALER REGISTRATION PLATE PERMIT
+</div>
+
+
+@*<div class="sub-title">
+                Vehicle Bill of Sale
+            </div>*@
+<hr class="line"/>
+<div class="">
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1">NAME</div>
+    <div class="col-sm-10" style="border-bottom: solid black 1px; height: 20px;">
+        <span  style="margin-left: 10px">{{Item.SoldToName}}</span>
+        <span style="position: relative; top: 23px; left: 40%; font-size: 10px">(Authorized User)</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1">ADDRESS</div>
+    <div class="row">
+        <div class="col-sm-10" style="border-bottom: solid black 1px; height: 20px;">
+            <span style="margin-left: 10px">{{Item.SoldToAddress}}</span>
+            <span style="position: relative; top: 23px; font-size: 10px">(Street)</span>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="border-bottom: solid black 1px; height: 20px;">
+        <span style="position: relative; top: 23px; font-size: 10px">(City)</span>
+    </div>
+    <div class="col-sm-2" style="border-bottom: solid black 1px; height: 20px;">
+        <span style="position: relative; top: 23px; font-size: 10px">(State)</span>
+    </div>
+    <div class="col-sm-1" style="border-bottom: solid black 1px; height: 20px;">
+        <span style="position: relative; top: 23px; font-size: 10px">(Zip)</span>
+    </div>
+    <div class="col-sm-1" style="border-bottom: solid black 1px; height: 20px;">
+        <span style="position: relative; top: 23px; font-size: 10px">(Area Code)</span>
+    </div>
+    <div class="col-sm-2" style="border-bottom: solid black 1px; height: 20px;">
+        <span>{{Item.SoldToPhone}}</span>
+        <span style="position: absolute; top: 23px; font-size: 10px">(Telephone)</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1">SIGNATURE</div>
+    <div class="row">
+        <div class="col-sm-10" style="border-bottom: solid black 1px; height: 20px;">
+            <span style="position: relative; top: 23px; left: 40%; font-size: 10px">(Sign In Ink DO NOT PRINT)</span>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 30px;">
+    <div class="col-sm-1" style="white-space: nowrap;">Has this date</div>
+    <div class="col-sm-3" style="border-bottom: solid black 1px; height: 20px; margin-left: 10px;">
+        <span class="bold">{{AppServices.Common.GetCurrentDate() | date:'MM/dd/yyyy'}}</span>
+        <span style="position: relative; top: 23px; font-size: 10px">Mo./</span>
+        <span style="position: relative; top: 23px; font-size: 10px">Day/</span>
+        <span style="position: relative; top: 23px; font-size: 10px">Yr./</span>
+    </div>
+    <div class="col-sm-7"><span>has been authorized to user dealer registration</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1" style="white-space: nowrap;">Plate No</div>
+    <div class="col-sm-3" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold" ng-show="Item.PlateTrackNo!=null">{{Item.PlateTrackNo}}</span>
+        <span class="bold" ng-show="Item.PlateTrackNo==null">N/A</span>
+    </div>
+    <div class="col-sm-8"><span>on the following vehicle:</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1" style="white-space: nowrap;"></div>
+    <div class="col-sm-3" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold" style="margin-left: 70px;">{{Item.Make}}</span>
+        <span style="position: relative; top: 23px; font-size: 10px">Make</span>
+    </div>
+    <div class="col-sm-3" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold">{{Item.Type}}</span>
+        <span style="position: relative; top: 23px; font-size: 10px">Body Type</span>
+    </div>
+    <div class="col-sm-5" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold">{{Item.Vin}}</span>
+        <span style="position: relative; top: 23px; font-size: 10px">Vehichle Identification Number</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1" style="white-space: nowrap;"></div>
+    <div class="col-sm-3" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold" style="margin-left: 50px;">{{Item.InsCompany}}</span>
+        <span style="position:absolute; top: 25px; white-space: nowrap; font-size: 10px">Insurance Company Name</span>
+    </div>
+    <div class="col-sm-2" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold">{{Item.InsNo}}</span>
+        <span style="position: relative; white-space: nowrap; top: 23px; font-size: 10px">Policy No.</span>
+    </div>
+    <div class="col-sm-3" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold">{{Item.InsEffectiveDate | date:'MM/dd/yyyy'}}</span>
+        <span style="position: relative; white-space: nowrap; top: 23px; font-size: 10px">Effective Date</span>
+    </div>
+    <div class="col-sm-3" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold">{{Item.InsExpirationDate | date:'MM/dd/yyyy'}}</span>
+        <span style="position: relative; white-space: nowrap; top: 23px; font-size: 10px">Expiration Date</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1" style="white-space: nowrap;"></div>
+    <div class="col-sm-5" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold">{{Item.Mileage}}</span>
+        <span style="position: relative; white-space: nowrap; top: 23px; font-size: 10px">Mileage at time loan of vehicle.</span>
+    </div>
+    <div class="col-sm-6" style="border-bottom: solid black 1px; height: 20px;">
+        <span class="bold">{{Item.Mileage}}</span>
+        <span style="position: relative; white-space: nowrap; top: 23px; font-size: 10px">Mileage at time vehicle is returned</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 30px;">
+    <div class="col-sm-1"></div>
+    <p class="col-sm-10 bold">According to the applicable provisions of the Vehicle Code, the vehicle described above is to be used for the following purpose(s): </p>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
+        <input type="checkbox" disabled="disabled"/>
+        For teaching students enrolled in approved driver education course how to operate a vehicle, and for new drivers to take examinations for a driver's license.
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
+        <input type="checkbox" disabled="disabled" checked=""/>
+        For loaning to the above customer whose vehicle is being repaired for a period not to exceeded 30 days.
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
+        <input type="checkbox" disabled="disabled"/>
+        For loaning to the above prospective purchaser for a period not to exceeded five days for the purpose of demonstrating the vehicle.
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
+        <input type="checkbox" disabled="disabled"/>
+        For loaning to the above charitable organization for a period not exceeding five days.
+    </div>
+</div>
+<div class="row" style="margin-top: 30px;">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
+        <div class="bold">NOTE:See reverse side if a truck is operated with this permit.*</div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 30px;">
+    <div class="col-sm-1">DEALER NAME</div>
+    <div class="col-sm-10" style="border-bottom: solid black 1px; height: 20px;">
+        <span>CARS FOR LESS OUTLET</span>
+        <span style="position: relative; top: 23px; left: 40%; font-size: 10px">(Authorized User)</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1">ADDRESS</div>
+    <div class="row">
+        <div class="col-sm-10" style="border-bottom: solid black 1px; height: 20px;">
+            <span>654 West Bridge Street </span>
+            <span style="position: relative; top: 23px; font-size: 10px">(Street)</span>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-3" style="border-bottom: solid black 1px; height: 20px;">
+        <span>Morrisville</span>
+        <span style="position: relative; top: 23px; font-size: 10px">(City)</span>
+    </div>
+    <div class="col-sm-2" style="border-bottom: solid black 1px; height: 20px;">
+        <span>PA</span>
+        <span style="position: relative; top: 23px; font-size: 10px">(State)</span>
+    </div>
+    <div class="col-sm-2" style="border-bottom: solid black 1px; height: 20px;">
+        <span>19067</span>
+        <span style="position: relative; top: 23px; font-size: 10px">(Zip)</span>
+    </div>
+    <div class="col-sm-1" style="border-bottom: solid black 1px; height: 20px;">
+        <span style="position: relative; top: 23px; font-size: 10px">(Area Code)</span>
+    </div>
+    <div class="col-sm-2" style="border-bottom: solid black 1px; height: 20px;">
+        <span>215-295-1515</span>
+        <span style="position: absolute; top: 23px; white-space: nowrap; font-size: 10px">(Telephone)</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 30px;">
+    <div class="col-sm-2">DEALER SIGNATURE</div>
+    <div class="col-sm-7" style="border-bottom: solid black 1px; height: 20px;">
+
+    </div>
+    <div class="col-sm-2" style="border-bottom: solid black 1px; margin-left: 1px; height: 20px;">
+        <span>DIN</span>
+        <span>8631313</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 10px; text-align: center;">
+    <div class="col-sm-1"></div>
+    <div class="bold">See Reverse Side for Applicable Rules and Regulations</div>
+</div>
+<div class="row" style="margin-top: 10px; text-align: center;">
+    <div class="col-sm-1"></div>
+    <div class="bold">ORIGINAL</div>
+</div>
+</div>
+</div>
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/angular/js")
+    @Scripts.Render("~/bundles/assets/js")
+    @Scripts.Render("~/bundles/ng-sortable")
+    @Scripts.Render("~/bundles/inspinia/js")
+    @Scripts.Render("~/bundles/app/js")
+    @Scripts.Render("~/bundles/app/angular/js")
+    @Scripts.Render("~/bundles/app/angular/admin/js")
+</body>
+</html>

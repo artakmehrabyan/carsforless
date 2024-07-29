@@ -1,0 +1,1050 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="admin">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <META name="generator" content="BCL easyConverter SDK 5.0.08">
+    <TITLE>Buyer Guide</TITLE>
+    @Styles.Render("~/content/bootstrap/css")
+    @Styles.Render("~/content/ng-sortable")
+    @Styles.Render("~/content/assets/css")
+
+    <link href="~/Content/billofsale.css" rel="stylesheet" />
+    <STYLE type="text/css">
+        body {
+            margin-top: 0px;
+            margin-left: 0px;
+        }
+
+        #page_1 {
+            position: relative;
+            overflow: hidden;
+            margin: 71px 0px 71px 71px;
+            padding: 0px;
+            border: none;
+            width: 745px;
+            height: 914px;
+        }
+
+        #page_1 #p1dimg1 {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: -1;
+            width: 674px;
+            height: 914px;
+        }
+
+        #page_1 #p1dimg1 #p1img1 {
+            width: 674px;
+            height: 914px;
+        }
+
+        #page_1 #p1inl_img1 {
+            position: relative;
+            width: 31px;
+            height: 30px;
+        }
+
+        #page_1 #p1inl_img2 {
+            position: relative;
+            width: 1px;
+            height: 30px;
+        }
+
+
+
+        #page_2 {
+            position: relative;
+            overflow: hidden;
+            margin: 71px 0px 71px 71px;
+            padding: 0px;
+            border: none;
+            width: 745px;
+            height: 914px;
+        }
+
+        #page_2 #id_1 {
+            border: none;
+            margin: 59px 0px 0px 37px;
+            padding: 0px;
+            border: none;
+            width: 708px;
+            overflow: hidden;
+        }
+
+        #page_2 #id_2 {
+            border: none;
+            margin: 18px 0px 0px 37px;
+            padding: 0px;
+            border: none;
+            width: 708px;
+            overflow: hidden;
+        }
+
+        #page_2 #id_2 #id_2_1 {
+            float: left;
+            border: none;
+            margin: 0px 0px 0px 0px;
+            padding: 0px;
+            border: none;
+            width: 204px;
+            overflow: hidden;
+        }
+
+        #page_2 #id_2 #id_2_2 {
+            float: left;
+            border: none;
+            margin: 3px 0px 0px 0px;
+            padding: 0px;
+            border: none;
+            width: 204px;
+            overflow: hidden;
+        }
+
+        #page_2 #id_2 #id_2_3 {
+            float: left;
+            border: none;
+            margin: 0px 0px 0px 0px;
+            padding: 0px;
+            border: none;
+            width: 300px;
+            overflow: hidden;
+        }
+
+        #page_2 #id_3 {
+            border: none;
+            margin: 262px 0px 0px 37px;
+            padding: 0px;
+            border: none;
+            width: 708px;
+            overflow: hidden;
+        }
+
+        #page_2 #id_4 {
+            border: none;
+            margin: 25px 0px 0px 25px;
+            padding: 0px;
+            border: none;
+            width: 600px;
+            overflow: hidden;
+        }
+
+        #page_2 #p2dimg1 {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: -1;
+            width: 674px;
+            height: 914px;
+        }
+
+        #page_2 #p2dimg1 #p2img1 {
+            width: 674px;
+            height: 914px;
+        }
+
+
+
+
+        .dclr {
+            clear: both;
+            float: none;
+            height: 1px;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+
+        .ft0 {
+            font: bold 35px 'Arial';
+            line-height: 41px;
+        }
+
+        .ft1 {
+            font: bold 11px 'Arial';
+            line-height: 14px;
+        }
+
+        .ft2 {
+            font: 11px 'Arial';
+            line-height: 14px;
+        }
+
+        .ft3 {
+            font: 16px 'Arial';
+            line-height: 18px;
+        }
+
+        .ft4 {
+            font: 8px 'Arial';
+            line-height: 10px;
+        }
+
+        .ft5 {
+            font: bold 16px 'Arial';
+            line-height: 19px;
+        }
+
+        .ft6 {
+            font: bold 32px 'Arial';
+            line-height: 37px;
+        }
+
+        .ft7 {
+            font: 37px 'Arial';
+            line-height: 42px;
+        }
+
+        .ft8 {
+            font: bold 32px 'Arial';
+            margin-left: 18px;
+            line-height: 37px;
+        }
+
+        .ft9 {
+            font: 12px 'Arial';
+            line-height: 15px;
+        }
+
+        .ft10 {
+            font: 11px 'Arial';
+            margin-left: 19px;
+            line-height: 14px;
+        }
+
+        .ft11 {
+            font: 15px 'Arial';
+            text-decoration: underline;
+            line-height: 17px;
+        }
+
+        .ft12 {
+            font: italic 11px 'Arial';
+            line-height: 14px;
+        }
+
+        .ft13 {
+            font: bold 12px 'Arial';
+            line-height: 15px;
+        }
+
+        .ft14 {
+            font: 10px 'Arial';
+            line-height: 13px;
+        }
+
+        .ft15 {
+            font: 9px 'Arial';
+            line-height: 12px;
+        }
+
+        .ft16 {
+            font: bold 9px 'Arial';
+            line-height: 11px;
+        }
+
+        .ft17 {
+            font: 9px 'Arial';
+            line-height: 11px;
+        }
+
+        .ft18 {
+            font: 8px 'Arial';
+            line-height: 12px;
+        }
+
+        .ft19 {
+            font: 11px 'Arial';
+            line-height: 13px;
+        }
+
+        .ft20 {
+            font: 1px 'Arial';
+            line-height: 1px;
+        }
+
+        .p0 {
+            text-align: left;
+            padding-left: 205px;
+            margin-top: 24px;
+            margin-bottom: 0px;
+        }
+
+        .p1 {
+            text-align: left;
+            padding-left: 37px;
+            margin-top: 18px;
+            margin-bottom: 0px;
+        }
+
+        .p2 {
+            text-align: left;
+            padding-left: 1px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p3 {
+            text-align: left;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p4 {
+            text-align: left;
+            padding-left: 46px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p5 {
+            text-align: left;
+            padding-left: 11px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p6 {
+            text-align: left;
+            padding-left: 7px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p7 {
+            text-align: left;
+            padding-left: 47px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p8 {
+            text-align: left;
+            padding-left: 36px;
+            margin-top: 5px;
+            margin-bottom: 0px;
+        }
+
+        .p9 {
+            text-align: left;
+            padding-left: 36px;
+            margin-top: 12px;
+            margin-bottom: 0px;
+        }
+
+        .p10 {
+            text-align: left;
+            padding-left: 85px;
+            margin-top: 8px;
+            margin-bottom: 0px;
+        }
+
+        .p11 {
+            text-align: left;
+            padding-left: 40px;
+            margin-top: 16px;
+            margin-bottom: 0px;
+        }
+
+        .p12 {
+            text-align: left;
+            padding-left: 83px;
+            margin-top: 4px;
+            margin-bottom: 0px;
+        }
+
+        .p13 {
+            text-align: left;
+            padding-left: 84px;
+            padding-right: 114px;
+            margin-top: 6px;
+            margin-bottom: 0px;
+            text-indent: -27px;
+        }
+
+        .p14 {
+            text-align: left;
+            padding-left: 4px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p15 {
+            text-align: left;
+            padding-left: 36px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p16 {
+            text-align: left;
+            padding-left: 36px;
+            margin-top: 1px;
+            margin-bottom: 0px;
+        }
+
+        .p17 {
+            text-align: left;
+            padding-left: 57px;
+            padding-right: 110px;
+            margin-top: 11px;
+            margin-bottom: 0px;
+        }
+
+        .p18 {
+            text-align: left;
+            padding-left: 57px;
+            margin-top: 6px;
+            margin-bottom: 0px;
+        }
+
+        .p19 {
+            text-align: left;
+            padding-left: 57px;
+            margin-top: 8px;
+            margin-bottom: 0px;
+        }
+
+        .p20 {
+            text-align: left;
+            padding-left: 38px;
+            padding-right: 126px;
+            margin-top: 7px;
+            margin-bottom: 0px;
+        }
+
+        .p21 {
+            text-align: justify;
+            padding-left: 58px;
+            padding-right: 124px;
+            margin-top: 15px;
+            margin-bottom: 0px;
+        }
+
+        .p22 {
+            text-align: left;
+            padding-left: 37px;
+            margin-top: 19px;
+            margin-bottom: 0px;
+        }
+
+        .p23 {
+            text-align: left;
+            padding-left: 37px;
+            padding-right: 118px;
+            margin-top: 14px;
+            margin-bottom: 0px;
+        }
+
+        .p24 {
+            text-align: left;
+            padding-left: 37px;
+            padding-right: 111px;
+            margin-top: 5px;
+            margin-bottom: 0px;
+        }
+
+        .p25 {
+            text-align: left;
+            padding-left: 37px;
+            margin-top: 7px;
+            margin-bottom: 0px;
+        }
+
+        .p26 {
+            text-align: left;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p27 {
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 26px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -12px;
+        }
+
+        .p28 {
+            text-align: left;
+            padding-left: 7px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p29 {
+            text-align: left;
+            margin-top: 1px;
+            margin-bottom: 0px;
+        }
+
+        .p30 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 37px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p31 {
+            text-align: left;
+            padding-left: 7px;
+            margin-top: 1px;
+            margin-bottom: 0px;
+        }
+
+        .p32 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 42px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p33 {
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 28px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -12px;
+        }
+
+        .p34 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 13px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p35 {
+            text-align: left;
+            padding-left: 20px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p36 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 20px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p37 {
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 23px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -12px;
+        }
+
+        .p38 {
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 40px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -12px;
+        }
+
+        .p39 {
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 14px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -12px;
+        }
+
+        .p40 {
+            text-align: left;
+            padding-left: 6px;
+            padding-right: 54px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -6px;
+        }
+
+        .p41 {
+            text-align: left;
+            padding-left: 6px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p42 {
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 17px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -12px;
+        }
+
+        .p43 {
+            text-align: left;
+            padding-left: 6px;
+            margin-top: 1px;
+            margin-bottom: 0px;
+        }
+
+        .p44 {
+            text-align: left;
+            padding-left: 6px;
+            padding-right: 19px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p45 {
+            text-align: left;
+            padding-left: 6px;
+            padding-right: 130px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: 13px;
+        }
+
+        .p46 {
+            text-align: left;
+            padding-left: 6px;
+            padding-right: 22px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p47 {
+            text-align: left;
+            margin-top: 4px;
+            margin-bottom: 0px;
+        }
+
+        .p48 {
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 141px;
+            margin-top: 1px;
+            margin-bottom: 0px;
+            text-indent: -12px;
+        }
+
+        .p49 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 133px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p50 {
+            text-align: left;
+            padding-left: 20px;
+            padding-right: 161px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -12px;
+        }
+
+        .p51 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 142px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p52 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 157px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-indent: -6px;
+        }
+
+        .p53 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 136px;
+            margin-top: 6px;
+            margin-bottom: 0px;
+        }
+
+        .p54 {
+            text-align: left;
+            padding-left: 20px;
+            margin-top: 4px;
+            margin-bottom: 0px;
+        }
+
+        .p55 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 163px;
+            margin-top: 1px;
+            margin-bottom: 0px;
+        }
+
+        .p56 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 151px;
+            margin-top: 1px;
+            margin-bottom: 0px;
+        }
+
+        .p57 {
+            text-align: left;
+            padding-left: 7px;
+            padding-right: 214px;
+            margin-top: 1px;
+            margin-bottom: 0px;
+            text-indent: -6px;
+        }
+
+        .p58 {
+            text-align: left;
+            padding-left: 9px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .p59 {
+            text-align: left;
+            padding-left: 9px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .p60 {
+            text-align: left;
+            padding-left: 25px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+        }
+
+        .td0 {
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 168px;
+            vertical-align: bottom;
+        }
+
+        .td1 {
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 82px;
+            vertical-align: bottom;
+        }
+
+        .td2 {
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 203px;
+            vertical-align: bottom;
+        }
+
+        .td3 {
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 171px;
+            vertical-align: bottom;
+        }
+
+        .td4 {
+            padding: 0px;
+            margin: 0px;
+            width: 168px;
+            vertical-align: bottom;
+        }
+
+        .td5 {
+            padding: 0px;
+            margin: 0px;
+            width: 82px;
+            vertical-align: bottom;
+        }
+
+        .td6 {
+            padding: 0px;
+            margin: 0px;
+            width: 203px;
+            vertical-align: bottom;
+        }
+
+        .td7 {
+            padding: 0px;
+            margin: 0px;
+            width: 171px;
+            vertical-align: bottom;
+        }
+
+        .td8 {
+            padding: 0px;
+            margin: 0px;
+            width: 306px;
+            vertical-align: bottom;
+        }
+
+        .td9 {
+            padding: 0px;
+            margin: 0px;
+            width: 292px;
+            vertical-align: bottom;
+        }
+
+        .td10 {
+            border-bottom: #000000 1px solid;
+            padding: 0px;
+            margin: 0px;
+            width: 300px;
+            vertical-align: bottom;
+        }
+
+        .td11 {
+            padding: 0px;
+            margin: 0px;
+            width: 300px;
+            vertical-align: bottom;
+        }
+
+        .tr0 {
+            height: 24px;
+        }
+
+        .tr1 {
+            height: 11px;
+        }
+
+        .tr2 {
+            height: 19px;
+        }
+
+        .tr3 {
+            height: 13px;
+        }
+
+        .tr4 {
+            height: 20px;
+        }
+
+        .t0 {
+            width: 624px;
+            margin-left: 25px;
+            margin-top: 9px;
+            font: 8px 'Arial';
+        }
+
+        .t1 {
+            width: 598px;
+            margin-left: 36px;
+            margin-top: 10px;
+            font: 10px 'Arial';
+        }
+
+        .t2 {
+            width: 600px;
+            font: 11px 'Arial';
+        }
+    </STYLE>
+</head>
+<BODY>
+    <!-- #include virtual="/convert-pdf-to-html/includes/pdf-to-word-body-tag-02242014.htm" -->
+    <DIV id="page_1" ng-controller="BuyerGuideController">
+        <DIV id="p1dimg1">
+            <IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAORAqEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0Pwn4L8K3Oj3Dz+GtGlcanfoGewiYhVu5lUcr0CgADsABW5/wgng//oVND/8ABdD/APE0eDf+QHc/9hXUv/S2augoA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA+AKKKKAPt/wb/yA7n/sK6l/6WzV0Fc/4N/5Adz/ANhXUv8A0tmroKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA+AKKKKAPt/wb/yA7n/ALCupf8ApbNXQVz/AIN/5Adz/wBhXUv/AEtmroKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA+AKKKKAPt/wAG/wDIDuf+wrqX/pbNXQVz/g3/AJAdz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8AIDuf+wrqX/pbNXQVz/g3/kB3P/YV1L/0tmroKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA+AKKKKAPt/wb/yA7n/sK6l/6WzV0Fc/4N/5Adz/ANhXUv8A0tmroKACsOfwnp1zcSzvc6yHkcuwj1q8RQSc8KsoCj2AAHatyigDn/8AhDdL/wCfrXP/AAe3v/x6j/hDdL/5+tc/8Ht7/wDHq6CigDn/APhDdL/5+tc/8Ht7/wDHqP8AhDdL/wCfrXP/AAe3v/x6ugooA5//AIQ3S/8An61z/wAHt7/8eo/4Q3S/+frXP/B7e/8Ax6ugooA5/wD4Q3S/+frXP/B7e/8Ax6j/AIQ3S/8An61z/wAHt7/8eroKKAOf/wCEN0v/AJ+tc/8AB7e//HqP+EN0v/n61z/we3v/AMeroKKAOf8A+EN0v/n61z/we3v/AMeo/wCEN0v/AJ+tc/8AB7e//Hq6CigDn/8AhDdL/wCfrXP/AAe3v/x6j/hDdL/5+tc/8Ht7/wDHq6CigDn/APhDdL/5+tc/8Ht7/wDHqP8AhDdL/wCfrXP/AAe3v/x6ugooA5//AIQ3S/8An61z/wAHt7/8eo/4Q3S/+frXP/B7e/8Ax6ugooA5/wD4Q3S/+frXP/B7e/8Ax6j/AIQ3S/8An61z/wAHt7/8eroKKAOf/wCEN0v/AJ+tc/8AB7e//HqP+EN0v/n61z/we3v/AMer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AFFFFAHwBRRRQB9v+Df+QHc/9hXUv/S2augrn/Bv/IDuf+wrqX/pbNXQUAFFFFAHJ+MNJ03VdY8JpqOn2l4h1ORNtxCsg2m0uGI+YHjciHHqqnsKuf8ACCeD/wDoVND/APBdD/8AE0eIf+Q54T/7Csn/AKRXVdBQBz//AAgng/8A6FTQ/wDwXQ//ABNH/CCeD/8AoVND/wDBdD/8TXQUUAcv4QsLPTNQ8U2dhaQWlrHqqbIYIxGi5s7YnCjgZJJ/Guorn/D3/Ic8Wf8AYVj/APSK1roKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/ACA7n/sK6l/6WzV0Fc/4N/5Adz/2FdS/9LZq6CgAooooA5/xD/yHPCf/AGFZP/SK6roK5fxZdiz1XwzM1tfTRwahJNKbSymuNifZZ48ny1bHzSIPfJ7A4sf8Jlpf/Prrn/givf8A4zQB0FFc/wD8Jlpf/Prrn/givf8A4zR/wmWl/wDPrrn/AIIr3/4zQAeHv+Q54s/7Csf/AKRWtdBXN+FJTdXniO9W3u4YLrU1eH7VbSQM6i1t0JCyKrY3Iwzjsa6SgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA+AKKKKAPt/wAG/wDIDuf+wrqX/pbNXQVz/g3/AJAdz/2FdS/9LZq6CgAooooAKKKKACisPxleX2neCtbv9MuI7e8tbKWeKV4vMClFLfdyBnAOM5AOCQQMGP7H4w/6Duh/+Cab/wCSqAOgorn/AAxd6pPc69batdwXU1nqCwxvBb+SgQ20EmApZj1kbqx69hgDoKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/IDuf8AsK6l/wCls1dBXP8Ag3/kB3P/AGFdS/8AS2augoAKKKKACiiigDn/AB0HfwD4giignnmm0+eGOKCFpXd3QqoCqCTyR246nABNH/CZaX/z665/4Ir3/wCM10FFAHP+GA8tzr2oeRPFb3+oLNb+fC0Tsi20ERJRwGX543HzAZxkcEE9BRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAfAFFFFAH2/4N/5Adz/ANhXUv8A0tmroK5/wb/yA7n/ALCupf8ApbNXQUAFFFFABRRRQBh+Mry+07wVrd/plxHb3lrZSzxSvF5gUopb7uQM4BxnIBwSCBgx/Y/GH/Qd0P8A8E03/wAlUeOg7+AfEEUUE8802nzwxxQQtK7u6FVAVQSeSO3HU4AJo/4TLS/+fXXP/BFe/wDxmgA8MXeqT3OvW2rXcF1NZ6gsMbwW/koENtBJgKWY9ZG6sevYYA6Cuf8ADAeW517UPInit7/UFmt/PhaJ2RbaCIko4DL88bj5gM4yOCCegoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/ACA7n/sK6l/6WzV0Fc/4N/5Adz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/7Cupf+ls1dBXP+Df+QHc/wDYV1L/ANLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/ACA7n/sK6l/6WzV0Fc/4N/5Adz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/7Cupf+ls1dBXP+Df+QHc/wDYV1L/ANLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/ACA7n/sK6l/6WzV0Fc/4N/5Adz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/7Cupf+ls1dBXP+Df+QHc/wDYV1L/ANLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAK4e/+L/gTTNRubC813y7q1leGZPsk52upIYZCYOCD0ruKw5/BfhW6uJbi48NaNNPK5eSSSwiZnYnJJJXJJPOaAOb/wCF2/Dz/oYf/JK4/wDjdH/C7fh5/wBDD/5JXH/xuug/4QTwf/0Kmh/+C6H/AOJo/wCEE8H/APQqaH/4Lof/AImgDn/+F2/Dz/oYf/JK4/8AjdH/AAu34ef9DD/5JXH/AMbroP8AhBPB/wD0Kmh/+C6H/wCJo/4QTwf/ANCpof8A4Lof/iaAOf8A+F2/Dz/oYf8AySuP/jdH/C7fh5/0MP8A5JXH/wAbroP+EE8H/wDQqaH/AOC6H/4mj/hBPB//AEKmh/8Aguh/+JoA5/8A4Xb8PP8AoYf/ACSuP/jdH/C7fh5/0MP/AJJXH/xuug/4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gAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/AAb/AMgO5/7Cupf+ls1dBXP+Df8AkB3P/YV1L/0tmroKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA+AKKKKAPt/wb/wAgO5/7Cupf+ls1dBXP+Df+QHc/9hXUv/S2augoAKKKKAOX8WWgvNV8Mwtc30Mc+oSQyi0vZrfen2WeTB8tlz80aH2wexOc/wAWeG7TTPBuuX9nfa5HdWun3E0L/wBuXh2usbFTgy4OCB1rY8SWWsXV9olzpNtYz/YLt7mRbu6eHdmGSIKCsb/89Scn+6BznIz9dt/GGt+HtT0n+yNDh+3Wktt5v9rzNs3oV3Y+zDOM5xkUAdhRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAHwBRRRQB9v+Df+QHc/9hXUv/S2augrn/Bv/IDuf+wrqX/pbNXQUAFFFFAGfqeu6Ponlf2tqtjYedny/tdwkW/GM43EZxkdPUVn/wDCd+D/APoa9D/8GMP/AMVR4h/5DnhP/sKyf+kV1R47/wCSeeJf+wVdf+imoA6CiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAx9c0E61Pp8y6rfWElhK00RtBCcuyNHk+ZG/RXcdvvHqQMZ9/4Qu9T065sLzxdrklrdRPDMnl2Y3IwIYZFvkZBPSuoooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA+AKKKKAPt/wAG/wDIDuf+wrqX/pbNXQVz/g3/AJAdz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8AIDuf+wrqX/pbNXQVz/g3/kB3P/YV1L/0tmroKACiisOe68VLcSrb6No0kAciN5NWlRmXPBKi2IBx2ycepoA3KK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A5FoA6Ciuf+2eMP8AoBaH/wCDmb/5Fo+2eMP+gFof/g5m/wDkWgDoKK5/7Z4w/wCgFof/AIOZv/kWj7Z4w/6AWh/+Dmb/AORaAOgorn/tnjD/AKAWh/8Ag5m/+RaPtnjD/oBaH/4OZv8A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oAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/ACA7n/sK6l/6WzV0Fc/4N/5Adz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/7Cupf+ls1dBXP+Df+QHc/wDYV1L/ANLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/ACA7n/sK6l/6WzV0Fc/4N/5Adz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/7Cupf+ls1dBXP+Df+QHc/wDYV1L/ANLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/ACA7n/sK6l/6WzV0Fc/4N/5Adz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//9k=" alt="">
+        </DIV>
+
+        <DIV class="dclr"></DIV>
+        <P class="p0 ft0">BUYERS GUIDE</P>
+        <P class="p1 ft2"><SPAN class="ft1">IMPORTANT: </SPAN>Spoken promises are dif�?cult to enforce. Ask the dealer to put all promises in writing. Keep this form.</P>
+        <TABLE cellpadding=0 cellspacing=0 class="t0">
+            <TR>
+                <TD class="tr0 td0"><P class="p2 ft3">{{Item.Make}}</P></TD>
+                <TD class="tr0 td1"><P class="p3 ft3">{{Item.Model}}</P></TD>
+                <TD class="tr0 td2"><P class="p4 ft3">{{Item.Year}}</P></TD>
+                <TD class="tr0 td3"><P class="p3 ft3">{{Item.Vin}}</P></TD>
+            </TR>
+            <TR>
+                <TD class="tr1 td4"><P class="p5 ft4">VEHICLE MAKE</P></TD>
+                <TD class="tr1 td5"><P class="p6 ft4">MODEL</P></TD>
+                <TD class="tr1 td6"><P class="p7 ft4">YEAR</P></TD>
+                <TD class="tr1 td7"><P class="p2 ft4">VEHICLE IDENTIFICATION NUMBER (VIN)</P></TD>
+            </TR>
+        </TABLE>
+        <P class="p8 ft5">WARRANTIES FOR THIS VEHICLE:</P>
+        <P class="p9 ft6"><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAfAB8DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0Pwn4T06fR7h3udZBGp36fJrV4gwt3Mo4WUDOByepOSckk1uf8Ibpf/P1rn/g9vf/AI9R4N/5Adz/ANhXUv8A0tmroKAOf/4Q3S/+frXP/B7e/wDx6j/hDdL/AOfrXP8Awe3v/wAeroKKAOf8G/8AIDuf+wrqX/pbNXQVj+GrG40/Sp4bqPy5G1C9mA3A5SS6lkQ8eqsp9s881sUAFFFFAH//2Q==" alt=""><IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAfAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooAKK9A/4Ul8Q/wDoXv8Aydt//jlFAH//2Q==" alt=""> AS IS - NO DEALER WARRANTY</P>
+        <P class="p10 ft2">THE DEALER DOES NOT PROVIDE A WARRANTY FOR ANY REPAIRS AFTER SALE.</P>
+        <P class="p11 ft6"><SPAN class="ft7">X</SPAN><SPAN class="ft8">DEALER WARRANTY</SPAN></P>
+        <P class="p12 ft2">FULL WARRANTY.</P>
+        <P class="p13 ft2"><SPAN class="ft9">X</SPAN><SPAN class="ft10">LIMITED WARRANTY. The dealer will pay</SPAN><SPAN class="ft11">100</SPAN> % of the labor and <SPAN class="ft11">100</SPAN>% of the parts for the covered systems that fail during the warranty period. Ask the dealer for a copy of the warranty, and for any documents that explain warranty coverage, exclusions, and the dealer’s repair obligations. <SPAN class="ft12">Implied warranties </SPAN>under your state’s laws may give you additional rights.</P>
+        <TABLE cellpadding=0 cellspacing=0 class="t1">
+            <TR>
+                <TD class="tr2 td8"><P class="p2 ft13">SYSTEMS COVERED:</P></TD>
+                <TD class="tr2 td9"><P class="p14 ft13">DURATION:</P></TD>
+            </TR>
+            <TR>
+                <TD class="tr3 td8"><P class="p3 ft14">Prestige Imports Auto Sales will cover under warranty for 30</P></TD>
+                <TD class="tr3 td9"><P class="p3 ft15">Please Contact the vendors of the car manufactures for detailed</P></TD>
+            </TR>
+            <TR>
+                <TD class="tr2 td8"><P class="p3 ft14">DAYS from the sale date or 1000 MILES.On powertrain (engine</P></TD>
+                <TD class="tr2 td9"><P class="p3 ft14">information. Prestige Imports Auto Sales is responsible for</P></TD>
+            </TR>
+            <TR>
+                <TD class="tr4 td8"><P class="p3 ft14">and transmission). All repairs must be performed at the repair</P></TD>
+                <TD class="tr4 td9"><P class="p3 ft14">specified warranty only with clearly articulated terms and</P></TD>
+            </TR>
+            <TR>
+                <TD class="tr4 td8"><P class="p3 ft14">facility.Specified by</P></TD>
+                <TD class="tr4 td9"><P class="p3 ft15">Conditions, by default, all sales will be stated “AS IS�? sales unless</P></TD>
+            </TR>
+            <TR>
+                <TD class="tr4 td8"><P class="p3 ft14">Prestige Imports Auto Sales or warranty will be revoked.</P></TD>
+                <TD class="tr4 td9"><P class="p3 ft14">otherwise specified.</P></TD>
+            </TR>
+        </TABLE>
+        <P class="p15 ft14">All warranties provided by the car manufacturers are based on</P>
+        <P class="p16 ft5"><NOBR>NON-DEALER</NOBR> WARRANTIES FOR THIS VEHICLE:</P>
+        <P class="p17 ft2">MANUFACTURER’S WARRANTY STILL APPLIES. The manufacturer’s original warranty has not expired on some components of the vehicle.</P>
+        <P class="p18 ft2">MANUFACTURER’S USED VEHICLE WARRANTY APPLIES.</P>
+        <P class="p19 ft2">OTHER USED VEHICLE WARRANTY APPLIES.</P>
+        <P class="p20 ft2">Ask the dealer for a copy of the warranty document and an explanation of warranty coverage, exclusions, and repair obligations.</P>
+        <P class="p21 ft2">SERVICE CONTRACT. A service contract on this vehicle is available for an extra charge. Ask for details about coverage, deductible, price, and exclusions. If you buy a service contract within 90 days of your purchase of this vehicle, <SPAN class="ft12">implied warranties </SPAN>under your state’s laws may give you additional rights.</P>
+        <P class="p22 ft13">ASK THE DEALER IF YOUR MECHANIC CAN INSPECT THE VEHICLE ON OR OFF THE LOT.</P>
+        <P class="p23 ft13">OBTAIN A VEHICLE HISTORY REPORT AND CHECK FOR OPEN SAFETY RECALLS. <SPAN class="ft9">For information on how to obtain a vehicle history report, visit ftc.gov/usedcars. To check for open safety recalls, visit safercar.gov. You will need the vehicle identification number (VIN) shown above to make the best use of the resources on these sites.</SPAN></P>
+        <P class="p24 ft13">SEE OTHER SIDE for important additional information, including a list of major defects that may occur in used motor vehicles.</P>
+        <P class="p25 ft13">Si el concesionario gestiona la venta en español, pídale una copia de la Guía del Comprador en español.</P>
+    </DIV>
+    <!-- #include virtual="/convert-pdf-to-html/includes/pdf-to-word-body-tag-between-content.htm" --><DIV id="page_2">
+        <DIV id="p2dimg1">
+            <IMG src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAORAqEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0Pwn4L8K3Oj3Dz+GtGlcanfoGewiYhVu5lUcr0CgADsABW5/wgng//oVND/8ABdD/APE0eDf+QHc/9hXUv/S2augoA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA5//AIQTwf8A9Cpof/guh/8AiaP+EE8H/wDQqaH/AOC6H/4mugooA+AKKKKAPt/wb/yA7n/sK6l/6WzV0Fc/4N/5Adz/ANhXUv8A0tmroKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA+AKKKKAPt/wb/yA7n/ALCupf8ApbNXQVz/AIN/5Adz/wBhXUv/AEtmroKACvK9W134yw6zfRaX4T0afT0uJFtZZJVDPEGOxj+/HJXB6D6CvVKKAPH/APhIfjn/ANCZof8A3+X/AOSKP+Eh+Of/AEJmh/8Af5f/AJIr2CigDx//AISH45/9CZof/f5f/kij/hIfjn/0Jmh/9/l/+SK9gooA8f8A+Eh+Of8A0Jmh/wDf5f8A5Io/4SH45/8AQmaH/wB/l/8AkivYKKAPH/8A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AMJ34P8A+hr0P/wYw/8AxVH/AAnfg/8A6GvQ/wDwYw//ABVAHQUVz/8Awnfg/wD6GvQ//BjD/wDFUf8ACd+D/wDoa9D/APBjD/8AFUAdBRXP/wDCd+D/APoa9D/8GMP/AMVR/wAJ34P/AOhr0P8A8GMP/wAVQB0FFc//AMJ34P8A+hr0P/wYw/8AxVH/AAnfg/8A6GvQ/wDwYw//ABVAHQUVz/8Awnfg/wD6GvQ//BjD/wDFUf8ACd+D/wDoa9D/APBjD/8AFUAdBRXP/wDCd+D/APoa9D/8GMP/AMVR/wAJ34P/AOhr0P8A8GMP/wAVQB0FFc//AMJ34P8A+hr0P/wYw/8AxVH/AAnfg/8A6GvQ/wDwYw//ABVAHQUVz/8Awnfg/wD6GvQ//BjD/wDFUf8ACd+D/wDoa9D/APBjD/8AFUAdBRXP/wDCd+D/APoa9D/8GMP/AMVR/wAJ34P/AOhr0P8A8GMP/wAVQB0FFc//AMJ34P8A+hr0P/wYw/8AxVH/AAnfg/8A6GvQ/wDwYw//ABVAHQUVz/8Awnfg/wD6GvQ//BjD/wDFUf8ACd+D/wDoa9D/APBjD/8AFUAdBRXP/wDCd+D/APoa9D/8GMP/AMVR/wAJ34P/AOhr0P8A8GMP/wAVQB0FFc//AMJ34P8A+hr0P/wYw/8AxVH/AAnfg/8A6GvQ/wDwYw//ABVAHQUVz/8Awnfg/wD6GvQ//BjD/wDFUf8ACd+D/wDoa9D/APBjD/8AFUAdBRXP/wDCd+D/APoa9D/8GMP/AMVR/wAJ34P/AOhr0P8A8GMP/wAVQB0FFc//AMJ34P8A+hr0P/wYw/8AxVH/AAnfg/8A6GvQ/wDwYw//ABVAHQUVz/8Awnfg/wD6GvQ//BjD/wDFUf8ACd+D/wDoa9D/APBjD/8AFUAdBRXP/wDCd+D/APoa9D/8GMP/AMVR/wAJ34P/AOhr0P8A8GMP/wAVQB0FFc//AMJ34P8A+hr0P/wYw/8AxVH/AAnfg/8A6GvQ/wDwYw//ABVAHQUVz/8Awnfg/wD6GvQ//BjD/wDFUf8ACd+D/wDoa9D/APBjD/8AFUAdBRXP/wDCd+D/APoa9D/8GMP/AMVR/wAJ34P/AOhr0P8A8GMP/wAVQB0FFc//AMJ34P8A+hr0P/wYw/8AxVH/AAnfg/8A6GvQ/wDwYw//ABVAHQUV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/n11z/wRXv8A8ZroKKAOf/4TLS/+fXXP/BFe/wDxmj/hMtL/AOfXXP8AwRXv/wAZroKKAOf/AOEy0v8A59dc/wDBFe//ABmj/hMtL/59dc/8EV7/APGa6CigDn/+Ey0v/n11z/wRXv8A8Zo/4TLS/wDn11z/AMEV7/8AGa6CigDn/wDhMtL/AOfXXP8AwRXv/wAZo/4TLS/+fXXP/BFe/wDxmugooA5//hMtL/59dc/8EV7/APGaP+Ey0v8A59dc/wDBFe//ABmugooA5/8A4TLS/wDn11z/AMEV7/8AGauabr9nqtw0FvDqSOqFybrTbi3XGQOGkRQTz0znr6GtSigAooooAKKKKAPgCiiigD7f8G/8gO5/7Cupf+ls1dBXP+Df+QHc/wDYV1L/ANLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD4AooooA+3/Bv/ACA7n/sK6l/6WzV0Fc/4N/5Adz/2FdS/9LZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/7Cupf+ls1dBXP+Df+QHc/wDYV1L/ANLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8G/8gO5/wCwrqX/AKWzV0Fc/wCDf+QHc/8AYV1L/wBLZq6CgAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAPgCiiigD7f8ABv8AyA7n/sK6l/6WzV0Fc/4N/wCQHc/9hXUv/S2augoAKKK8r1bXfjLDrN9FpfhPRp9PS4kW1lklUM8QY7GP78clcHoPoKAPVKK8f/4SH45/9CZof/f5f/kij/hIfjn/ANCZof8A3+X/AOSKAPYKK8f/AOEh+Of/AEJmh/8Af5f/AJIo/wCEh+Of/QmaH/3+X/5IoA9gorx//hIfjn/0Jmh/9/l/+SKP+Eh+Of8A0Jmh/wDf5f8A5IoA9gorx/8A4SH45/8AQmaH/wB/l/8Akij/AISH45/9CZof/f5f/kigD2CivH/+Eh+Of/QmaH/3+X/5Io/4SH45/wDQmaH/AN/l/wDkigD2CivH/wDhIfjn/wBCZof/AH+X/wCSKP8AhIfj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FFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB8AUUUUAfb/g3/AJAdz/2FdS/9LZq6Cuf8G/8AIDuf+wrqX/pbNXQUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQB8AUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//Z" alt="">
+        </DIV>
+
+        <DIV class="dclr"></DIV>
+        <DIV id="id_1">
+            <P class="p26 ft2">Here is a list of some major defects that may occur in used vehicles.</P>
+        </DIV>
+        <DIV id="id_2">
+            <DIV id="id_2_1">
+                <P class="p26 ft16">Frame & Body</P>
+                <P class="p27 ft15"><NOBR>Frame-cracks,</NOBR> corrective welds, or rusted through</P>
+                <P class="p28 ft15">Dog <NOBR>tracks—bent</NOBR> or twisted frame</P>
+                <P class="p29 ft16">Engine</P>
+                <P class="p30 ft17">Oil leakage, excluding normal seepage Cracked block or head</P>
+                <P class="p31 ft15">Belts missing or inoperable</P>
+                <P class="p32 ft17">Knocks or misses related to camshaft lifters and push rods</P>
+                <P class="p31 ft15">Abnormal exhaust discharge</P>
+                <P class="p26 ft16">Transmission & Drive Shaft</P>
+                <P class="p33 ft17">Improper fluid level or leakage, excluding normal seepage</P>
+                <P class="p34 ft18">Cracked or damaged case which is visible Abnormal noise or vibration caused by faulty</P>
+                <P class="p35 ft15">transmission or drive shaft</P>
+                <P class="p36 ft15">Improper shifting or functioning in any gear Manual clutch slips or chatters</P>
+                <P class="p26 ft16">Differential</P>
+                <P class="p37 ft17">Improper fluid level or leakeage, excluding normal seepage</P>
+                <P class="p38 ft15">Cracked of damaged housing which is visible</P>
+                <P class="p39 ft15">Abnormal noise or vibration caused by faulty differential</P>
+            </DIV>
+            <DIV id="id_2_2">
+                <P class="p40 ft15"><SPAN class="ft16">Cooling System </SPAN>Leakage including radiator Improperly functioning water pump</P>
+                <P class="p26 ft16">Electrical System</P>
+                <P class="p41 ft15">Battery leakage</P>
+                <P class="p42 ft15">Improperly functioning alternator, generator, battery, or starter</P>
+                <P class="p26 ft16">Fuel System</P>
+                <P class="p43 ft15">Visible leakage</P>
+                <P class="p26 ft16">Inoperable Accessories</P>
+                <P class="p43 ft15">Gauges or warning devices</P>
+                <P class="p41 ft15">Air conditioner</P>
+                <P class="p41 ft15">Heater & Defroster</P>
+                <P class="p26 ft16">Brake System</P>
+                <P class="p43 ft15">Failure warning light broken</P>
+                <P class="p44 ft17">Pedal not firm under pressure (DOT spec.) Not enough pedal reserve (DOT spec.) Does not stop vehicle in straight line</P>
+                <P class="p45 ft17">(DOT spec.) Hoses damaged</P>
+                <P class="p46 ft17">Drum or rotor too thin (Mfgr. Specs) Lining or pad thickness less than 1/32 inch Power unit not operating or leaking Structural or mechanical parts damaged</P>
+                <P class="p47 ft16">Air Bags</P>
+            </DIV>
+            <DIV id="id_2_3">
+                <P class="p26 ft16">Steering System</P>
+                <P class="p48 ft15">Too much free play at steering wheel (DOT specs.)</P>
+                <P class="p49 ft17">Free play in linkage more than 1/4 inch Steering gear binds or jams</P>
+                <P class="p50 ft17">Front wheels aligned improperly (DOT specs.)</P>
+                <P class="p51 ft15">Power unit belts cracked or slipping Power unit fluid level improper</P>
+                <P class="p52 ft16">Suspension System <SPAN class="ft15">Ball joint seals damaged Structural parts bent or damaged Stabilizer bar disconnected Spring broken</SPAN></P>
+                <P class="p53 ft17">Shock absorber mounting loose Rubber bushings damaged or missing Radius rod damaged or missing Shock absorber leaking or functioning</P>
+                <P class="p54 ft15">improperly</P>
+                <P class="p26 ft16">Tires</P>
+                <P class="p55 ft15">Tread depth less than 2/32 inch Sizes mismatched</P>
+                <P class="p28 ft15">Visible damage</P>
+                <P class="p29 ft16">Wheels</P>
+                <P class="p56 ft15">Visible cracks, damage or repairs Mounting bolts loose or missing</P>
+                <P class="p57 ft16">Exhaust System <SPAN class="ft15">Leakage Catalytic Converter</SPAN></P>
+            </DIV>
+        </DIV>
+        <DIV id="id_3">
+            <P class="p26 ft2">DEALER NAME</P>
+            <P class="p58 ft3">PRESTIGE IMPORT AUTO SALES</P>
+            <P class="p29 ft2">ADDRESS</P>
+            <TABLE cellpadding=0 cellspacing=0 class="t2">
+                <TR>
+                    <TD class="tr4 td10"><P class="p59 ft3">654 W. Bridge St</P></TD>
+                    <TD class="tr4 td10"><P class="p60 ft3">MORRISVILLE, PA 19067</P></TD>
+                </TR>
+                <TR>
+                    <TD class="tr3 td11"><P class="p3 ft19">TELEPHONE</P></TD>
+                    <TD class="tr3 td11"><P class="p3 ft19">EMAIL</P></TD>
+                </TR>
+                <TR>
+                    <TD class="tr2 td10"><P class="p3 ft20">&nbsp;</P></TD>
+                    <TD class="tr2 td10"><P class="p3 ft20">&nbsp;</P></TD>
+                </TR>
+                <TR>
+                    <TD class="tr3 td11"><P class="p3 ft19">FOR COMPLAINTS AFTER SALE, CONTACT:</P></TD>
+                    <TD class="tr3 td11"><P class="p3 ft20">&nbsp;</P></TD>
+                </TR>
+                <TR>
+                    <TD class="tr2 td10"><P class="p59 ft3">autoprestigeimports@gmail.com</P></TD>
+                    <TD class="tr2 td10"><P class="p3 ft20">&nbsp;</P></TD>
+                </TR>
+            </TABLE>
+        </DIV>
+        <DIV id="id_4">
+            <P class="p26 ft9"><SPAN class="ft13">IMPORTANT: </SPAN>The information on this form is part of any contract to buy this vehicle. Removing this label before consumer purchase (except for purpose of <NOBR>test-driving)</NOBR> violates federal law (16 C.F.R. 455).</P>
+        </DIV>
+    </DIV>
+<DIV style="padding: 50px 0px 15px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 8px; color: #c8c8c8;">
+    <P><A href="http://www.pdfonline.com/java-create-pdf/" style="color: #c8c8c8; text-decoration: none;">Create PDF Java</A> Converted By BCLTechnologies</P>
+</DIV>
+@Scripts.Render("~/bundles/jquery/js")
+@Scripts.Render("~/bundles/bootstrap/js")
+@Scripts.Render("~/bundles/angular/js")
+@Scripts.Render("~/bundles/assets/js")
+@Scripts.Render("~/bundles/ng-sortable")
+@Scripts.Render("~/bundles/inspinia/js")
+@Scripts.Render("~/bundles/app/js")
+@Scripts.Render("~/bundles/app/angular/js")
+@Scripts.Render("~/bundles/app/angular/admin/js")
+</BODY>
+</html>

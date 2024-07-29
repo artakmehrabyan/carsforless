@@ -1,0 +1,568 @@
+﻿
+@{
+	ViewBag.Title = "Inventory Part Sales";
+}
+
+<div class="ibox" ng-controller="InventoryPartSaleController" infinite-scroll='LoadMoreData()' infinite-scroll-distance='2'>
+	<div contextmenu="inventorypartsale.contextmenu" class="dropdown contextmenu">
+		<ul class="dropdown-menu" role="menu">
+			<li>
+				<a href="javascript:void(0);"
+				   ng-click="AddNew()"
+				   ng-if="CanAddRow()">
+					<i class="fa fa-plus"></i>  Add New
+				</a>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<a role="menuitem" tabindex="-1" href ng-click="AppServices.Common.CopySelectionToClipboard()">
+					<i class="fa fa-copy"></i>  Copy
+				</a>
+			</li>
+
+			<li class="divider"></li>
+			<li>
+				<a href="javascript:void(0);"
+				   ng-click="BeginEditRow(inventorypartsale.contextmenu.$item)"
+				   ng-if="CanUpdateRow(inventorypartsale.contextmenu.$item)">
+					<i class="fa fa-edit"></i>  Edit
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);"
+				   ng-click="Save()">
+					<i class="fa fa-save"></i>  Save
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);"
+				   ng-click="DeleteRow(inventorypartsale.contextmenu.$item,true)"
+				   ng-if="CanDeleteRow(inventorypartsale.contextmenu.$item)">
+					<i class="fa fa-remove"></i>  Delete
+				</a>
+			</li>
+		</ul>
+	</div>
+	<form class="form-horizontal" role="form" id="inventoryPartSaleForm" name="inventoryPartSaleForm">
+		<div class="ibox-content">
+			<div class="toolbar clearfix">
+				<div class="form-group pull-left form-inline">
+					<div class="btn-group">
+						<button class="btn btn-white btn-sm" ng-click="AddNew()">
+							<i class="fa fa-plus"></i> Add New
+						</button>
+						<button class="btn btn-white btn-sm ml5" ng-click="Save()">
+							<i class="fa fa-save"></i> Save
+						</button>
+					</div>
+				</div>
+				<div class="form-group pull-left form-inline">
+					<div class="input-group">
+						<input type="text"
+							   ng-enter="Refresh()"
+							   class="form-control input-sm"
+							   id="Search"
+							   ng-model="GridModel.Search"
+							   placeholder="Search">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-sm btn-primary" ng-click="Refresh()">
+								<i class="fa fa-search"></i> Search
+							</button>
+							<button type="button" class="btn btn-white btn-sm" ng-click="ClearFilter(true)">
+								<i class="fa fa-close"></i> Reset
+							</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="table-scrollable mt25 clearfix">
+				<table st-table="VisibleRows"
+					   st-safe-src="Rows"
+					   st-pipe="LoadData"
+					   contextmenu-container="inventorypartsale.contextmenu"
+					   class="table table-striped table-bordered table-advance table-hover">
+					<thead>
+					<tr tabindex="0">
+						<td colspan="3" class="bold">
+							Total Count - {{Stats.TotalCount}}
+						</td>
+						<td></td>
+						<td></td>
+						
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="bold" align="right">{{Stats.TotalLotShippingCost | currency}}</td>
+						<td></td>
+						<td class="bold"  align="right">{{Stats.TotalLotCost | currency}}</td>
+						<td></td>
+
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="bold"  align="right">{{Stats.TotalLotExpenseAmount | currency}}</td>
+						<td class="bold"  align="right">{{Stats.TotalLotNetAmoumt | currency}}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<th class="checkbox-cell">
+							<label class="i-checks">
+								<input icheck
+									   type="checkbox"
+									   ng-model="Selection.AllSelected">
+							</label>
+						</th>
+						<th st-sort="EbayAccount">Ebay Account</th>
+						<th st-sort="StockId">StockId</th>
+						<th st-sort="LotLocation">LotLocation</th>
+						<th st-sort="StockStatus ">StockStatus</th>
+						<th st-sort="ShortName">ShortName</th>
+						<th st-sort="Comments">Comments</th>
+						<th st-sort="LotPrice">LotPrice</th>
+						<th st-sort="LotShippingCost">LotShippingCost</th>
+						<th st-sort="LotTotalPrice">LotTotalPrice</th>
+						<th st-sort="LotMarketPrice">LotMarketPrice</th>
+						<th st-sort="LotDate">LotDate</th>
+						<th st-sort="LotSoldPrice">LotSoldPrice</th>
+						<th st-sort="SoldDate">SoldDate</th>
+						<th st-sort="SoldTo">SoldTo</th>
+						<th st-sort="SoldToContact">SoldToContact</th>
+					
+
+						<th st-sort="LotCost">LotCost</th>
+						<th st-sort="LotId">LotId</th>
+						<th st-sort="LongName">LongName</th>
+						<th st-sort="StockCategory">StockCategory</th>
+						<th st-sort="StockCondition">StockCondition</th>
+						<th st-sort="LotType">LotType</th>
+						<th st-sort="LotMarketUrl">LotMarketUrl</th>
+						<th st-sort="LotUrl">LotUrl</th>
+						<th st-sort="LotSellFee">LotSellFee</th>
+						<th st-sort="LotExpenseAmount">LotExpenseAmount</th>
+						<th st-sort="LotNetAmoumt">LotNetAmoumt</th>
+						<th st-sort="LotWarranty">LotWarranty</th>
+						<th st-sort="ShipDate">ShipDate</th>
+						<th st-sort="ShipBy">ShipBy</th>
+						<th st-sort="ShipNotes">ShipNotes</th>
+						<th st-sort="Vin">Vin</th>
+						<th st-sort="Year">Year</th>
+						<th st-sort="Make">Make</th>
+						<th st-sort="Model">Model</th>
+						<th st-sort="Color">Color</th>
+
+						<th st-sort="SelerNotes">SelerNotes</th>
+						<th st-sort="Issues">Issues</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr tabindex="0"
+							ng-esc="CancelEditRow(row)"
+							ng-focus="OnRowClicked(row)"
+							@*ng-blur="OnRowClicked(row)"*@
+							ng-dblclick="BeginEditRow(row)"
+							@*ng-click="OnRowClicked(row)"*@
+							contextmenu-item="row"
+							ng-class="{'editing':row.Editing==true,'dirty':row.IsDirty}"
+							ng-repeat="row in VisibleRows|filter:SetRowVisibility"
+							ng-include="GetTemplate(row)"></tr>
+					</tbody>
+					<tfoot>
+					<tr tabindex="0">
+						<td colspan="3" class="bold">
+							Total Count - {{Stats.TotalCount}}
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="bold" align="right">{{Stats.TotalLotShippingCost | currency}}</td>
+						<td></td>
+						<td class="bold"  align="right">{{Stats.TotalLotCost | currency}}</td>
+						<td></td>
+
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="bold"  align="right">{{Stats.TotalLotExpenseAmount | currency}}</td>
+						<td class="bold"  align="right">{{Stats.TotalLotNetAmoumt | currency}}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td align="left" colspan="36">
+							<div  st-pagination="" st-items-by-page="GridModel.Take" class="pull-left">
+							</div>
+						</td>
+					</tr>
+					</tfoot>
+				</table>
+			</div>
+			<div class="form-group clearfix">
+				<div class="col-sm-offset-4 col-sm-10">
+					<button type="button"
+							ng-click="Save()"
+							class="btn btn-sm btn-primary">
+						<i class="fa fa-save"></i> Save
+					</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<script type="text/ng-template" id="display">
+	<td class="checkbox-cell">
+		<label class="i-checks">
+			<input icheck
+				   type="checkbox"
+				   ng-click="SelectRow(row)"
+				   ng-model="row.Selected">
+		</label>
+	</td>
+	<td>{{row.EbayAccount}}</td>
+	<td>{{row.StockId}}</td>
+	<td>{{row.LotLocation}}</td>
+	<td>{{row.StockStatus}}</td>
+	<td>{{row.ShortName}}</td>
+	<td>{{row.Comments}}</td>
+	<td>{{row.LotPrice  | currency}}</td>
+	<td>{{row.LotShippingCost  | currency}}</td>
+	<td>{{(row.LotPrice+row.LotShippingCost)  | currency}}</td>
+	<td>{{row.LotMarketPrice  | currency}}</td>
+	<td>{{row.LotDate | date: 'MM/dd/yyyy'}}</td>
+	<td>{{row.LotSoldPrice  | currency}}</td>
+	<td>{{row.SoldDate | date: 'MM/dd/yyyy'}}</td>
+	<td>{{row.SoldTo}}</td>
+	<td>{{row.SoldToContact}}</td>
+
+
+	<td>{{row.LotCost  | currency}}</td>
+	<td>{{row.LotId}}</td>
+
+	<td>{{row.LongName}}</td>
+	<td>{{row.StockCategory}}</td>
+	<td>{{row.StockCondition}}</td>
+	<td>{{row.LotType}}</td>
+	<td>{{row.LotMarketUrl}}</td>
+	<td>{{row.LotUrl}}</td>
+	<td>{{row.LotSellFee  | currency}}</td>
+	<td>{{row.LotExpenseAmount  | currency}}</td>
+	<td>{{row.LotNetAmoumt  | currency}}</td>
+	<td>{{row.LotWarranty}}</td>
+	<td>{{row.ShipDate | date: 'MM/dd/yyyy'}}</td>
+	<td>{{row.ShipBy}}</td>
+	<td>{{row.ShipNotes}}</td>
+	<td>{{row.Vin}}</td>
+	<td>{{row.Year}}</td>
+	<td>{{row.Make}}</td>
+	<td>{{row.Model}}</td>
+	<td>{{row.Color}}</td>
+
+	<td>{{row.SelerNotes}}</td>
+	<td>{{row.Issues}}</td>
+</script>
+
+@*<th st-sort="StockId">StockId</th>
+	<th st-sort="LotLocation">LotLocation</th>
+	<th st-sort="ShortName">ShortName</th>
+	<th st-sort="StockStatus ">StockStatus</th>
+	<th st-sort="LotPrice">LotPrice</th>
+	<th st-sort="LotDate">LotDate</th>
+	<th st-sort="LotSoldPrice">LotSoldPrice</th>
+	<th st-sort="SoldDate">SoldDate</th>
+	<th st-sort="SoldTo">SoldTo</th>*@
+
+<script type="text/ng-template" id="edit">
+	<td class="checkbox-cell">
+		<label class="i-checks">
+			<input icheck
+				   type="checkbox"
+				   ng-click="SelectRow(row)"
+				   ng-model="row.Selected">
+		</label>
+	</td>
+	<td>
+		<select class="form-control input-inline input-medium"
+				ng-model="row.EbayAccount"
+				ng-options="man.Id as man.Name for man in EbayAccounts"
+				ng-change="OnEbayAccountChanged(row)"
+				data-placeholder="Select Ebay Account...">
+		</select>
+	</td>
+	<td>
+		<input type="text"
+			   required="required"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-do-focus="true"
+			   ng-model="row.StockId">
+	</td>
+	<td>
+		<input type="text"
+			   required="required"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.LotLocation">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.StockStatus">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.ShortName">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.Comments">
+	</td>
+	<td>
+		<input type="number"
+			   class="form-control input-sm"
+			   placeholder=""
+			   ng-model="row.LotPrice">
+	</td>
+	<td>
+		<input type="number"
+			   class="form-control input-sm"
+			   placeholder=""
+			   ng-model="row.LotShippingCost">
+	</td>
+	<td>{{row.LotPrice+row.LotShippingCost}}</td>
+	<td>
+		<input type="number"
+			   class="form-control input-sm"
+			   placeholder=""
+			   ng-model="row.LotMarketPrice">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm"
+			   id="LotDate"
+			   date-pick
+			   placeholder=""
+			   ng-model="row.LotDate">
+	</td>
+	<td>
+		<input type="number"
+			   class="form-control input-sm"
+			   placeholder=""
+			   ng-model="row.LotSoldPrice">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm"
+			   id="LotDate"
+			   date-pick
+			   placeholder=""
+			   ng-model="row.SoldDate">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.SoldTo">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.SoldToContact">
+	</td>
+
+
+	<td>
+		<input type="number"
+			   class="form-control input-sm"
+			   placeholder=""
+			   ng-model="row.LotCost">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.LotId">
+	</td>
+
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.LongName">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.StockCategory">
+	</td>
+
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.StockCondition">
+	</td>
+
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.LotType">
+	</td>
+
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.LotMarketUrl">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.LotUrl">
+	</td>
+
+
+	<td>
+		<input type="number"
+			   class="form-control input-sm"
+			   placeholder=""
+			   ng-model="row.LotSellFee">
+	</td>
+
+	<td>
+		<input type="number"
+			   class="form-control input-sm"
+			   placeholder=""
+			   ng-model="row.LotExpenseAmount">
+	</td>
+
+	<td>
+		<input type="number"
+			   class="form-control input-sm"
+			   placeholder=""
+			   ng-model="row.LotNetAmoumt">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.LotWarranty">
+	</td>
+
+
+	<td>
+		<input type="text"
+			   class="form-control input-sm"
+			   id="LotDate"
+			   date-pick
+			   placeholder=""
+			   ng-model="row.ShipDate">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.ShipBy">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.ShipNotes">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.Vin">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.Year">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.Make">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.Model">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.Color">
+	</td>
+
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.SelerNotes">
+	</td>
+	<td>
+		<input type="text"
+			   class="form-control input-sm first-cell"
+			   placeholder=""
+			   ng-model="row.Issues">
+	</td>
+</script>

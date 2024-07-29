@@ -1,0 +1,70 @@
+﻿@using Freemoded.Automotive.Frame.Web.Mvc
+<!DOCTYPE html>
+<html ng-app="admin">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Html.Title() Control Panel</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <!-- Add local styles, mostly for plugins css file -->
+    
+    @Styles.Render("~/content/bootstrap/css")
+    @Styles.Render("~/content/assets/css")
+    @Styles.Render("~/content/inspinia/css")
+    @Styles.Render("~/content/ng-sortable")
+    @Styles.Render("~/content/admin/css")
+    @if (IsSectionDefined("Styles")) {
+        @RenderSection("Styles", required: false)
+    }
+    <base href="/">
+</head>
+<body ng-controller="AdminController">
+    <!-- Skin configuration box -->
+    @Html.Partial("_SkinConfig")
+
+    <!-- Wrapper-->
+    <!-- PageClass give you ability to specify custom style for specific view based on action -->
+    <div id="wrapper" class="@Html.PageClass()">
+
+        <!-- Navigation -->
+        @Html.Partial("_Navigation")
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+
+            @Html.Partial("_Breadcrumb")
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <!-- Main view -->
+                @RenderBody()
+
+            </div>
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+
+        </div>
+        <!-- End page wrapper-->
+        
+    </div>
+    <a id="exit-offscreen" class="exit-offscreen"></a>
+   
+    <!-- End wrapper-->
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/angular/js")
+    @Scripts.Render("~/bundles/assets/js")
+    @Scripts.Render("~/bundles/inspinia/js")
+    @Scripts.Render("~/bundles/app/js")
+    @Scripts.Render("~/bundles/app/angular/js")
+    @Scripts.Render("~/bundles/app/angular/admin/js")
+    @Scripts.Render("~/bundles/ng-sortable")
+    @RenderSection("scripts", required: false)
+    
+    @Html.Partial("SkinScripts")
+    <div ng-helper-busy="{{busyMessage='Please wait...'}}"></div>
+</body>
+</html>

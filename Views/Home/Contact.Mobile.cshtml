@@ -1,0 +1,121 @@
+﻿@using Freemoded.Web.Mvc.Extensions
+@{
+    ViewBag.Title = "Contact Us";
+}
+<article class="block">
+    <h2><span class="bold">Contact </span> Us</h2>
+    <ul class="extra-info">
+        <li class="text-shadow title">Used Cars Remarketing Factory Outlet</li>
+        <li>654 W Bridge St, Morrisville, PA 19067</li>
+        <li>United States (215) -295-1515</li>
+        <li>autoprestigeimports@gmail.com</li>
+    </ul>
+
+    <div class="google-maps contact-maps">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12188.825334675857!2d-74.79021002244876!3d40.20447296211651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c15759786d47f1%3A0xf40886a4c6e1d131!2sPrestige+Import+Auto+Sales!5e0!3m2!1sru!2s!4v1436483976129"
+                frameborder="0" style="border: 0" allowfullscreen></iframe>
+    </div>
+    <div class="full-width light-grey-corner-box box-text-default">
+        <br />
+        <h3>From Philadelphia International Airport:</h3>
+        <p>Take I-95 North. Follow I-95 North for about 34 miles.</p>
+        <p>Merge onto US-1 N via EXIT 46A toward MORRISVILLE.</p>
+        <p>Take the exit on the LEFT toward PA-32 N / MORRISVILLE</p>
+        <p>Turn SLIGHT RIGHT onto W BRIDGE ST / US-1 ALT.</p>
+        <br />
+        <h3>From Philadelphia International Airport:</h3>
+        <p> Start out going SOUTH on CR-601 / SAM WEINROTH RD / MERCER CTY AIRPORT toward BEAR TAVERN RD / CR-579.</p>
+        <p> Turn LEFT onto BEAR TAVERN RD / CR-579. Continue to follow CR-579.</p>
+        <p> Turn SLIGHT RIGHT onto SULLIVAN WAY / CR-579.</p>
+        <p> SULLIVAN WAY / CR-579 becomes NJ-29 S.</p>
+        <p> Merge onto US-1 S toward MORRISVILLE / TOLL BRIDGE (Portions toll).</p>
+        <p> Take the NORTH PENNSYLVANIA AVE exit toward MORRISVILLE.</p>
+        <p> Turn SLIGHT RIGHT onto S PENNSYLVANIA AVE.</p>
+        <p> Turn LEFT onto W BRIDGE ST / US-1 ALT.</p>
+        <br />
+        <h3>From John F. Kennedy International Airport:</h3>
+        <p> Take JFK EXPY.</p>
+        <p> Take the ramp toward ROCKAWAY BLVD EAST / BELT PKWY WEST / I-678 / VAN WYCK EXPWY.</p>
+        <p> Take the ramp toward BELT PKWY WEST / I-678 / VAN WYCK EXPWY.</p>
+        <p> Merge onto NASSAU EXPY.</p>
+        <p> Turn SLIGHT LEFT to take the RT-27 W / BELT PKWY WEST / NO CONDUIT AVE ramp toward KENNEDY AIRPORT.</p>
+        <p> Merge onto BELT PKWY W via the ramp on the LEFT toward VERRAZANO BR.</p>
+        <p> Take the I-278 / VERRAZANO BR exit- EXIT 3- toward STATEN ISLAND.</p>
+        <p> Merge onto I-278 W (Portions toll).</p>
+        <p> Take the I-95 S exit on the LEFT toward TURNPIKE SOUTH.</p>
+        <p> Merge onto NEW JERSEY TURNPIKE S (Portions toll).</p>
+        <p> Merge onto I-195 W via EXIT 7A toward TRENTON.</p>
+        <p> Merge onto NJ-29 N.</p>
+        <p> Merge onto US-1 S toward MORRISVILLE / TOLL BRIDGE (Portions toll).</p>
+        <p> Take the NORTH PENNSYLVANIA AVE exit toward MORRISVILLE.</p>
+        <p> Turn SLIGHT RIGHT onto S PENNSYLVANIA AVE.</p>
+        <p> Turn LEFT onto W BRIDGE ST / US-1 ALT.</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <form id="contact-us-form"
+                  class="grey-corner-box"
+                  ng-controller="ContactController"
+                  ng-submit="SendEmail(model)"
+                  novalidate>
+                <input type="hidden" id="__RequestVerificationToken"
+                       ng-init="VerificationToken='@Html.RequestVerificationToken()'"/>
+                <fieldset>
+                    <legend><span class="bold">Drop</span> us a line</legend>
+                    <div class="form-group">
+                        <label for="Name">Name:</label>
+                        <input type="text"
+                               name="contact_name"
+                               id="Name"
+                               class="form-control"
+                               required
+                               ng-model="model.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">E-mail:</label>
+                        <input type="text"
+                               name="Email"
+                               id="Email"
+                               class="form-control"
+                               required
+                               ng-model="model.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Message">Message:</label>
+                        <textarea id="Message"
+                                  name="Message"
+                                  required
+                                  class="form-control"
+                                  ng-model="model.Message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <img class="captcha" src="@Url.Action("Captcha")" alt="Captcha"/>
+                        <div>
+                            <input type="text"
+                                   placeholder="Enter captcha"
+                                   class="form-control"
+                                   required=""
+                                   ng-model="model.Captcha">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-block btn-primary" type="submit">
+                            <i class="fa fa-check"></i> Submit
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="row">
+            <h3><span class="bold">Contact</span> details</h3>
+            <ul class="icon-list">
+                <li class="phone"><span class="two-lines">Phone: (215) -295-1515</span></li>
+                <li class="phone"><span class="two-lines">Text: (267)-800-6119 </span></li>
+                <li class="address"><span>654 W Bridge St, Morrisville, PA 19067, US</span></li>
+                <li class="e-mail"><span><a href="#">autoprestigeimports@gmail.com</a></span></li>
+                <li class="website"><span><a href="#">@Request.Url.DnsSafeHost</a></span></li>
+            </ul>
+        </div>
+    </div>
+</article>

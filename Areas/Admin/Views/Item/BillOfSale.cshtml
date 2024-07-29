@@ -1,0 +1,256 @@
+﻿@using System.Security.Policy
+@using Freemoded.Automotive.Frame.Web.Mvc
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="admin">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BILL OF SALE</title>
+    @Styles.Render("~/content/bootstrap/css")
+    @Styles.Render("~/content/ng-sortable")
+    @Styles.Render("~/content/assets/css")
+
+    <link href="~/Content/billofsale.css" rel="stylesheet" />
+</head>
+<body ng-controller="BillOfSaleController">
+    <div class="bill-of-sale">
+        <div class="title">
+            PRESTIGE IMPORTS AUTO SALES : Vehicle Bill Of Sale
+        </div>
+        <div class="logo">
+            <img src="@Html.MixImg("bill-of-sale-car.png")" alt="Car" />
+        </div>
+        <div class="addresses">
+            <div>
+                <label>Address:</label><span>654 West Bridge Street, Morrisville, PA 19067</span>
+            </div>
+            <div>
+                <label>Phone:</label><span>(215)-295-1515</span><label> Fax:</label><span>(215)-428-4932</span>
+            </div>
+            <div>
+                <label>Email:</label><span class="email">autoprestigeimports@gmail.com</span>
+            </div>
+        </div>
+        @*<div class="sub-title">
+            Vehicle Bill of Sale
+        </div>*@
+        <hr class="line" />
+        <span class="text">
+            For the Exact Sales Amount indicated below, I the Seller, do hereby sell and transfer ownership of the Vehicle described below
+
+            to the Buyer, acknowledge full receipt of payment, certify that I have the authority to sell it, warrant the Vehicle to be free of any
+
+            liens or encumbrances, and certify that all information given is true and correct to the best of my knowledge.
+        </span>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-advance">
+            <tbody>
+            <tr>
+                <th colspan="7" class="center-text">Vehicle Information</th>
+            </tr>
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Color</th>
+                <th>Body Type</th>
+                <th>Miles</th>
+                <th>Vehicle Identification Number</th>
+            </tr>
+            <tr>
+                <td>{{Item.Make}}</td>
+                <td>{{Item.Model}}</td>
+                <td>{{Item.Year}}</td>
+                <td>{{Item.Color}}</td>
+                <td>{{Item.Type}}</td>
+                <td>{{Item.Mileage}}</td>
+                <td>{{Item.Vin}}</td>
+            </tr>
+            </tbody>
+            <tbody></tbody>
+        </table>
+    </div>
+        <div class="table-responsive tradein">
+            <table class="table table-hover table-bordered table-advance">
+                <tbody>
+                    <tr>
+                        <th colspan="7" class="center-text">Trade In Information</th>
+                    </tr>
+                    <tr>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Color</th>
+                        <th>Miles</th>
+                        <th>Vehicle Identification Number</th>
+                    </tr>
+                    <tr>
+                        <td>{{Item.TradeMake}}</td>
+                        <td>{{Item.TradeModel}}</td>
+                        <td>{{Item.TradeYear}}</td>
+                        <td>{{Item.TradeColor}}</td>
+                        <td>{{Item.TradeMiles}}</td>
+                        <td>{{Item.TradeVin}}</td>
+                    </tr>
+                </tbody>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div>
+            <label class="bold">
+                Conditions and Warranty:
+            </label>
+            <span>
+                The Seller has no knowledge of any hidden defects in and to the Vehicle, and believes
+
+                to the best of the Seller's knowledge that the Vehicle is being sold in good operating condition.
+            </span>
+        </div>
+        <div>
+            <label class="bold">
+                Used Car Warranty:
+            </label>
+            <span>
+                {{Item.Warranty}}
+            </span>
+        </div>
+        <div>
+            <label class="bold">
+                Buyer was notified on the title brand as:
+            </label>
+            <span>{{Item.Brand.Description}}</span>
+        </div>
+        <h5 class="bold">Sales Terms</h5>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-advance">
+                <tbody>
+                    <tr>
+                        <td rowspan="8">
+                            The purchaser agrees to pay the seller the sum of <b>{{(Item.BillPrice+Item.SalesTax+Item.RegistrationFee+Item.MiscFee)|currency}}</b> on delivery of this agreement receipt of
+
+                            which is hereby acknowledged, and to pay the seller the balance due on or before date of: <b>{{Item.BillDate |date:'MM/dd/yy'}}</b>
+
+                            or purchaser hereby agrees to forfeit said amount to the seller as and for liquidated damage for his
+
+                            breach vehicle will not pass to purchaser until payment in full has been made.<br />
+                            <b>Comments:</b> {{Item.CommentForClient}}
+                        </td>
+                        <td class="bold blue" >Sales Price:</td>
+                        <td>{{Item.BillPrice|currency}}</td>
+                        <td class="bold blue" nowrap="">Total Amount</td>
+                        <td class="bold">{{(Item.BillPrice+Item.SalesTax+Item.RegistrationFee+Item.MiscFee)|currency}}</td>
+                    </tr>
+
+                    <tr>
+                        <td  class="bold blue" nowrap="">Sales Tax</td>
+                        <td>{{Item.SalesTax|currency}}</td>
+                        <td class="bold blue" nowrap="">Trade In Price</td>
+                        <td class="bold">{{Item.BillTradePrice==null?0:Item.BillTradePrice|currency}}</td>
+                    </tr>
+                    <tr>
+                        <td class="bold blue" nowrap="">Registration Fee</td>
+                        <td>{{Item.RegistrationFee|currency}}</td>
+                        <td class="bold blue" nowrap="">Paid Amount</td>
+                        <td class="bold">{{Item.TotalPaidAmountBoS|currency}}</td>
+                    </tr>
+                    <tr>
+                        <td  class="bold blue" nowrap="">Misc. Fee</td>
+                        <td>{{Item.MiscFee|currency}}</td>
+                        <td class="bold blue" nowrap="">Total Balance Due</td>
+                        <td class="bold">
+                            {{((Item.BillPrice+Item.SalesTax+Item.RegistrationFee+Item.MiscFee)-(Item.TotalPaidAmountBoS+Item.BillTradePrice))|currency}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      
+        @*<div class="table-responsive">
+            <table class="table table-hover table-bordered table-advance">
+                <tbody>
+                    <tr>
+                        <th>
+                            SELLER'S ADDRESS<br />
+                            654 WEST BRIDGE STREET
+                        </th>
+                        <th>
+                            CITY<br />
+                            MORRISVILE
+                        </th>
+                        <th>
+                            STATE<br />
+                            PA
+                        </th>
+                        <th>
+                            ZIP<br />
+                            19067
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            SELLER'S SIGNATURE<br />
+
+                            x
+                        </td>
+                        <td colspan="2">
+                            SELLER'S PRINTED NAME<br />
+                            PRESTIGE IMPORTS AUTO SALES
+                        </td>
+                        <td>DATE<br /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>*@
+        <b>Buyer was notified:</b> All Sales Are Final
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-advance">
+                <tbody>
+                    <tr>
+                        <th>
+                            BUYER'S ADDRESS<br />
+                            {{Item.SoldToAddress}}
+                        </th>
+                        <th>
+                            CITY<br />
+                            {{Item.SoldToCity}}
+                        </th>
+                        <th>
+                            STATE<br />
+                            {{Item.SoldToState}}
+                            ZIP<br />
+                            {{Item.SoldToZip}}
+                        </th>
+                        <th>
+                            Phone<br />
+                            {{Item.SoldToPhone}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            BUYER'S SIGNATURE  x <br/><br />
+                            SELLER'S SIGNATURE x
+                        </td>
+                        <td colspan="2">
+                            BUYER'S PRINTED NAME
+                            <br />
+                            {{Item.SoldToName}}
+                        </td>
+                        <td>DATE<br /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/angular/js")
+    @Scripts.Render("~/bundles/assets/js")
+    @Scripts.Render("~/bundles/ng-sortable")
+    @Scripts.Render("~/bundles/inspinia/js")
+    @Scripts.Render("~/bundles/app/js")
+    @Scripts.Render("~/bundles/app/angular/js")
+    @Scripts.Render("~/bundles/app/angular/admin/js")
+</body>
+</html>

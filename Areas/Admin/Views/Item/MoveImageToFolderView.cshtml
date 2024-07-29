@@ -1,0 +1,25 @@
+﻿@using Freemoded.Automotive.Frame.Web.Mvc
+<div class="modal-body">
+    <div class="panel-body">
+        <form role="form" class="form-horizontal">
+            <h3>Edit User</h3>
+            <div class="form-group">
+                <label for="Name" class="col-sm-3">User Name</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control input-sm" id="Name" placeholder="" required="" ng-model="EditableObject.From">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Email" class="col-sm-3">Email</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control input-sm" id="Email" placeholder="" required="" ng-model="EditableObject.To">
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" ng-click="ok()">OK</button>
+                <button class="btn btn-warning btn-sm" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

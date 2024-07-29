@@ -1,0 +1,335 @@
+﻿@using Freemoded.Automotive.Frame.Web.Mvc
+@{
+    ViewBag.Title = "Profile";
+}
+<div class="ibox-content">
+    <form role="form" id="carForm" ng-controller="AccountController" ng-cloak>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="profile-image">
+                    <img src="@Html.MixImg("profile.png")" class="img-circle circle-border" alt="profile">
+                </div>
+                <div class="profile-info">
+                    <div class="">
+                        <div>
+                            <h2 class="no-margins">
+                                {{EditableObject.UserName}}
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <table class="table small m-b-xs">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>142</strong> Published
+                            </td>
+                            <td>
+                                <strong>22</strong> Sold
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>61</strong> Images
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <small>Sales in last 24h</small>
+                <h2 class="no-margins">206 480</h2>
+                <div id="sparkline1"></div>
+            </div>
+        </div>
+        <div class="row">
+        <div class="tabs-container">
+        <div class="toolbar mb10">
+            <div class="btn-group">
+                <button class="btn btn-sm btn-primary" type="button" ng-click="SaveData()">
+                    <i class="fa fa-save"></i> Save
+                </button>
+            </div>
+        </div>
+        <uib-tabset>
+        <uib-tab>
+            <uib-tab-heading>
+                General
+            </uib-tab-heading>
+            <div class="panel-body">
+                <fieldset class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="UserName" class="col-sm-5 control-label">Name:</label>
+                                <div class="col-sm-7 col-md-7 col-lg-7">
+                                    <input type="text"
+                                           class="form-control input-sm"
+                                           disabled=""
+                                           id="UserName"
+                                           placeholder=""
+                                           ng-model="EditableObject.UserName">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="UserName" class="col-sm-5 control-label">System Name:</label>
+                                <div class="col-sm-8 col-md-7 col-lg-7">
+                                    <input type="text"
+                                           class="form-control input-sm"
+                                           disabled=""
+                                           id="SystemName"
+                                           placeholder=""
+                                           ng-model="EditableObject.SystemName">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="Email" class="col-sm-5 control-label">Email:</label>
+                                <div class="col-sm-8 col-md-7 col-lg-7">
+                                    <input type="text"
+                                           class="form-control input-sm"
+                                           disabled=""
+                                           id="Email"
+                                           placeholder=""
+                                           ng-model="EditableObject.Email">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="IsSystemAccount" class="col-sm-5 control-label">Is System Profile:</label>
+                                <div class="col-sm-1 col-md-1 col-lg-1">
+                                    <label class="i-checks">
+                                        <input icheck
+                                               id="IsSystemAccount"
+                                               type="checkbox"
+                                               disabled=""
+                                               ng-model="EditableObject.IsSystemAccount">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="LastLoginDate" class="col-sm-5 control-label">Last Login Date:</label>
+                                <div class="col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text"
+                                           class="form-control input-sm"
+                                           disabled=""
+                                           id="LastLoginDate"
+                                           placeholder=""
+                                           date-pick
+                                           ng-model="EditableObject.LastLoginDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="LastActivityDate" class="col-sm-5 control-label">Last Activity Date:</label>
+                                <div class="col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text"
+                                           class="form-control input-sm"
+                                           disabled=""
+                                           id="LastActivityDate"
+                                           placeholder=""
+                                           date-pick
+                                           ng-model="EditableObject.LastActivityDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label for="LastIpAddress" class="col-sm-5 control-label">Last Ip Address:</label>
+                                <div class="col-sm-5 col-md-5 col-lg-5">
+                                    <input type="text"
+                                           class="form-control input-sm"
+                                           disabled=""
+                                           id="LastIpAddress"
+                                           placeholder=""
+                                           ng-model="EditableObject.LastIpAddress">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                                    <span class="col-sm-4 mr15 control-label"></span>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-primary btn-bitbucket" type="button" ng-click="SaveData()">
+                                            <i class="fa fa-save"></i> Save
+                                        </button>
+                                    </div>
+                                </div>*@
+                </fieldset>
+            </div>
+        </uib-tab>
+        <uib-tab ng-show="EditableObject.IsAdmin && EditableObject.IsOwner==false">
+            <uib-tab-heading>
+                Roles
+            </uib-tab-heading>
+            <div class="panel-body" ng-controller="AccountRolesController">
+                <div class="table-scrollable">
+                    <table st-table="VisibleRows"
+                           st-safe-src="Rows"
+                           st-pipe="LoadData"
+                           class="table table-striped table-bordered table-advance table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                <label class="i-checks">
+                                    <input icheck
+                                           type="checkbox"
+                                           ng-model="Selection.AllSelected">
+                                </label>
+                            </th>
+                            <th st-sort="Name">Name</th>
+                            <th st-sort="Published">System Name</th>
+                            <th st-sort="DisplayOrder">Active</th>
+                            <th st-sort="Published">Is System Role</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="role in VisibleRows">
+                            <td width="25">
+                                <label class="i-checks">
+                                    <input icheck type="checkbox"
+                                           ng-model="role.Selected"
+                                           ng-change="SelectRow(role)">
+                                </label>
+                            </td>
+                            <td>
+                                {{role.Name}}
+                            </td>
+                            <td>
+                                {{role.SystemName}}
+                            </td>
+                            <td>
+                                <label class="i-checks">
+                                    <input icheck type="checkbox" ng-model="role.Active" disabled="">
+                                </label>
+                            </td>
+                            <td>
+                                <label class="i-checks">
+                                    <input icheck type="checkbox" ng-model="role.IsSystemRole" disabled="">
+                                </label>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>
+                                <label class="i-checks">
+                                    <input icheck
+                                           type="checkbox"
+                                           ng-model="Selection.AllSelected">
+                                </label>
+                            </th>
+                            <th st-sort="Name">Name</th>
+                            <th st-sort="Published">System Name</th>
+                            <th st-sort="DisplayOrder">Active</th>
+                            <th st-sort="Published">Is System Role</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </uib-tab>
+        <uib-tab ng-show="EditableObject.IsOwner==true">
+            <uib-tab-heading>
+                Change Password
+            </uib-tab-heading>
+            <div class="panel-body" ng-controller="PasswordChangeController">
+                <fieldset class="form-horizontal">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="OldPassword" class="col-sm-4 control-label">Current Password:</label>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <input type="password"
+                                           class="form-control input-sm"
+                                           id="OldPassword"
+                                           placeholder=""
+                                           ng-model="PasswordChangeData.OldPassword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="NewPassword" class="col-sm-4 control-label">New Password:</label>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <input type="password"
+                                           class="form-control input-sm"
+                                           id="NewPassword"
+                                           placeholder=""
+                                           ng-model="PasswordChangeData.NewPassword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="ConfirmPassword" class="col-sm-4 control-label">Confirm Password:</label>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <input type="password"
+                                           class="form-control input-sm"
+                                           id="ConfirmPassword"
+                                           placeholder=""
+                                           ng-model="PasswordChangeData.ConfirmPassword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <span class="col-sm-4 mr15 control-label"></span>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-primary btn-bitbucket" type="button" ng-click="ChangePassword()">
+                                        <i class="fa fa-save"></i> Apply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+        </uib-tab>
+        </uib-tabset>
+        </div>
+        </div>
+    </form>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/sparkline/js")
+    <script>
+        $(document).ready(function () {
+            $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 48], {
+                type: 'line',
+                width: '100%',
+                height: '50',
+                lineColor: '#1ab394',
+                fillColor: "transparent"
+            });
+
+
+        });
+    </script>
+}

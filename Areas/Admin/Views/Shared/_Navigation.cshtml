@@ -1,0 +1,178 @@
+﻿@using Freemoded.Automotive.Frame.Web.Mvc
+@using Freemoded.Common.Security
+@using Freemoded.Web.Mvc.Extensions
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" src="@Html.MixImg("no_profile_image.png")" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">@User.Identity.Name</strong>
+                            </span> <span class="text-muted text-xs block">Profile Settings <b class="caret"></b></span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="@Url.Action("Profile", "Account")"><i class="fa fa-edit"></i> My Profile </a></li>
+                        <li class="divider"></li>
+                        <li><a href="@Url.Action("LogOff", "Account",new {area=""})"><i class="fa fa-sign-out"></i> Exit</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    EX+
+                </div>
+            </li>
+            @*<li class="@Html.IsSelected(controller: "Dashboard")">
+                    <a href="@Url.Action("Index", "Dashboard")">
+                        <i class="fa fa-home"></i>
+                        <span class="nav-label">Дэшборд</span>
+                    </a>
+                </li>*@
+        @if (!Html.IsRestricted())
+        {
+            <li>
+                <a href="">
+                    <i class="fa fa-table"></i>
+                    <span class="nav-label ng-binding">Common</span><span class="fa arrow"></span>
+                </a>  
+	                      <ul class="nav nav-second-level collapse">
+		                      <li class="@Html.IsSelected(controller: "Company", action: "List")" ui-sref-active="active">
+			                      <a href="@Url.Action("List", "Company")">
+				                      Company List
+			                      </a>
+		                      </li>
+	                      </ul>
+                      
+            </li>}
+            <li class="@Html.IsSelected(actions:new[]{"ExpenseTypes","Warranties","Makes","Models","Models","TitleStatuses","TitleBrands","CarOptions","Users"})">
+	            <a href="">
+		            <i class="fa fa-car"></i>
+		            <span class="nav-label ng-binding">Management</span><span class="fa arrow"></span>
+	            </a>
+	            <ul class="nav nav-second-level collapse">
+		            @if (!Html.IsRestricted())
+		            {
+		           
+		            <li class="@Html.IsSelected(controller: "Management", action: "Partners")">
+			            <a href="@Url.Action("Partners", "Management")">
+				            Partners
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "Makes")">
+			            <a href="@Url.Action("Makes", "Item")">
+				            Manufacturers
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "Models")">
+			            <a href="@Url.Action("Models", "Item")">
+				            Models
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "TitleStatuses")">
+			            <a href="@Url.Action("TitleStatuses", "Item")">
+				            Car Statuses
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "TitleBrands")">
+			            <a href="@Url.Action("TitleBrands", "Item")">
+				            Title Brands
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "CarOptions")">
+			            <a href="@Url.Action("CarOptions", "Item")">
+				            Car Options
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "ExpenseTypes")">
+			            <a href="@Url.Action("ExpenseTypes", "Item")">
+				            Expense Types
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "Warranties")">
+			            <a href="@Url.Action("Warranties", "Item")">
+				            Warranties
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "PlateTrucking")">
+			            <a href="@Url.Action("PlateTrucking", "Item")">
+				            Plates Trucking
+			            </a>
+		            </li>
+		            }
+		            <li class="@Html.IsSelected(controller: "Management", action: "SqlManager")">
+			            <a href="@Url.Action("SqlManager", "Management")">
+				            Sql Manager
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "InventoryPartSales")">
+			            <a href="@Url.Action("InventoryPartSales", "Item")">
+				            Inventory Part Sales
+			            </a>
+		            </li>
+		            <li class="@Html.IsSelected(controller: "Item", action: "TitleStatusDue")">
+						<a href="@Url.Action("TitleStatusDue", "Item")">
+							Title Status Due
+						</a>
+		            </li>
+	            </ul>
+            </li>
+        @if (!Html.IsRestricted())
+        {
+	        <li class="@Html.IsSelected(actions: new[] {"Published", "Sold", "PartsOnly", "EditPublished", "EditSold"})">
+		        <a href="">
+			        <i class="fa fa-buysellads"></i>
+			        <span class="nav-label ng-binding">Sales & Purchase</span><span class="fa arrow"></span>
+		        </a>
+		        <ul class="nav nav-second-level collapse">
+			        <li class="@Html.IsSelected(controller: "Item", action: "Published")">
+				        <a href="@Url.Action("Published", "Item")">
+					        Inventory
+				        </a>
+			        </li>
+			        <li class="@Html.IsSelected(controller: "Item", action: "Sold")">
+				        <a href="@Url.Action("Sold", "Item")">
+					        Sold Inventory
+				        </a>
+			        </li>
+
+			        <li class="@Html.IsSelected(controller: "Item", action: "PartsOnly")">
+				        <a href="@Url.Action("PartsOnly", "Item")">
+					        Parts Only
+				        </a>
+			        </li>
+			        <li class="@Html.IsSelected(controller: "Item", action: "Archived")">
+				        <a href="@Url.Action("Archived", "Item")">
+					        Archived
+				        </a>
+			        </li>
+		        </ul>
+	        </li>
+        }
+            @if (Html.IsAdmin() && !Html.IsRestricted()) {
+                <li class="@Html.IsSelected(actions: new[] {"Users", "Roles"})">
+                    <a href="">
+                        <i class="fa fa-buysellads"></i>
+                        <span class="nav-label ng-binding">Users & Permissions</span><span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li class="@Html.IsSelected(controller: "Account", action: "Roles")">
+                            <a href="@Url.Action("Roles", "Account")">
+                                Roles
+                            </a>
+                        </li>
+                        <li class="@Html.IsSelected(controller: "Account", action: "Users")">
+                            <a href="@Url.Action("Users", "Account")">
+                                Users
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+</nav>

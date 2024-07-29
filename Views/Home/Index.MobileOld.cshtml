@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "../Shared/_Layout.Mobile.cshtml";
+}
+<style>
+    .layer {
+        position: absolute;
+        width: 108%;
+        height: 8%;
+        background: #414141;
+        bottom: 0;
+        margin: 0;
+        padding: 10px;
+        top: 0;
+        font-size: 13px;
+        line-height: 8px;
+        transform-origin: center center 0;
+    }
+    .layer .desc {
+        font-family: DroidSans, Arial, Verdana, sans-serif;
+        color: #fff;
+        font-weight: bold;
+    }
+</style>
+
+<link href="~/Assets/jquery/jquery.prettyPhoto.css" rel="stylesheet" />
+<link href="~/Assets/masterslider/style/masterslider.css" rel="stylesheet" />
+<link href="~/Assets/masterslider/skins/default/style.css" rel="stylesheet" />
+<div class="ms-layers-template" ng-controller="HomeController">
+    <!-- masterslider -->
+    <div class="master-slider round-skin" id="masterslider">
+        <div class="ms-slide slide-1" style="z-index: 10;" ng-repeat="best in BestOffer">
+            <img ng-src="{{AppServices.Management.GetImageUrl('no-car-image-lg.jpg')}}" alt="Slide" style="width: 100%;">
+            <img ng-src="{{best.ImageLg}}" style="width: 100%;" alt="Slide">
+
+            <div class="layer">
+                <h3 class="bold-title"
+                    style="color:white">
+                    {{best.Description}}
+                </h3>
+            </div>
+
+
+
+            @*<h3 class="ms-layer light-title" style="right:114px; bottom: 1px;color:cornflowerblue"
+                    data-effect="left(short)"
+                    data-duration="500"
+                    data-delay="500"
+                    data-ease="easeOutExpo">
+                    ${{best.RetailCost |number}}
+                </h3>*@
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Assets/masterslider/jquery.easing.min.js"></script>
+    <script src="~/Assets/masterslider/masterslider.js"></script>
+    <script src="~/Assets/jquery/jquery.prettyPhoto.js"></script>
+    
+}
+

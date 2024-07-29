@@ -1,0 +1,1595 @@
+﻿
+@model dynamic
+
+@{
+    ViewBag.Title = "Edit Sold";
+}
+<style>
+    input[type="file"] {
+        /* Note: display:none on the input won't trigger the click event in WebKit.
+     Setting visibility to hidden and width 0 works.*/
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
+
+    #carForm .input-group-addon {
+        border: none;
+    }
+</style>
+<div class="tabs-container" ng-controller="SoldEditController" ng-cloak>
+    <h5 class="text-uppercase mb10 bold" ng-show="EditableObject.IsNew==false">{{EditableObject.Description}} ({{EditableObject.Vin}})</h5>
+    <h5 class="text-uppercase mb10 bold" ng-show="EditableObject.IsNew">Add New To Sold</h5>
+    <form role="form" ng-submit="SaveData()" id="carForm">
+        <p>
+
+            <div class="btn-group">
+                <button class="btn btn-sm btn-white btn-bitbucket" type="submit">
+                    <i class="fa fa-save"></i> Save
+                </button>
+            </div>
+            <div class="btn-group" uib-dropdown>
+                <button class="btn btn-white btn-sm uib-dropdown-toggle" uib-dropdown-toggle type="button" aria-haspopup="true" aria-expanded="true">
+                    <i class="fa fa-share"></i> Move To <span class="caret"></span>
+                </button>
+                <ul uib-dropdown-menu class="pull-left" role="menu">
+                    <li><a href="" ng-click="MoveToPublished(EditableObject)">Published</a></li>
+                    <li><a href="" ng-click="MoveToPartsOnly(EditableObject)">Parts Only</a></li>
+                </ul>
+            </div>
+            
+            @*<a class="btn btn-sm btn-white btn-bitbucket" ng-click="PrintBillOfSale(EditableObject)">
+                    <i class="fa fa-print"></i> Bill Of Sale
+                </a>*@
+
+            <a class="btn btn-sm btn-white btn-bitbucket" ng-click="OpenItemClientPage(EditableObject.Id)">
+                <i class="fa fa-globe"></i> Client Page
+            </a>
+
+            <div class="btn-group" uib-dropdown>
+	            <button class="btn btn-white btn-sm uib-dropdown-toggle" uib-dropdown-toggle type="button" aria-haspopup="true" aria-expanded="true">
+		            <i class="fa fa-print"></i> Print <span class="caret"></span>
+	            </button>
+	            <ul uib-dropdown-menu class="pull-left" role="menu">
+		            <li><a href="" ng-click="PrintBillOfSale(EditableObject)">Bill Of Sale</a></li>
+		            <li><a href="" ng-click="PrintBillOfSaleInsurance(EditableObject)">Buyer/Driver agreement</a></li>
+		            <li><a href="" ng-click="PrintOdisloser(EditableObject)">Odometer Discloser</a></li>
+		            <li><a href="" ng-click="PrintVehicleRepairInvoice(EditableObject)">Vehicle Repair Invoice</a></li>
+		            <li><a href="" ng-click="PrintDealerRegPlatePermit(EditableObject)">Dealer Registration Plate Permit</a></li>
+		            <li>
+			            <a href="" ng-click="PrintBuyerGuide(EditableObject)">Buyer Guide</a>
+		            </li>
+		            <li>
+			            <a href="" ng-click="AppServices.Common.PrintPreview()"><i class="fa fa-print"></i> Print Preview CTRL+P</a>
+		            </li>
+
+	            </ul>
+            </div>
+            <div class="btn-group" uib-dropdown>
+	            <button class="btn btn-white btn-sm uib-dropdown-toggle" uib-dropdown-toggle type="button" aria-haspopup="true" aria-expanded="true">
+		            <i class="fa fa-print"></i> Print Cflo <span class="caret"></span>
+	            </button>
+	            <ul uib-dropdown-menu class="pull-left" role="menu">
+		            <li><a href="" ng-click="PrintBillOfSaleCflo(EditableObject)">Bill Of Sale</a></li>
+		            <li><a href="" ng-click="PrintBillOfSaleInsuranceCflo(EditableObject)">Buyer/Driver agreement</a></li>
+		            <li><a href="" ng-click="PrintOdisloserCflo(EditableObject)">Odometer Discloser</a></li>
+		            <li><a href="" ng-click="PrintVehicleRepairInvoiceCflo(EditableObject)">Vehicle Repair Invoice</a></li>
+		            <li><a href="" ng-click="PrintDealerRegPlatePermitCflo(EditableObject)">Dealer Registration Plate Permit</a></li>
+		            <li>
+			            <a href="" ng-click="PrintBuyerGuideCflo(EditableObject)">Buyer Guide</a>
+		            </li>
+		            <li>
+			            <a href="" ng-click="AppServices.Common.PrintPreview()"><i class="fa fa-print"></i> Print Preview CTRL+P</a>
+		            </li>
+
+	            </ul>
+            </div>
+            <div class="btn-group">
+                <a class="btn btn-sm btn-white btn-bitbucket" ng-click="GoToSold()">
+                    <i class="fa fa-arrow-left"></i> Back To List
+                </a>
+                <div class="an-save" ng-show="Options.Notification.Show">
+                    <i class="fa fa-check"></i> <span>{{Options.Notification.Message}}</span>
+                </div>
+            </div>
+            <a style="width: 140px; height: 105px; position: absolute; top: 10px; right: 10px; margin: 0; cursor: pointer;" ng-href="{{OriginalObject.ImageUrl}}" target="_blank"  class="lightup-on-hover">
+                <img ng-if="OriginalObject.ImageUrl!=null"
+                     class="img-shadow"
+                     ng-src="{{OriginalObject.ImageUrl}}"
+                     alt="Picture"
+                     style="width: 100%;height: 100%"
+                      />
+            </a>
+        </p>
+
+        <uib-tabset>
+            <uib-tab>
+                <uib-tab-heading>
+                    General
+                </uib-tab-heading>
+                <div class="panel-body">
+                    <fieldset class="form-horizontal">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group">
+	                            <label for="Type" class="col-sm-4 control-label"> Status:</label>
+	                            <div class="col-sm-4 col-md-4 col-lg-4" style="padding-top: 5px;">
+		                            <label class="label label-info" ng-show="OriginalObject.DocType==1">Published</label>
+		                            <label class="label label-info" ng-show="OriginalObject.DocType==2">Sold</label>
+	                            </div>
+                            </div>
+                            @if (Request.Url.Host.Contains("carsflout") || Request.Url.Host.Contains("localhost"))
+                            {
+	                            <div class="form-group">
+		                            <label class="col-sm-4 col-md-4 col-lg-4 control-label">Affiliate:</label>
+		                            <div class="col-sm-8 col-md-8 col-lg-8">
+			                            <select width="300"
+			                                    no-results-text="No Affiliate Selected"
+			                                    allow-single-deselect="true"
+			                                    placeholder-text-multiple="Choose Affiliate"
+			                                    chosen
+                                                disabled="disabled"
+			                                    multiple
+			                                    tabindex="4"
+			                                    ng-model="EditableObject.Affiliate"
+			                                    ng-options="af.Value as af.Text for af in Affiliates">
+											
+			                            </select>
+		                            </div>
+	                            </div>
+                            }
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-4 col-lg-4 control-label">Vin:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm" id="Vin" placeholder="" ng-model="EditableObject.Vin" required="">
+                                            <div class="input-group-btn" uib-dropdown>
+                                                <button class="btn btn-white btn-sm uib-dropdown-toggle" uib-dropdown-toggle type="button" aria-haspopup="true" aria-expanded="true">
+                                                    Action <span class="caret"></span>
+                                                </button>
+                                                <ul uib-dropdown-menu class="pull-right" role="menu">
+                                                    <li>
+                                                        <a href="http://www.vindecoder.net/?vin={{EditableObject.Vin}}&submit=Decode"
+                                                           target="_blank">Verify For Import</a>
+                                                    </li>
+                                                    <li><a href="" ng-click="ImportItem()">Import</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Type" class="col-sm-4 col-md-4 col-lg-4 control-label">Type:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <select ng-model="EditableObject.Type" class="form-control  input-sm" id="Type">
+                                            <option value=""></option>
+                                            <option ng-repeat="t in Types" ng-selected="{{t==EditableObject.Type}}" value="{{t}}">{{t}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Year" class="col-sm-4 control-label">Year:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        @*<select ng-model="EditableObject.Year" class="form-control input-sm" id="Year">
+                                                <option value=""></option>
+                                                <option ng-repeat="y in Years" ng-selected="{{y==EditableObject.Year}}" value="{{y}}">{{y}}</option>
+                                            </select>*@
+                                        <select class="form-control input-sm"
+                                                id="Year"
+                                                ng-model="EditableObject.Year"
+                                                ng-options="o as o for o in Years track by o"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Make" class="col-sm-4 control-label required">Make:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.Make" class="form-control input-sm" id="Make" required="">
+                                                <option value=""></option>
+                                                <option ng-repeat="m in Manufacturers" ng-selected="m.Name==EditableObject.Make" value="{{m.Name}}">{{m.Name}}</option>
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenManufacturersPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Model" class="col-sm-4 control-label required">Model:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.Model" class="form-control input-sm" id="Model" required="">
+                                                <option value=""></option>
+                                                <option ng-repeat="m in Models" ng-selected="{{m.Name==EditableObject.Model}}" value="{{m.Name}}">{{m.Name}}</option>
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenModelsPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Trim" class="col-sm-4 control-label">Trim:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <input type="text"
+                                               class="form-control input-sm"
+                                               id="Trim"
+                                               placeholder=""
+                                               ng-model="EditableObject.Trim">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Color" class="col-sm-4 control-label">Color:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.Color" class="form-control input-sm" id="Color">
+                                                <option value=""></option>
+                                                <option ng-repeat="c in Colors" ng-selected="{{c.toLowerCase()==EditableObject.Color.toLowerCase()}}" value="{{c}}">{{c}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="OdometerDef" class="col-sm-4 control-label">Odometer Definition:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.OdometerDef"
+                                                    class="form-control input-sm"
+                                                    id="OdometerDef"
+                                                    ng-options="t.Id as t.Name for t in OdometerDefs"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Mileage" class="col-sm-4 control-label">Miles:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text" prev-comma class="form-control input-sm text-right" id="Mileage" placeholder="" ng-model="EditableObject.Mileage">
+                                    </div>
+                                </div>
+
+                            <div class="form-group">
+
+                                <label for="Type" class="col-sm-4 control-label">Car Status:</label>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <div class="input-group">
+                                        <select ng-model="EditableObject.TitleStatusId" class="form-control input-sm"
+                                                ng-options="t.Id as t.Name for t in TitleStatuses"></select>
+                                        <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenTitleStatusesPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                    <label for="TitleStatusIdLastEditOn" class="col-sm-4 control-label">Car Status Last Edit Date:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm"
+                                               id="TitleStatusIdLastEditOn"
+                                               ng-disabled="true"
+                                               placeholder=""
+                                               date-pick
+                                               ng-model="EditableObject.TitleStatusIdLastEditOn">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TitleStatusIdLastEditBy" class="col-sm-4 control-label">Car Status Last Edit By:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm"
+                                               ng-disabled="true"
+                                               id="TitleStatusIdLastEditByName"
+                                               placeholder=""
+                                               ng-model="EditableObject.TitleStatusIdLastEditByName">
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <label for="TitStatus" class="col-sm-4 control-label">Title Status:</label>
+                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                    <div class="input-group">
+                                        <input type="text"
+                                               ng-model="EditableObject.TitStatus"
+                                               disabled="disabled"
+                                               id="TitStatus"
+                                               class="form-control input-sm"
+                                               ng-class="{'color-red':EditableObject.TitStatusState==1 || EditableObject.TitStatusState==2}" />
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-white btn-sm"
+                                                    uib-tooltip="Title Status Tracking"
+                                                    tooltip-placement="top"
+                                                    type="button"
+                                                    ng-click="OpenTitleStatusTracking(EditableObject.Id)">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <label class="i-checks ml5" title="Given To Customer">
+                                                <input icheck
+                                                       id="TitleGivenToCustomer"
+                                                       type="checkbox"
+                                                       ng-model="EditableObject.TitleGivenToCustomer">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                    <label for="TitStatusLastEditOn" class="col-sm-4 control-label">Title Status Last Edit Date:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm"
+                                               id="TitStatusLastEditOn"
+                                               ng-disabled="true"
+                                               placeholder=""
+                                               date-pick
+                                               ng-model="EditableObject.TitStatusLastEditOn">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TitStatusLastEditByName" class="col-sm-4 control-label">Title Status Last Edit By:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm"
+                                               id="TitStatusLastEditByName"
+                                               ng-disabled="true"
+                                               placeholder=""
+                                               ng-model="EditableObject.TitStatusLastEditByName">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="FloorPlan" class="col-sm-4 control-label">Financed By:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.FloorPlan"
+                                                    id="FloorPlan"
+                                                    class="form-control input-sm"
+                                                    ng-options="f.Id as f.Name for f in FloorPlans"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Type" class="col-sm-4 control-label">Title Brand:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            @*<select ng-model="EditableObject.TitleBrand" class="form-control input-sm" id="TitleBrand">
+                                                    <option value=""></option>
+                                                    <option ng-repeat="t in TitleBrands" ng-selected="t.Id==EditableObject.TitleBrand" value="{{t.Id}}">{{t.Description}}</option>
+                                                </select>*@
+                                            <select ng-model="EditableObject.TitleBrand" class="form-control input-sm"
+                                                    ng-options="t.Id as t.Description for t in TitleBrands">
+                                             
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenTitleBrandsPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="DamageType" class="col-sm-4 control-label">Car Condition:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.DamageType"
+                                                    class="form-control input-sm"
+                                                    id="DamageType"
+                                                    ng-options="d.Id as d.Name for d in Damages"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="LotDate" class="col-sm-4 control-label">Lot Date:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm"
+                                               id="LotDate"
+                                               date-pick placeholder=""
+                                               ng-model="EditableObject.LotDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="PurchaseDate" class="col-sm-4 control-label required">Purchase Date:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text" class="form-control input-sm" id="PurchaseDate" date-pick placeholder="" ng-model="EditableObject.PurchaseDate" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="PurchasedFrom" class="col-sm-4 control-label required">Purchased From:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select id="PurchasedFrom" ng-model="EditableObject.PurchasedFromId" class="form-control input-sm" required="">
+                                                <option value=""></option>
+                                                <option ng-repeat="sup in Suppliers" ng-selected="sup.Id==EditableObject.PurchasedFromId" value={{sup.Id}}>{{sup.Name}}</option>
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenCompaniesPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="PurchaseCost" class="col-sm-4 control-label required">Purchase Price:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text" class="form-control text-right input-sm" id="PurchaseCost" placeholder="" ng-model="EditableObject.PurchaseCost" required="">
+                                    </div>
+                                </div>
+                            <div class="form-group">
+	                            <label for="Expenses" class="col-sm-4 control-label required">Expenses:</label>
+	                            <div class="col-sm-4 col-md-4 col-lg-4">
+		                            <input type="text" disabled="" class="form-control text-right input-sm" id="Expenses" placeholder="" ng-model="EditableObject.Expenses">
+	                            </div>
+                            </div>
+                            <div class="form-group">
+	                            <label for="ExpensesClosed" class="col-sm-4 control-label">Expenses Closed:</label>
+	                            <div class="col-sm-1 col-md-1 col-lg-1">
+		                            <label class="i-checks">
+			                            <input icheck
+			                                   id="ExpensesClosed"
+			                                   type="checkbox"
+			                                   ng-model="EditableObject.ExpensesClosed">
+		                            </label>
+	                            </div>
+                            </div>
+                                <div class="form-group">
+                                    <label for="PurchaseCostIncExpenses" class="col-sm-4 control-label required">Total Pur. Price:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control text-right input-sm"
+                                               disabled=""
+                                               id="PurchaseCostIncExpenses"
+                                               placeholder=""
+                                               ng-model="EditableObject.PurchaseCostIncExpenses">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="RetailCost" class="col-sm-4 control-label">Suggested Retail Price:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text" class="form-control text-right input-sm"
+                                               id="SuggestedPrice"
+                                               placeholder=""
+                                               ng-model="EditableObject.SuggestedPrice">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="RetailCost" class="col-sm-4 control-label required">Cash Price:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text" class="form-control text-right input-sm" id="RetailCost" placeholder="" ng-model="EditableObject.RetailCost" required="">
+                                    </div>
+                                </div>
+                            <div class="form-group">
+	                            <label for="FinancePrice" class="col-sm-4 control-label">Finance Charge:</label>
+	                            <div class="col-sm-4 col-md-4 col-lg-4">
+		                            <input type="text" class="form-control text-right input-sm" id="FinanceCharge" placeholder=""
+		                                   ng-change="CalcFinancePrice()"
+		                                   ng-model-options="{ debounce: 1000 }"
+		                                   ng-model="EditableObject.FinanceCharge">
+	                            </div>
+                            </div>
+                            <div class="form-group">
+	                            <label for="TakenForRepairDate" class="col-sm-4 control-label">Taken For Repair:</label>
+	                            <div class="col-sm-4 col-md-4 col-lg-4">
+		                            <input type="text" class="form-control input-sm" id="TakenForRepairDate" date-pick placeholder="" ng-model="EditableObject.TakenForRepairDate">
+	                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="FinancePrice" class="col-sm-4 control-label">Finance Price:</label>
+                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                    <input type="text" class="form-control text-right input-sm" id="FinancePrice" 
+                                           placeholder="" 
+                                           ng-model-options="{ debounce: 1000 }"
+                                           ng-change="CalcFinanceCharge()"
+                                           ng-model="EditableObject.FinancePrice">
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                    <label for="SoldCost" class="col-sm-4 control-label required">Sold Price:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               ng-blur="OnSoldCostLostFocus()"
+                                               class="form-control text-right input-sm"
+                                               id="SoldCost"
+                                               placeholder=""
+                                               ng-model="EditableObject.SoldCost" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="BillPrice"
+                                           class="col-sm-4 control-label">BoS Price:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control text-right input-sm"
+                                               id="BillPrice"
+                                               placeholder=""
+                                               ng-model="EditableObject.BillPrice">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="SalesTax"
+                                           class="col-sm-4 control-label">Sales Tax:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control text-right input-sm"
+                                               id="SalesTax"
+                                               placeholder=""
+                                               ng-model="EditableObject.SalesTax">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="RegistrationFee"
+                                           class="col-sm-4 control-label">Registration Fee:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control text-right input-sm"
+                                               id="RegistrationFee"
+                                               placeholder=""
+                                               ng-model="EditableObject.RegistrationFee">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="MiscFee"
+                                           class="col-sm-4 control-label">Misc. Fee:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control text-right input-sm"
+                                               id="MiscFee"
+                                               placeholder=""
+                                               ng-model="EditableObject.MiscFee">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="SoldDate" class="col-sm-4 control-label required">Sold Date:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm" id="SoldDate" date-pick placeholder="" ng-model="EditableObject.SoldDate" required=""
+                                               ng-blur="OnSoldDateLostFocus()">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="BillDate" class="col-sm-4 control-label required">BoS Date:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text" class="form-control input-sm" id="BillDate" date-pick placeholder="" ng-model="EditableObject.BillDate" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="SoldToId" class="col-sm-4 control-label required">Sold To:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.SoldToId"
+                                                    class="form-control input-sm"
+                                                    id="SoldToId"
+                                                    ng-options="c.Id as c.Name for c in Customers"></select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenCompaniesPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="OwnershipId" class="col-sm-4 control-label">Partner:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.OwnershipId"
+                                                    id="OwnershipId"
+                                                    ng-options="f.Id as f.Name for f in Partners"
+                                                    ng-change="OwnershipChanged()"
+                                                    class="form-control input-sm">
+                                                <option value=""></option>
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenPartnersPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="OwnershipRatio" class="col-sm-4 control-label">Ownership Ratio:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <div class="input-group">
+                                            <input type="text"
+                                                   class="form-control text-right input-sm"
+                                                   id="OwnershipRatio"
+                                                   placeholder=""
+                                                   ng-model="EditableObject.OwnershipRatio">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="SoldToId" class="col-sm-4 control-label">How Did Customer Hear About Us:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <select ng-model="EditableObject.CustomerCameFrom"
+                                                class="form-control input-sm"
+                                                id="CustomerCameFrom"
+                                                ng-options="cm as cm for cm in Ads"></select>
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <label for="SoldToId" class="col-sm-4 control-label required">Salesman:</label>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <select ng-model="EditableObject.SalesmanId"
+                                            class="form-control input-sm"
+                                            id="SalesmanId"
+                                            ng-options="sm.Id as sm.UserName for sm in Salesman"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="DriverLicense" class="col-sm-4 control-label">Driver License:</label>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <input type="text" 
+                                           class="form-control input-sm" 
+                                           id="DriverLicense" placeholder="" 
+                                           ng-model="EditableObject.DriverLicense">
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                    <label for="SoldToName" class="col-sm-4 control-label">Buyer Name:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <input type="text" class="form-control input-sm" id="SoldToName" placeholder="" ng-model="EditableObject.SoldToName">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="SoldToPhone" class="col-sm-4 control-label">Buyer Phone:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <input type="text" class="form-control input-sm" id="SoldToPhone" placeholder="" ng-model="EditableObject.SoldToPhone">
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <label for="SoldToAddress" class="col-sm-4 control-label">Buyer Addr.:</label>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <textarea class="form-control input-sm" id="SoldToAddress" placeholder=""
+                                                  ng-model="EditableObject.SoldToAddress"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title">
+                                            <a data-toggle="collapse"
+                                               data-parent="#accordion"
+                                               href="#collapseOne"><i class="fa fa-toggle-on"> </i> Insurance</a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <label for="InsCompany" 
+                                                       class="col-sm-4 control-label">Company:</label>
+                                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                                    <input type="text" class="form-control input-sm" 
+                                                           id="InsCompany" 
+                                                           placeholder="" 
+                                                           ng-model="EditableObject.InsCompany">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InsCompany"
+                                                       class="col-sm-4 control-label">Policy No.:</label>
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                                    <input type="text" class="form-control input-sm"
+                                                           id="InsNo"
+                                                           placeholder=""
+                                                           ng-model="EditableObject.InsNo">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InsCompany"
+                                                       class="col-sm-4 control-label">Effective Date:</label>
+                                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                                    <input type="text"
+                                                           class="form-control input-small"
+                                                           placeholder=""
+                                                           date-pick
+                                                           ng-model="EditableObject.InsEffectiveDate">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InsCompany"
+                                                       class="col-sm-4 control-label">Expiration Date:</label>
+                                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                                    <input type="text"
+                                                           class="form-control input-small"
+                                                           placeholder=""
+                                                           date-pick
+                                                           ng-model="EditableObject.InsExpirationDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PlateTrackNo" class="col-sm-4 control-label">Plate Track No:</label>
+                                <div class="col-sm-8 col-md-8 col-lg-8">
+                                    <select ng-model="EditableObject.PlateTrackNo"
+                                            class="form-control input-sm"
+                                            id="PlateTrackNo"
+                                            ng-options="pl as pl for pl in Plates"></select>
+                                </div>
+                            </div>
+                            <div class="v-line-dashed"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="hr-line-dashed"></div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="WarrantyId" class="col-sm-4 control-label">Warranty:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <select ng-model="EditableObject.WarrantyId"
+                                                id="WarrantyId"
+                                                class="form-control input-sm"
+                                                ng-options="t.Id as t.Name for t in Warranties"></select>
+                                        @*<select ng-model="EditableObject.WarrantyId" class="form-control input-sm" id="Warranty">
+                                                <option value=""></option>
+                                                <option ng-repeat="y in Warranties" ng-selected="y.Id==EditableObject.WarrantyId" value="{{y.Id}}">{{y.Name}}</option>
+                                            </select>*@
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="AdminComment" class="col-sm-4 control-label">Comments:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <textarea class="form-control input-sm" id="AdminComment" placeholder="" ng-model="EditableObject.Comment" rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ClientComment" class="col-sm-4 control-label">Client Comments:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <textarea class="form-control input-sm" id="ClientComment" placeholder="" ng-model="EditableObject.CommentForClient" rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Advertisments" class="col-sm-4 control-label">Advertisments:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <textarea class="form-control input-sm"
+                                                  id="Advertisments"
+                                                  placeholder="Advertisments source on each line"
+                                                  ng-model="EditableObject.Advertisments" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="Rebuildable" class="col-sm-4 control-label">Rebuilded:</label>
+                                    <div class="col-sm-1 col-md-1 col-lg-1">
+                                        <label class="i-checks">
+                                            <input icheck
+                                                   id="Rebuildable"
+                                                   type="checkbox"
+                                                   ng-model="EditableObject.Rebuildable">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="PriceNegotiable" class="col-sm-4 control-label">Price Negotiable:</label>
+                                    <div class="col-sm-1 col-md-1 col-lg-1">
+                                        <label class="i-checks">
+                                            <input icheck
+                                                   id="PriceNegotiable"
+                                                   type="checkbox"
+                                                   ng-model="EditableObject.PriceNegotiable">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="BestOffer" class="col-sm-4 control-label">Best Offer:</label>
+                                    <div class="col-sm-1 col-md-1 col-lg-1">
+                                        <label class="i-checks">
+                                            <input icheck
+                                                   id="BestOffer"
+                                                   type="checkbox"
+                                                   ng-model="EditableObject.BestOffer">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="PriceNegotiable" class="col-sm-4 control-label">Display At Home:</label>
+                                    <div class="col-sm-1 col-md-1 col-lg-1">
+                                        <label class="i-checks">
+                                            <input icheck
+                                                   id="DisplayAtHome"
+                                                   type="checkbox"
+                                                   ng-model="EditableObject.DisplayAtHome">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="DisplayInCarList" class="col-sm-4 control-label">Display In Cars:</label>
+                                    <div class="col-sm-1 col-md-1 col-lg-1">
+                                        <label class="i-checks">
+                                            <input icheck
+                                                   id="DisplayInCarList"
+                                                   type="checkbox"
+                                                   ng-model="EditableObject.DisplayInCarList">
+                                        </label>
+                                    </div>
+                                </div>
+	                            <div class="form-group">
+		                            <label for="DealStatus" class="col-sm-4 control-label">Deal Status:</label>
+		                            <div class="col-sm-8 col-md-8 col-lg-8">
+			                            <div class="input-group">
+				                            <select ng-model="EditableObject.DealStatus"
+				                                    id="DealStatus"
+				                                    class="form-control input-sm"
+				                                    ng-options="f.Name as f.Name for f in DealStatuses"></select>
+			                            </div>
+		                            </div>
+	                            </div>
+	                            <div class="form-group">
+		                            <label for="DealStatusDate" class="col-sm-4 control-label">Deal Status Date:</label>
+		                            <div class="col-sm-4 col-md-4 col-lg-4">
+			                            <input type="text"
+			                                   id="DealStatusDate"
+			                                   class="form-control"
+			                                   placeholder=""
+			                                   date-pick
+			                                   ng-model="EditableObject.DealStatusDate">
+		                            </div>
+	                            </div>
+	                            <div class="form-group">
+		                            <label for="DealClosedDate" class="col-sm-4 control-label">Deal Closed Date:</label>
+		                            <div class="col-sm-4 col-md-4 col-lg-4">
+			                            <input type="text"
+			                                   id="DealClosedDate"
+			                                   class="form-control"
+			                                   placeholder=""
+			                                   date-pick
+			                                   ng-model="EditableObject.DealClosedDate">
+		                            </div>
+	                            </div>
+                                <div class="form-group">
+                                    <label for="ClientComment" class="col-sm-4 control-label">Deal Status Comments:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <textarea class="form-control input-sm"
+                                                  id="DealStatusComment"
+                                                  placeholder=""
+                                                  ng-model="EditableObject.DealStatusComment" 
+                                                  rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading>
+                    Payment
+                </uib-tab-heading>
+                <div class="panel-body" ng-controller="ItemPaymentController">
+                    <div contextmenu="grid.contextmenu" class="dropdown contextmenu">
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="javascript:void(0);" ng-click="AddNew()">
+                                    <i class="fa fa-plus"></i>  Add New
+                                </a>
+                            </li>
+                            <li class="divider" ng-show="grid.contextmenu.$item!=null"></li>
+                            <li ng-show="grid.contextmenu.$item!=null">
+                                <a role="menuitem" tabindex="-1" href ng-click="AppServices.Common.CopySelectionToClipboard()">
+                                    <i class="fa fa-copy"></i>  Copy
+                                </a>
+                            </li>
+
+                            <li class="divider" ng-show="grid.contextmenu.$item!=null"></li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="BeginEditRow(grid.contextmenu.$item)"
+                                   ng-show="grid.contextmenu.$item!=null">
+                                    <i class="fa fa-edit"></i>  Edit
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="DeleteRow(grid.contextmenu.$item,true)"
+                                   ng-show="grid.contextmenu.$item!=null">
+                                    <i class="fa fa-remove"></i> Delete
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="DeleteSelectedRows(true)"
+                                   ng-show="grid.contextmenu.$item!=null">
+                                    <i class="fa fa-remove"></i>  Delete Selected
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="table-scrollable mt25 clearfix">
+                        <table st-table="VisibleRows"
+                               st-safe-src="Rows"
+                               st-pipe="LoadExpenses"
+                               contextmenu-container="grid.contextmenu"
+                               class="table table-striped table-bordered table-advance table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-cell">
+                                        <label class="i-checks">
+                                            <input icheck
+                                                   type="checkbox"
+                                                   ng-model="Selection.AllSelected">
+                                        </label>
+                                    </th>
+                                    <th st-sort="PaymentTypeId">Payment Type</th>
+                                    <th st-sort="PaymentMethodId">Payment Method</th>
+                                    <th st-sort="PaymentDate">Payment Date</th>
+                                    <th st-sort="PaymentAmount">Payment Amount</th>
+                                    @*<th st-sort="OutstandingAmount">Outstanding</th>*@
+                                    <th st-sort="Comments">Comments</th>
+                                    <th st-sort="CreatedByUser.Name">Created By</th>
+                                    <th st-sort="CreatedOn">Created On</th>
+                                    <th st-sort="LastEditByUser.Name">Last Edit By</th>
+                                    <th st-sort="LastEditOn">Last Edit On</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr tabindex="0"
+                                    ng-esc="CancelEditRow(row)"
+                                    ng-focus="OnRowClicked(row)"
+                                    ng-dblclick="BeginEditRow(row)"
+                                    contextmenu-item="row"
+                                    ng-class="{'editing':row.Editing==true,'dirty':row.IsDirty}"
+                                    ng-repeat="row in VisibleRows|filter:SetRowVisibility"
+                                    ng-include="GetTemplate(row)"></tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    <table class="table invoice-total">
+                        <tbody>
+                            <tr>
+                                <td><strong>Paid Amount:</strong></td>
+                                <td>{{EditableObject.TotalPaidAmount|currency}}</td>
+                            </tr>
+                            <tr ng-class="{'color-green':EditableObject.TotalDue==0,'color-red':EditableObject.TotalDue>0 || EditableObject.TotalDue<0}">
+                                <td><strong>Due :</strong></td>
+                                <td>{{EditableObject.TotalDue|currency}}</td>
+                            </tr>
+                        <tr>
+                                <td><strong>Paid Amount BoS :</strong></td>
+                                <td class="no-outline" style="padding: 0!important">
+                                    <input type="text"
+                                           class="form-control input-sm text-right " 
+                                           id="TotalPaidAmountBoS"
+                                           placeholder=""
+                                           ng-blur="OnTotalPaidAmountBoSLostFocus()"
+                                           ng-model="EditableObject.TotalPaidAmountBoS"> 
+                                </td>
+                            </tr>
+                            <tr ng-class="{'color-green':EditableObject.TotalDueBoS==0,'color-red':EditableObject.TotalDueBoS>0 || EditableObject.TotalDueBoS<0}">
+                                <td><strong>Due BoS :</strong></td>
+                                <td>{{EditableObject.TotalDueBoS|currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading>
+                    Trade In
+                </uib-tab-heading>
+                <div class="panel-body">
+                    <fieldset class="form-horizontal">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-md-4 col-lg-4 control-label">Vin:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <input type="text" class="form-control input-sm"
+                                               placeholder=""
+                                               ng-model="EditableObject.TradeVin">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Year" class="col-sm-4 control-label">Year:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <select class="form-control input-sm"
+                                                ng-model="EditableObject.TradeYear"
+                                                ng-options="o as o for o in Years track by o"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Make" class="col-sm-4 control-label">Make:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.TradeMake"
+                                                    class="form-control input-sm">
+                                                <option value=""></option>
+                                                <option ng-repeat="m in Manufacturers" ng-selected="m.Name==EditableObject.TradeMake" value="{{m.Name}}">{{m.Name}}</option>
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenManufacturersPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Model" class="col-sm-4 control-label">Model:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.TradeModel" class="form-control input-sm">
+                                                <option value=""></option>
+                                                <option ng-repeat="m in TradeModels"
+                                                        ng-selected="{{m.Name==EditableObject.TradeModel}}"
+                                                        value="{{m.Name}}">
+                                                    {{m.Name}}
+                                                </option>
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-white btn-sm" ng-click="OpenModelsPage()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Color" class="col-sm-4 control-label">Color:</label>
+                                    <div class="col-sm-8 col-md-8 col-lg-8">
+                                        <div class="input-group">
+                                            <select ng-model="EditableObject.TradeColor" class="form-control input-sm">
+                                                <option value=""></option>
+                                                <option ng-repeat="c in Colors" ng-selected="{{c.toLowerCase()==EditableObject.TradeColor.toLowerCase()}}" value="{{c}}">{{c}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="Mileage" class="col-sm-4 control-label">Miles:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm text-right"
+                                               placeholder=""
+                                               ng-model="EditableObject.TradeMiles">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Trade In Price:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm text-right"
+                                               placeholder=""
+                                               ng-blur="OnTradePriceLostFocus()"
+                                               ng-model="EditableObject.TradePrice">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">BoS Trade In Price:</label>
+                                    <div class="col-sm-4 col-md-4 col-lg-4">
+                                        <input type="text"
+                                               class="form-control input-sm text-right"
+                                               placeholder=""
+                                               ng-model="EditableObject.BillTradePrice">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </uib-tab>
+            <uib-tab ng-show="EditableObject.ExpensesClosed==false">
+                <uib-tab-heading>
+                    Expenses
+                </uib-tab-heading>
+                <div class="panel-body" ng-controller="PublishedExpensesController">
+                    <div contextmenu="grid.contextmenu" class="dropdown contextmenu">
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="javascript:void(0);" ng-click="AddNew()">
+                                    <i class="fa fa-plus"></i>  Add New
+                                </a>
+                            </li>
+                            <li class="divider" ng-show="grid.contextmenu.$item!=null"></li>
+                            <li ng-show="grid.contextmenu.$item!=null">
+                                <a role="menuitem" tabindex="-1" href ng-click="AppServices.Common.CopySelectionToClipboard()">
+                                    <i class="fa fa-copy"></i>  Copy
+                                </a>
+                            </li>
+
+                            <li class="divider" ng-show="grid.contextmenu.$item!=null"></li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="BeginEditRow(grid.contextmenu.$item)"
+                                   ng-show="grid.contextmenu.$item!=null">
+                                    <i class="fa fa-edit"></i>  Edit
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="DeleteRow(grid.contextmenu.$item,true)"
+                                   ng-show="grid.contextmenu.$item!=null">
+                                    <i class="fa fa-remove"></i>  Delete
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="table-scrollable mt25 clearfix">
+                        <table st-table="VisibleRows"
+                               st-safe-src="Rows"
+                               st-pipe="LoadExpenses"
+                               contextmenu-container="grid.contextmenu"
+                               class="table table-striped table-bordered table-advance table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-cell">
+                                        <label class="i-checks">
+                                            <input icheck
+                                                   type="checkbox"
+                                                   ng-model="Selection.AllSelected">
+                                        </label>
+                                    </th>
+                                    <th st-sort="ExpenseType">Expense Type</th>
+                                    <th st-sort="ExpenseDate">Expense Date</th>
+                                    <th st-sort="ExpenseAmount">Expense Amount</th>
+                                    <th st-sort="Comments">Comments</th>
+                                    <th st-sort="CreatedByUser.Name">Created By</th>
+                                    <th st-sort="CreatedOn">Created On</th>
+                                    <th st-sort="LastEditByUser.Name">Last Edit By</th>
+                                    <th st-sort="LastEditOn">Last Edit On</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr tabindex="0"
+                                    ng-esc="CancelEditRow(row)"
+                                    ng-focus="OnRowClicked(row)"
+                                    ng-dblclick="BeginEditRow(row)"
+                                    contextmenu-item="row"
+                                    ng-class="{'editing':row.Editing==true,'dirty':row.IsDirty}"
+                                    ng-repeat="row in VisibleRows|filter:SetRowVisibility"
+                                    ng-include="GetTemplate(row)"></tr>
+                                <tr>
+                                    <td colspan="3" class="text-right">
+                                        <b class="label label-warning">Total Expenses:</b>
+                                    </td>
+                                    <td class="text-left bold">{{TotalExpenses|currency}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading>
+                    Options
+                </uib-tab-heading>
+                <div class="panel-body" ng-controller="ItemOptionsController">
+                    <div class="table-scrollable">
+                        <table st-table="ItemOptions"
+                               class="table table-striped table-bordered table-advance table-hover">
+                            <thead>
+                            <tr>
+                                <th class="checkbox-cell">
+                                    <label class="i-checks">
+                                        <input icheck
+                                               type="checkbox"
+                                               ng-model="Selection.AllSelected">
+                                    </label>
+                                </th>
+                                <th st-sort="Name">Name</th>
+                                <th st-sort="Category">Category</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="opt in VisibleRows">
+                                <td class="checkbox-cell">
+                                    <input icheck
+                                           type="checkbox"
+                                           ng-change="SelectRow(opt)"
+                                           ng-model="opt.Selected">
+                                </td>
+                                <td>{{opt.Name}}</td>
+                                <td>{{opt.Category}}</td>
+                            </tr>
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="checkbox-cell">
+                                    <label class="i-checks">
+                                        <input icheck
+                                               type="checkbox"
+                                               ng-model="Selection.AllSelected">
+                                    </label>
+                                </th>
+                                <th st-sort="Name">Name</th>
+                                <th st-sort="Category">Category</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading>
+                    Issues
+                </uib-tab-heading>
+                <div class="panel-body" ng-controller="ItemIssuesController">
+                    <div contextmenu="grid.contextmenu" class="dropdown contextmenu">
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="AddNew()"
+                                   ng-if="CanAddRow()">
+                                    <i class="fa fa-plus"></i>  Add New
+                                </a>
+                            </li>
+                            <li class="divider" ng-show="grid.contextmenu.$item!=null"></li>
+                            <li>
+                                <a role="menuitem" tabindex="-1"
+                                   ng-show="grid.contextmenu.$item!=null"
+                                   href ng-click="AppServices.Common.CopySelectionToClipboard()">
+                                    <i class="fa fa-copy"></i>  Copy
+                                </a>
+                            </li>
+
+                            <li class="divider" ng-show="grid.contextmenu.$item!=null"></li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="BeginEditRow(grid.contextmenu.$item)"
+                                   ng-if="CanUpdateRow(grid.contextmenu.$item)"
+                                   ng-show="grid.contextmenu.$item!=null">
+                                    <i class="fa fa-edit"></i>  Edit
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);"
+                                   ng-click="DeleteRow(grid.contextmenu.$item,true)"
+                                   ng-if="CanDeleteRow(grid.contextmenu.$item)"
+                                   ng-show="grid.contextmenu.$item!=null">
+                                    <i class="fa fa-remove"></i> Delete
+                                </a>
+                            </li>
+                            <li class="divider" ng-show="grid.contextmenu.$item!=null"></li>
+                            <li>
+                                <a role="menu" tabindex="-1" href ng-click="ExportToCsv('Issues')">
+                                    <i class="fa fa-file-excel-o"></i> Export To Csv
+                                </a>
+                            </li>
+                            <li>
+                                <a role="menu" tabindex="-1" href ng-click="ExportToTxt('Issues')">
+                                    <i class="fa fa-file-text"></i> Export To Txt
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="table-scrollable mt25 clearfix">
+                        <table st-table="VisibleRows"
+                               st-safe-src="Rows"
+                               st-pipe="LoadIssues"
+                               contextmenu-container="grid.contextmenu"
+                               class="table table-striped table-bordered table-advance table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-cell">
+                                        <label class="i-checks">
+                                            <input icheck
+                                                   type="checkbox"
+                                                   ng-model="Selection.AllSelected">
+                                        </label>
+                                    </th>
+                                    <th st-sort="IssueType">Issue Type</th>
+                                    <th st-sort="IssueName">Issue Name</th>
+                                    <th st-sort="EstimatedOn">EstimatedOn</th>
+                                    <th st-sort="RepairCost">Repair Cost</th>
+                                    <th st-sort="IssueStatus">IssueStatus</th>
+                                    <th st-sort="Comments">Comments</th>
+                                    <th st-sort="CreatedByUser.Name">Created By</th>
+                                    <th st-sort="CreatedOn">Created On</th>
+                                    <th st-sort="LastEditByUser.Name">Last Edit By</th>
+                                    <th st-sort="LastEditOn">Last Edit On</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr tabindex="0"
+                                    ng-esc="CancelEditRow(row)"
+                                    ng-focus="OnRowClicked(row)"
+                                    ng-dblclick="BeginEditRow(row)"
+                                    contextmenu-item="row"
+                                    ng-class="{'editing':row.Editing==true,'dirty':row.IsDirty}"
+                                    ng-repeat="row in VisibleRows|filter:SetRowVisibility"
+                                    ng-include="GetTemplate(row)"></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab>
+                <uib-tab-heading>
+                    Images
+                </uib-tab-heading>
+                <div class="panel-body" ng-controller="ItemImagesController">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-content">
+                                    <div class="file-manager">
+                                        <h5>Show:</h5>
+                                        <a href="" class="file-control">Documents</a>
+                                        <a href="" class="file-control">Audio</a>
+                                        <a href="" class="file-control active">Images</a>
+
+                                        <div class="hr-line-dashed"></div>
+                                        <input id="fileElem" type="file" nv-file-select="" uploader="uploader" multiple />
+                                        <button class="btn btn-primary btn-block" ng-click="UploadFiles()" type="button" id="fileSelect">Upload Files</button>
+                                        <div class="hr-line-dashed"></div>
+                                        <h5>Folders</h5>
+                                        <ul class="folder-list" style="padding: 0">
+                                            <li ng-class="{'selected': ImageCat=='client'}">
+                                                <a ng-href="javascript:void(0)" ng-click="SetCurrentFolder('client')">
+                                                    <i class="fa fa-folder"></i> Client
+                                                </a>
+                                            </li>
+                                            <li ng-class="{'selected': ImageCat=='auction'}">
+                                                <a ng-href="javascript:void(0)" ng-click="SetCurrentFolder('auction')">
+                                                    <i class="fa fa-folder"></i> Auction
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.Partial("ImagesPartial")
+                    </div>
+                    @section scripts{
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $('.file-box').each(function () {
+                                    animationHover(this, 'pulse');
+                                });
+                            });
+                        </script>
+                    }
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </form>
+</div>
+
+<script type="text/ng-template" id="displayexp">
+    <td class="checkbox-cell">
+        <input icheck
+               type="checkbox"
+               ng-click="SelectRow(row)"
+               ng-model="row.Selected">
+    </td>
+    <td>{{row.ExpenseType}}</td>
+    <td>{{row.ExpenseDate|date:'MM/dd/yyyy'}}</td>
+    <td>{{row.ExpenseAmount|currency}}</td>
+    <td>{{row.Comments}}</td>
+    <td>{{row.CreatedByUser}}</td>
+    <td>{{row.CreatedOn|date:'MM/dd/yyyy'}}</td>
+    <td>{{row.LastEditByUser}}</td>
+    <td>{{row.LastEditOn|date:'MM/dd/yyyy'}}</td>
+</script>
+<script type="text/ng-template" id="editexp">
+    <td class="checkbox-cell">
+        <input icheck
+               type="checkbox"
+               ng-change="SelectRow(row)"
+               ng-model="row.Selected">
+    </td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.ExpenseType"
+                    ng-do-focus="true"
+                    class="form-control input-sm" id="ExpenseType">
+                <option value=""></option>
+                <option ng-repeat="t in ExpenseTypes" ng-selected="{{t.Name==row.ExpenseType}}" value="{{t.Name}}">{{t.Name}}</option>
+            </select>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-white btn-sm" ng-click="OpenExpenseTypes()">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </span>
+        </div>
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-small"
+               placeholder=""
+               date-pick
+               ng-model="row.ExpenseDate">
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-small currency"
+               placeholder=""
+               ng-model="row.ExpenseAmount">
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-small"
+               placeholder=""
+               ng-model="row.Comments">
+    </td>
+    <td>{{row.CreatedByUser}}</td>
+    <td>{{row.CreatedOn|date:'MM/dd/yyyy'}}</td>
+    <td>{{row.LastEditByUser}}</td>
+    <td>{{row.LastEditOn|date:'MM/dd/yyyy'}}</td>
+</script>
+
+
+<script type="text/ng-template" id="displaypayment">
+    <td class="checkbox-cell">
+        <input icheck
+               type="checkbox"
+               ng-change="SelectRow(row)"
+               ng-model="row.Selected">
+    </td>
+    <td>{{row.PaymentType}}</td>
+    <td>{{row.PaymentMethod}}</td>
+    <td>{{row.PaymentDate|date:'MM/dd/yyyy'}}</td>
+    <td class="text-right">{{row.PaymentAmount|currency}}</td>
+    @*<td class="text-right" ng-class="{'color-green':row.OutstandingAmount==0,'color-red':row.OutstandingAmount>0 || row.OutstandingAmount<0}">{{row.OutstandingAmount|currency}}</td>*@
+    <td>{{row.Comments}}</td>
+    <td>{{row.CreatedByUser}}</td>
+    <td>{{row.CreatedOn|date:'MM/dd/yyyy'}}</td>
+    <td>{{row.LastEditByUser}}</td>
+    <td>{{row.LastEditOn|date:'MM/dd/yyyy'}}</td>
+</script>
+<script type="text/ng-template" id="editpayment">
+    <td class="checkbox-cell">
+        <input icheck
+               type="checkbox"
+               ng-change="SelectRow(row)"
+               ng-model="row.Selected">
+    </td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.PaymentTypeId"
+                    ng-do-focus="true"
+                    class="form-control input-sm"
+                    id="PaymentTypeId"
+                    ng-options="(k*1) as v for (k,v) in PaymentTypes"></select>
+        </div>
+    </td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.PaymentMethodId"
+                    class="form-control input-sm"
+                    required=""
+                    ng-options="(k*1) as v for (k,v) in PaymentMethods">
+            </select>
+        </div>
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-small"
+               placeholder=""
+               date-pick
+               ng-model="row.PaymentDate">
+    </td>
+    <td class="text-right">
+        <input type="text"
+               class="form-control input-small currency"
+               placeholder=""
+               ng-model="row.PaymentAmount">
+    </td>
+    @*<td class="text-right" 
+        ng-class="{'color-green':row.OutstandingAmount==0,'color-red':row.OutstandingAmount>0 || row.OutstandingAmount<0}">
+      {{row.OutstandingAmount |currency}}
+    </td>*@
+    <td>
+        <input type="text"
+               class="form-control input-small"
+               placeholder=""
+               ng-model="row.Comments">
+    </td>
+    <td>{{row.CreatedByUser}}</td>
+    <td>{{row.CreatedOn|date:'MM/dd/yyyy'}}</td>
+    <td>{{row.LastEditByUser}}</td>
+    <td>{{row.LastEditOn|date:'MM/dd/yyyy'}}</td>
+</script>
+
+<script type="text/ng-template" id="displayissue">
+    <td class="checkbox-cell">
+        <input icheck
+               type="checkbox"
+               ng-click="SelectRow(row)"
+               ng-model="row.Selected">
+    </td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.IssueType"
+                    ng-do-focus="true"
+                    disabled="disabled"
+                    class="form-control input-sm" id="IssueType"
+                    ng-options="f.Id as f.Name for f in IssueTypes"></select>
+        </div>
+    </td>
+    <td>{{row.IssueName}}</td>
+    <td>{{row.EstimatedOn|date:'MM/dd/yyyy'}}</td>
+    <td>{{row.RepairCost|currency}}</td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.IssueStatus"
+                    disabled="disabled"
+                    id="IssueStatus"
+                    class="form-control input-sm"
+                    ng-options="f.Id as f.Name for f in IssueStatuses"></select>
+        </div>
+    </td>
+    <td>{{row.Comments}}</td>
+    <td>{{row.CreatedByUser.UserName}}</td>
+    <td>{{row.CreatedOn|date:'MM/dd/yyyy'}}</td>
+    <td>{{row.LastEditByUser.UserName}}</td>
+    <td>{{row.LastEditOn|date:'MM/dd/yyyy'}}</td>
+</script>
+<script type="text/ng-template" id="editissue">
+    <td class="checkbox-cell">
+        <input icheck
+               type="checkbox"
+               ng-click="SelectRow(row)"
+               ng-model="row.Selected">
+    </td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.IssueType"
+                    ng-do-focus="true"
+                    class="form-control input-sm" id="IssueType"
+                    ng-options="f.Id as f.Name for f in IssueTypes"></select>
+        </div>
+    </td>
+    <td>
+        <input type="text"
+               class="form-control"
+               placeholder=""
+               ng-model="row.IssueName">
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-small"
+               placeholder=""
+               date-pick
+               ng-model="row.EstimatedOn">
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-small currency"
+               placeholder=""
+               ng-model="row.RepairCost">
+    </td>
+    <td>
+        <div class="input-group">
+            <select ng-model="row.IssueStatus"
+                    id="IssueStatus"
+                    class="form-control input-sm"
+                    ng-options="f.Id as f.Name for f in IssueStatuses"></select>
+        </div>
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-small"
+               placeholder=""
+               ng-model="row.Comments">
+    </td>
+
+    <td>{{row.CreatedByUser.UserName}}</td>
+    <td>{{row.CreatedOn|date:'MM/dd/yyyy'}}</td>
+    <td>{{row.LastEditByUser.UserName}}</td>
+    <td>{{row.LastEditOn|date:'MM/dd/yyyy'}}</td>
+</script>

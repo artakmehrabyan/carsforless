@@ -1,0 +1,144 @@
+﻿@using Freemoded.Web.Mvc.Extensions
+@{
+    ViewBag.Title = "Contact Us";
+}
+<section id="car-pagination">
+    <div class="content-holder">
+        <div class="page-main-heading">
+            <div class="heading-location">
+                <h2><span class="bold">Contact</span> us</h2>
+                <p class="page-location">
+                    <a href="@Url.Action("Index")">Home </a>
+                    <span class="greater-than">&gt;&gt;</span>
+                    <a href="@Url.Action("Contact")">Contact Us</a>
+                </p>
+            </div>
+            <div class="extra-info">
+                <h2 class="bold text-shadow title-color">Used Cars Remarketing Factory Outlet</h2>
+                <span class="capitalize">On the Map</span>
+            </div>
+
+        </div>
+
+        <div class="full-width google-maps contact-maps">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12188.825334675857!2d-74.79021002244876!3d40.20447296211651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c15759786d47f1%3A0xf40886a4c6e1d131!2sPrestige+Import+Auto+Sales!5e0!3m2!1sru!2s!4v1436483976129"
+                    frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+
+        <div class="full-width light-grey-corner-box box-text-default">
+            <br />
+            <h3>From Philadelphia International Airport:</h3>
+            <p>Take I-95 North. Follow I-95 North for about 34 miles.</p>
+            <p>Merge onto US-1 N via EXIT 46A toward MORRISVILLE.</p>
+            <p>Take the exit on the LEFT toward PA-32 N / MORRISVILLE</p>
+            <p>Turn SLIGHT RIGHT onto W BRIDGE ST / US-1 ALT.</p>
+            <br />
+            <h3>From Philadelphia International Airport:</h3>
+            <p> Start out going SOUTH on CR-601 / SAM WEINROTH RD / MERCER CTY AIRPORT toward BEAR TAVERN RD / CR-579.</p>
+            <p> Turn LEFT onto BEAR TAVERN RD / CR-579. Continue to follow CR-579.</p>
+            <p> Turn SLIGHT RIGHT onto SULLIVAN WAY / CR-579.</p>
+            <p> SULLIVAN WAY / CR-579 becomes NJ-29 S.</p>
+            <p> Merge onto US-1 S toward MORRISVILLE / TOLL BRIDGE (Portions toll).</p>
+            <p> Take the NORTH PENNSYLVANIA AVE exit toward MORRISVILLE.</p>
+            <p> Turn SLIGHT RIGHT onto S PENNSYLVANIA AVE.</p>
+            <p> Turn LEFT onto W BRIDGE ST / US-1 ALT.</p>
+            <br />
+            <h3>From John F. Kennedy International Airport:</h3>
+            <p> Take JFK EXPY.</p>
+            <p> Take the ramp toward ROCKAWAY BLVD EAST / BELT PKWY WEST / I-678 / VAN WYCK EXPWY.</p>
+            <p> Take the ramp toward BELT PKWY WEST / I-678 / VAN WYCK EXPWY.</p>
+            <p> Merge onto NASSAU EXPY.</p>
+            <p> Turn SLIGHT LEFT to take the RT-27 W / BELT PKWY WEST / NO CONDUIT AVE ramp toward KENNEDY AIRPORT.</p>
+            <p> Merge onto BELT PKWY W via the ramp on the LEFT toward VERRAZANO BR.</p>
+            <p> Take the I-278 / VERRAZANO BR exit- EXIT 3- toward STATEN ISLAND.</p>
+            <p> Merge onto I-278 W (Portions toll).</p>
+            <p> Take the I-95 S exit on the LEFT toward TURNPIKE SOUTH.</p>
+            <p> Merge onto NEW JERSEY TURNPIKE S (Portions toll).</p>
+            <p> Merge onto I-195 W via EXIT 7A toward TRENTON.</p>
+            <p> Merge onto NJ-29 N.</p>
+            <p> Merge onto US-1 S toward MORRISVILLE / TOLL BRIDGE (Portions toll).</p>
+            <p> Take the NORTH PENNSYLVANIA AVE exit toward MORRISVILLE.</p>
+            <p> Turn SLIGHT RIGHT onto S PENNSYLVANIA AVE.</p>
+            <p> Turn LEFT onto W BRIDGE ST / US-1 ALT.</p>
+        </div>
+
+        <nav class="default-tabs split-tabs">
+            <ul id="tab-toggle">
+                <li id="contact-details" class="current-item"><a href="javascript:void(0)"><span>Contact details</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<section class="contact-details">
+    <div class="content-holder">
+        <div class="full-width">
+            <div class="one-half col-738">
+                <form id="contact-us-form" class="grey-corner-box" ng-controller="ContactController" ng-submit="SendEmail(model)" novalidate>
+                    <input type="hidden" id="__RequestVerificationToken" ng-init="VerificationToken='@Html.RequestVerificationToken()'" />
+                    <fieldset>
+                        <legend><span class="bold">Drop</span> us a line</legend>
+                        <ul>
+                            <li class="select-three">
+                                <div>
+                                    <label for="input-name">Name:</label>
+                                    <input type="text" name="contact_name" id="input-name" class="default-input" required ng-model="model.Name">
+                                </div>
+                                <div>
+                                    <label for="input-email">E-mail:</label>
+                                    <input type="email" name="contact_email" id="input-email" class="default-input" required ng-model="model.Email">
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <label for="contact_message">Message:</label>
+                                    <textarea id="contact_message" name="contact_message" required ng-model="model.Message"></textarea>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <img class="captcha col-sm-4" src="@Url.Action("Captcha")" alt="Captcha" />
+
+                                </div>
+                                <div>
+                                    <input type="text"
+                                           placeholder="Enter captcha"
+                                           class="default-input"
+                                           required=""
+                                           ng-model="model.Captcha">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="submit-contact default-submit">
+                                    <input type="submit" value="submit" />
+                                </div>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+
+
+            <div class="one-half col-211">
+                <h3><span class="bold">Contact</span> details</h3>
+                <ul class="icon-list">
+                    <li class="phone">Phone: <span class="two-lines">(215)-295-1515</span></li>
+                    <li class="phone">Text: <span class="two-lines">(267)-800-6119 </span></li>
+                    <li class="phone">Fax: <span class="two-lines">(215)-428-4932</span></li>
+                    <li class="address">
+                        <span>654 W Bridge St, Morrisville, PA 19067, US</span>
+                    </li>
+                    <li class="e-mail"><span><a href="#">autoprestigeimports&#64;gmail.com</a></span></li>
+                    <li class="website"><span><a href="#">@Request.Url.DnsSafeHost</a></span></li>
+                </ul>
+            </div>
+
+        </div>
+    </div><!--.content-holder-->
+</section>
+
+@section scripts{
+    <script type="text/javascript">
+        App.InitContactPage();
+    </script>
+}

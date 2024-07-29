@@ -1,0 +1,232 @@
+﻿@using Freemoded.Web.Mvc.Extensions
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Prestige Imports</title>
+    @Styles.Render("~/Content/client/css")
+    @Styles.Render("~/content/assets/css")
+    @RenderSection("styles", required: false)
+</head>
+<body  ng-controller="AppController" ng-cloak>
+<header>
+    <div class="content-holder">
+		<div class="layer-one">
+			<div class="page-titles">
+				@if (Request.Url.Host.Contains("prestige"))
+				{
+					<h1 class="text-shadow"><a href="@Url.Action("Index", "Home")">  Cars for Less <span>Outlet</span></a> </h1>
+				}
+				else
+				{
+					<h1 class="text-shadow"><a href="@Url.Action("Index", "Home")"><i style="color:darkorange;" class="fa fa-car"></i> Cars for Less <span>Outlet</span></a> </h1>
+				}
+
+				<p class="sub-title">Auto Sales</p>
+			</div>
+
+
+
+			@if (User.Identity.IsAuthenticated)
+			{
+				<div class="dealer-login">
+					<a href="@Url.RouteUrl("Admin_default",new {controller="Item",action = "Published", id = UrlParameter.Optional})" class="dealer-name"><i class="fa fa-user"></i> @User.Identity.Name</a>
+					<a href="@Url.Action("Logoff", "Account")" class="sign-out"><i class="fa fa-power-off"></i> Sign Out</a>
+				</div>
+			}
+			else
+			{
+				<div class="dealer-login">
+					<a href="@Url.Action("Login", "Account")" class="sign-in"><i class="fa fa-sign-in"></i> Sign In</a>
+				</div>
+			}
+
+			@*<div id="shopping-cart" ng-class="{'ng-enter':InitializingCart==true,'':InitializingCart==false}">
+			<a href="/car/shoppingcart" ng-class="{'has-items':CartCount>0,'':CartCount==0}" title="My Vehicles">
+				<i class="fa fa-shopping-cart"></i>
+				<span data-cart="total">{{CartTotal | currency}}</span>
+				(<span data-cart="quantity">{{CartCount}}</span> items)
+			</a>
+		</div>*@
+			@if (User.Identity.IsAuthenticated)
+			{
+				<div class="header-buttons">
+					<a href="@Url.Action("Published", "Item", new {area = "Admin"})" class="add-an-offer rounded-link-box"><span class="box-content"><i class="fa fa-cog"></i>&nbsp;CPanel</span></a>
+				</div>
+			}
+			<div id="header-search">
+				<div class="search-submit">
+					<input type="button" value="Search" ng-click="Search()">
+				</div>
+				<input type="text" id="search" name="search" ng-enter="Search()" placeholder="Search..." class="quick-search" ng-model="SearchText">
+
+			</div>
+		</div><!--.layer-one-->
+
+        <div class="layer-two">
+            <nav>
+                <ul>
+                    <li class="@Html.IsSelected(controller: "Home",action:"Index", cssClass:"current-item")">
+                        <a href="@Url.Action("Index", "Home")">
+                            <i class="fa fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Car",action:"List", cssClass:"current-item")">
+                        <a href="@Url.Action("List", "Car",new {search="undamaged"})">
+                            <i class="fa fa-car"></i>
+                            <span>Cars</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Car",action:"Damaged", cssClass:"current-item")">
+                        <a href="@Url.Action("Damaged", "Car",new {search="damaged"})">
+                            <i class="fa  fa-car color-red"></i>
+                            <span>Coming soon</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Car",action:"Damaged", cssClass:"current-item")">
+                        @*<a href="@Url.Action("ApplyOnline", "Car")">
+                            <i class="fa fa-toggle-on"></i>
+                            <span>Apply Online</span>
+                        </a>*@
+                        <a href="https://secure.carsforsale.com/ssfinance.aspx?jesxel=379906">
+                            <i class="fa fa-toggle-on"></i>
+                            <span>Apply Online</span>
+                        </a>
+                    </li>
+                    @*<li class="@Html.IsSelected(controller: "Car",action:"GetPreQualified", cssClass:"current-item")">
+                        <a href="@Url.Action("GetPreQualified", "Car")">
+                            <i class="fa fa-hand-o-right"></i>
+                            <span>Get Pre-Qualified</span>
+                        </a>
+                    </li>*@
+                    <li class="@Html.IsSelected(controller: "Home",action:"Shipping", cssClass:"current-item")">
+                        <a href="@Url.Action("Shipping", "Home")">
+                            <i class="fa fa-truck"></i>
+                            <span>Shipping</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home",action:"Faq", cssClass:"current-item")">
+                        <a href="@Url.Action("Faq", "Home")">
+                            <i class="fa fa-question-circle"></i>
+                            <span>Q & A</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home",action:"About", cssClass:"current-item")">
+                        <a href="@Url.Action("About", "Home")">
+                            <i class="fa fa-buysellads"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(controller: "Home",action:"Contact", cssClass:"current-item")">
+                        <a href="@Url.Action("Contact", "Home")">
+                            <i class="fa fa-globe"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                    <li class="rebuildable animated pulse infinite">
+	                    <a href="@Url.Action("RebuildableExternal", "Home")" target="_blank">
+		                    <i class="fa fa-car"></i>
+							<span class="animated fadeIn infinite">Rebuildable</span>
+	                    </a>
+                    </li>
+                </ul>
+            </nav>
+
+            
+        </div><!--.layer-two-->
+    </div>
+</header>
+<div id="page-content">
+
+    @RenderBody()
+
+</div>
+
+<div ng-helper-busy="{{busyMessage='Please wait...'}}"></div>
+<footer>
+    <div class="layer-one">
+        <div class="content-holder">
+
+            <nav>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")"><span class="bold">Common</span></a>
+                        <ul>
+                            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                            <li><a href="@Url.Action("About", "Home")">About Us</a></li>
+                            <li>
+                                @if (ViewContext.HttpContext.GetOverriddenBrowser().IsMobileDevice == false) {
+                                    <a href="@Url.Action("SwitchView", "Home", new {mobile = true, returnUrl = Request.Url.PathAndQuery})">Mobile Version</a>
+                                }
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("List", "Car")"><span class="bold">Car</span></a>
+                        <ul>
+                            <li><a href="@Url.Action("List", "Car")">Find Cars</a></li>
+                            <li><a href="@Url.Action("Shipping", "Home")">Shipping</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Faq", "Home")"><span class="bold">Need</span> Help?</a>
+                        <ul>
+                            <li><a href="@Url.Action("Faq", "Home")">FAQ</a></li>
+                            <li><a href="@Url.Action("Contact", "Home")">Contact Us</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="find-us-here">
+                <h3>
+                    <span class="bold">Find</span> us here
+                </h3>
+                <ul class="social-list">
+                    <li class="social-facebook"><a href="https://www.facebook.com/PrestigeImportsAutoSales/?rf=336883473001563">Facebook</a></li>
+                    <li class="social-twitter"><a href="#">Twitter</a></li>
+                    <li class="social-google"><a href="mailto: autoprestigeimports@gmail.com">Google</a></li>
+                </ul>
+                <p class="note">Become our fan...</p>
+                
+                
+            </div>
+        </div>
+    </div><!--.layer-one-->
+
+    <div class="layer-two">
+        <div class="content-holder">
+            <p class="copyright">© 2008 Prestige Imports Auto Sales. All Rights Reserved</p>
+            <p class="webdesign-author">
+                Your source of quality vehicles. <a href="@Url.Action("Index", "Home")"><span class="bold"> Experience the difference</span></a>
+            </p>
+        </div>
+    </div><!--.layer-two-->
+</footer>
+
+
+@Scripts.Render("~/bundles/jquery/js")
+@Scripts.Render("~/bundles/angular/js")
+@Scripts.Render("~/bundles/assets/js")
+@Scripts.Render("~/bundles/app/js")
+@Scripts.Render("~/bundles/app/angular/js")
+@Scripts.Render("~/bundles/app/angular/client/js")
+@RenderSection("scripts", required: false)
+
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+    (function() {
+        var widget_id = 'fiPEgIOmTK';
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = '//code.jivosite.com/script/widget/' + widget_id;
+        var ss = document.getElementsByTagName('script')[0];
+        ss.parentNode.insertBefore(s, ss);
+    })();
+</script>
+<!-- {/literal} END JIVOSITE CODE -->
+</body>
+</html>

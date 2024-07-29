@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "../Shared/_LoginRegisterLayout.cshtml";
+    ViewBag.Title = "Login";
+}
+
+<div class="login" ng-controller="AccountController" ng-init="Model.ReturnUrl='/Admin'">
+  
+    <input type="text"
+           placeholder="username"
+           name="UserName"
+           ng-do-focus="true"
+           ng-enter="Login()"
+           ng-model="Model.UserName"><br>
+    <input type="password"
+           ng-enter="Login()"
+           placeholder="password"
+           name="Password"
+           ng-model="Model.Password"><br>
+    <input type="button" value="Login" ng-click="Login()">
+</div>

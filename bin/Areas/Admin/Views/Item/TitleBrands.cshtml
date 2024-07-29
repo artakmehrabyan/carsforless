@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Title Brands";
+}
+
+<div class="ibox" ng-controller="TitleBrandsController">
+    <div contextmenu="grid.contextmenu" class="dropdown contextmenu">
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="javascript:void(0);"
+                   ng-click="AddNew()"
+                   ng-if="CanAddRow()">
+                    <i class="fa fa-plus"></i>  Add New
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+                <a role="menuitem" tabindex="-1" href ng-click="AppServices.Common.CopySelectionToClipboard()">
+                    <i class="fa fa-copy"></i>  Copy
+                </a>
+            </li>
+
+            <li class="divider"></li>
+            <li>
+                <a href="javascript:void(0);"
+                   ng-click="BeginEditRow(grid.contextmenu.$item)"
+                   ng-if="CanUpdateRow(grid.contextmenu.$item)">
+                    <i class="fa fa-edit"></i>  Edit
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);"
+                   ng-click="Save()">
+                    <i class="fa fa-save"></i>  Save
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0);"
+                   ng-click="DeleteRow(grid.contextmenu.$item,true)"
+                   ng-if="CanDeleteRow(grid.contextmenu.$item)">
+                    <i class="fa fa-remove"></i>  Delete
+                </a>
+            </li>
+        </ul>
+    </div>
+    <form class="form-horizontal" role="form" id="titleBrandForm" name="titleBrandForm">
+        <div class="ibox-content">
+            <div class="toolbar clearfix">
+                <div class="form-group pull-left form-inline">
+                    <div class="btn-group">
+                        <button class="btn btn-white btn-sm" ng-click="AddNew()">
+                            <i class="fa fa-plus"></i> Add New
+                        </button>
+                        <button class="btn btn-white btn-sm ml5" ng-click="Save()">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group pull-left form-inline">
+                    <div class="input-group">
+                        <input type="text"
+                               ng-enter="Refresh()"
+                               class="form-control input-sm"
+                               id="Search"
+                               ng-model="GridModel.Search"
+                               placeholder="Search">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="Refresh()">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                            <button type="button" class="btn btn-white btn-sm" ng-click="ClearFilter(true)">
+                                <i class="fa fa-close"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="table-scrollable mt25 clearfix">
+                <table st-table="VisibleRows"
+                       st-safe-src="Rows"
+                       st-pipe="LoadData"
+                       contextmenu-container="grid.contextmenu"
+                       class="table table-striped table-bordered table-advance table-hover">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-cell">
+                                <label class="i-checks">
+                                    <input icheck
+                                           type="checkbox"
+                                           ng-model="Selection.AllSelected">
+                                </label>
+                            </th>
+                            <th st-sort="Description">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr tabindex="0"
+                            ng-esc="CancelEditRow(row)"
+                            ng-focus="OnRowClicked(row)"
+                            ng-dblclick="BeginEditRow(row)"
+                            contextmenu-item="row"
+                            ng-class="{'editing':row.Editing==true,'dirty':row.IsDirty}"
+                            ng-repeat="row in VisibleRows|filter:SetRowVisibility"
+                            ng-include="GetTemplate(row)"></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="12">
+                                <div st-pagination="" st-items-by-page="GridModel.Take" class="pull-right">
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="form-group clearfix">
+                <div class="col-sm-offset-4 col-sm-10">
+                    <button type="button"
+                            ng-click="Save()"
+                            class="btn btn-sm btn-primary">
+                        <i class="fa fa-save"></i> Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/ng-template" id="display">
+    <td class="checkbox-cell">
+        <label class="i-checks">
+            <input icheck
+                   type="checkbox"
+                   ng-click="SelectRow(row)"
+                   ng-model="row.Selected">
+        </label>
+    </td>
+    <td>{{row.Description}}</td>
+</script>
+<script type="text/ng-template" id="edit">
+    <td class="checkbox-cell">
+        <label class="i-checks">
+            <input icheck
+                   type="checkbox"
+                   ng-click="SelectRow(row)"
+                   ng-model="row.Selected">
+        </label>
+    </td>
+    <td>
+        <input type="text"
+               class="form-control input-sm first-cell"
+               placeholder=""
+               required
+               ng-do-focus="true"
+               ng-model="row.Description">
+    </td>
+</script>

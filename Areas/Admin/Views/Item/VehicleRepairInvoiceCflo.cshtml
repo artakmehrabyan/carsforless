@@ -1,0 +1,138 @@
+﻿@using System.Security.Policy
+@using Freemoded.Automotive.Frame.Web.Mvc
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="admin">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BILL OF SALE</title>
+    @Styles.Render("~/content/bootstrap/css")
+    @Styles.Render("~/content/ng-sortable")
+    @Styles.Render("~/content/assets/css")
+
+    <link href="~/Content/billofsale.css" rel="stylesheet" />
+</head>
+<body ng-controller="VehicleRepairInvoice">
+    <div class="bill-of-sale">
+        <div class="title">
+            Cars for Less Outlet : Vehicle Repair Invoice
+        </div>
+        <div class="logo">
+            <img src="@Html.MixImg("bill-of-sale-car.png")" alt="Car" />
+        </div>
+        <div class="addresses">
+            <div>
+                <label>Address:</label><span>654 West Bridge Street, Morrisville, PA 19067</span>
+            </div>
+            <div>
+                <label>Phone:</label><span>(215)-295-1515</span><label> Fax:</label><span>(215)-428-4932</span>
+            </div>
+            <div>
+                <label>Email:</label><span class="email">cars4fourless@gmail.com</span>
+            </div>
+        </div>
+        @*<div class="sub-title">
+                Vehicle Bill of Sale
+            </div>*@
+        <hr class="line" />
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-advance">
+                <tbody>
+                <tr>
+                    <th colspan="8" class="center-text">Vehicle Information</th>
+                </tr>
+                <tr>
+                    <th>Work Order</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Color</th>
+                    <th>Body Type</th>
+                    <th>Miles</th>
+                    <th>Vehicle Identification Number</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{{Item.Make}}</td>
+                    <td>{{Item.Model}}</td>
+                    <td>{{Item.Year}}</td>
+                    <td>{{Item.Color}}</td>
+                    <td>{{Item.Type}}</td>
+                    <td>{{Item.Mileage}}</td>
+                    <td>{{Item.Vin}}</td>
+                </tr>
+                <tr class="bold">
+                    <td>Item</td>
+                    <td>Parts</td>
+                    <td colspan="3">Work Description</td>
+                    <td colspan="2">Comments</td>
+                    <td>Amount</td>
+                </tr>
+                <tr><td class="bold" style="background-color: blanchedalmond">Engine</td><td>Engine Oil Level</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Coolant Level</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Belts</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Exhaust</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                    
+                <tr><td class="bold" style="background-color: blanchedalmond">Transmission</td><td>Shifting</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Transm. Fluid Level</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                    
+                <tr><td class="bold" style="background-color: blanchedalmond">Brakes</td><td>Breaks Fluid Level</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Brakes Pads L / R</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Drums/Rotors L / R</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                
+                <tr><td class="bold" style="background-color: blanchedalmond">Filters & Systems</td><td>Air Filters </td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Cabin Filter</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                    
+                <tr><td class="bold" style="background-color: blanchedalmond">Electric</td><td>Starter </td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Alternator</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Battery </td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Lighting & Headlights & Taillights</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Power Locks & Windows & Mirrors</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>A/C</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Ignition Switch</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Radio & CD/ DVD</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                    
+                <tr><td class="bold" style="background-color: blanchedalmond">Body & Exterior</td><td>Doors & Fenders & Hood </td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Trunk & Spare tire </td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                
+                <tr><td class="bold" style="background-color: blanchedalmond">Body & Interior</td><td>Dashboard & Warning Lights </td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Seat Front L/R</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Seat Rear L/R</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Rims L/R</td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                
+                <tr><td class="bold" style="background-color: blanchedalmond">Tires & Suspension</td><td>Tires & Pressure L/R </td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr><td></td><td>Rims L/R </td><td colspan="3"></td><td colspan="2"></td><td></td></tr>
+                <tr>
+                <td colspan="6"></td>
+                <td class="bold" style="background-color: blanchedalmond">Sub Total</td>
+                <td></td></tr>
+                <tr><td class="bold" style="background-color: blanchedalmond">Miscellaneous</td><td colspan="6"></td><td></td></tr>
+                <tr><td colspan="7"></td><td></td></tr>
+                <tr><td colspan="7"></td><td></td></tr>
+                
+                <tr><td class="bold" style="background-color: blanchedalmond">General </td><td class="bold"  colspan="6">Main Condition</td><td></td></tr>
+                    <tr>
+                        <td colspan="6"></td>
+                        <td class="bold" style="background-color: blanchedalmond">Sub Total</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+                <tbody></tbody>
+            </table>
+        </div>
+      
+       
+    </div>
+    @Scripts.Render("~/bundles/jquery/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/angular/js")
+    @Scripts.Render("~/bundles/assets/js")
+    @Scripts.Render("~/bundles/ng-sortable")
+    @Scripts.Render("~/bundles/inspinia/js")
+    @Scripts.Render("~/bundles/app/js")
+    @Scripts.Render("~/bundles/app/angular/js")
+    @Scripts.Render("~/bundles/app/angular/admin/js")
+</body>
+</html>

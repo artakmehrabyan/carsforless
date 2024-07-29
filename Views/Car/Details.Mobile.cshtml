@@ -1,0 +1,254 @@
+﻿@{ ViewBag.Title = "Car Details";}
+
+@*<link href="~/Assets/jquery/jquery.prettyPhoto.css" rel="stylesheet" />*@
+<link href="~/Assets/masterslider/style/masterslider.css" rel="stylesheet" />
+<link href="~/Assets/masterslider/skins/default/style.css" rel="stylesheet" />
+<style>
+    .ms-lightbox-template {
+        margin: 0 auto;
+    }
+
+    .ms-lightbox-template .ms-lightbox {
+        text-indent: 9999px;
+        bottom: 0;
+        position: absolute;
+        top: auto;
+        display: block;
+        right: 0;
+        width: 55px;
+        height: 52px;
+        background: url(/assets/masterslider/style/lightbox-btn.png) no-repeat center;
+    }
+</style>
+<article class="block car" ng-controller="CarDetailController" ng-cloak>
+    <b id="offerid">Offer ID: {{Car.Id}}</b>
+    <h3 class="car-title">
+        <a href="@Url.Action("Details", "Car")?id={{Car.Id}}">{{Car.Make}} {{Car.Model}}</a>
+    </h3>
+    <div class="ms-lightbox-template">
+        <div class="master-slider ms-skin-default" id="masterslider">
+            <div class="ms-slide" ng-repeat="media in Car.Medias | orderBy:'MediaOrder' | filter: { MediaFolder: 'client'}">
+                <img ng-if="media.hasImage==false"
+                     src="/Assets/masterslider/style/blank.gif"
+                     ng-src="{{AppServices.Management.GetImageUrl('no-car-image-lg.jpg')}}"
+                     alt="{{Car.Description}}" />
+
+                <img ng-if="media.hasImage"
+                     ng-src="{{media.lg}}"
+                     alt="{{Car.Description}}" />
+
+                <a ng-href="{{media.lg}}"
+                   class="ms-lightbox"
+                   ng-if="media.hasImage"
+                   rel="prettyPhoto[gallery1]"
+                   title="{{Car.Description}}"></a>
+            </div>
+        </div>
+    </div>
+    <div class="car-options">
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Price</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value price">
+                        {{Car.RetailCost|retail}}
+                        <div class="price-neg" ng-show="Car.PriceNegotiable">* Price negotiable</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option" ng-show="Car.SuggestedPrice!=null">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Suggested Retail Price</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value price">
+                        {{Car.SuggestedPrice|retail}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Year</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.Year}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Model, Body type:</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.Make}} {{Car.Model}} {{Car.Type}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Miles</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.Mileage}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Vin</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value vin">
+                        {{Car.Vin}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Title Brand</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6"
+                     ng-if="(Car.Brand.Description=='Clear' || Car.Brand.Description=='Clean')"
+                     ng-class="{'brand-clear':(Car.Brand.Description=='Clean' ||Car.Brand.Description=='Clear')}">
+                    <div class="option-value">
+                        Clear
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6"
+                     ng-if="(Car.Rebuildable==null ||Car.Rebuildable) && Car.Brand.Description!='Clear' && Car.Brand.Description!='Clean'">
+                    <div class="option-value">
+                        Reconstructed
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6"
+                     ng-if="Car.Rebuildable==false && Car.Brand.Description!='Clear' && Car.Brand.Description!='Clean'">
+                    <div class="option-value">
+                        {{Car.Brand.Description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="option" ng-show="Car.TitleStatus!=null">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Title Status</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.TitleStatus}}
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <div class="option"
+             ng-class="{'damaged':Car.IsDamaged==true,'not-damaged':Car.IsDamaged==false}">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">Car Condition</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.CarCondition}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="option sell-similar-car">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name">You want to sell a similar car?</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        <a href="@Url.Action("Contact", "Home")"
+                           target="_blank"
+                           class="value">+ Add an offer</a>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name  bold">Features</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.Features}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name  bold">Other Parameters</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.Other}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name bold">Safety</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.Safety}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name bold">Comfort</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.Comfort}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="option">
+            <div class="row">
+                <div class="col-md-5 col-sm-6 col-xs-6">
+                    <div class="option-name bold">More Info</div>
+                </div>
+                <div class="col-md-7 col-sm-6 col-xs-6">
+                    <div class="option-value">
+                        {{Car.CommentForClient}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@section scripts{
+    <script src="~/Assets/masterslider/jquery.min.js"></script>
+    <script src="~/Assets/masterslider/jquery.easing.min.js"></script>
+    <script src="~/Assets/masterslider/masterslider.js"></script>
+    <script src="~/Assets/jquery/jquery.prettyPhoto.js"></script>
+}

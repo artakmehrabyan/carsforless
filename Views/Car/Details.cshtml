@@ -1,0 +1,321 @@
+﻿@{ ViewBag.Title = "Car Details";}
+<link href="~/Assets/jquery/jquery.prettyPhoto.css" rel="stylesheet" />
+<link href="~/Assets/masterslider/style/masterslider.css" rel="stylesheet" />
+<link href="~/Assets/masterslider/skins/default/style.css" rel="stylesheet" />
+<style>
+    .ms-lightbox-template {
+        max-width: 543px;
+        margin: 0 auto;
+    }
+
+    .ms-lightbox-template .ms-lightbox-btn {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .ms-lightbox-template .ms-lightbox {
+        text-indent: 9999px;
+        display: block;
+        width: 55px;
+        height: 52px;
+        margin: -42px;
+        background: url(/assets/masterslider/style/lightbox-btn.png) no-repeat center;
+    }
+</style>
+
+<div ng-controller="CarDetailController" ng-cloak>
+    <section id="car-pagination">
+        <div class="content-holder">
+            <div class="page-main-heading extra-space">
+                <div class="heading-location">
+                    <h2>
+                        <span class="bold">{{Car.Make}}</span> {{Car.Model}}
+                    </h2>
+                    <p class="page-location">
+                        <a href="@Url.Action("Index", "Home")">Home </a>
+                        <span class="greater-than">&gt;&gt;</span>
+                        <a href="@Url.Action("List")">Cars</a>
+                        <span class="greater-than">&gt;&gt;</span>
+                        <a href="#">{{Car.Make}}</a>
+                        <span class="greater-than">&gt;&gt;</span>
+                        <a href="#">{{Car.Make}} {{Car.Model}}</a>
+                    </p>
+
+                </div>
+                <div class="extra-info">
+                    <h2 class="bold text-shadow title-color">Used Cars Remarketing Factory Outlet</h2>
+                    <h5>654 W Bridge St, Morrisville, PA 19067, United States</h5>
+                    <h5>Phone: (215) -295-1515</h5>
+                    <h5>Fax: (215)-428-4932</h5>
+                    <br />
+                    <span>Offer ID {{Car.Id}}</span>
+                    <p>The offer had {{Car.Views}} Views</p>
+                </div>
+
+            </div>
+
+            <nav class="default-tabs split-tabs">
+                <ul id="vehicle-toggle">
+                    <li id="vehicle-description" class="current-item"><a href="javascript:void(0);"><span>Vehicle description</span></a></li>
+                </ul>
+
+                <ul>
+                    <li class="print-this-page"><a href="javascript:void(0);" onclick="window.print();"><span>Print this page</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+
+    <section id="car-details">
+
+        <div class="social-icons-round" style="display: none;">
+            <p>Share to:</p>
+            <ul>
+                <li class="facebook"><a href="#">Facebook</a></li>
+                <li class="twitter"><a href="#">Twitter</a></li>
+                <li class="google"><a href="#">Gmail</a></li>
+            </ul>
+        </div>
+        <div class="content-holder">
+            <div class="full-width google-maps dealer-maps vehicle-location">
+                <div id="map-canvas" style="width: 978px; height: 380px;"></div>
+            </div>
+
+            <div class="full-width vehicle-description">
+
+                <div class="car-full-image one-half img-shadow">
+                    <div class="ms-lightbox-template">
+                        <!-- masterslider -->
+                        <div class="master-slider ms-skin-default" id="masterslider">
+                            <div class="ms-slide" ng-repeat="media in Car.Medias | orderBy:'MediaOrder' | filter: { MediaFolder: 'client' }">
+                                <img ng-if="media.hasImage==false"
+                                     src="/Assets/masterslider/style/blank.gif"
+                                     ng-src="{{AppServices.Management.GetImageUrl('no-car-image-lg.jpg')}}"
+                                     alt="{{Car.Description}}" />
+
+                                <img ng-if="media.hasImage"
+                                     ng-src="{{media.lg}}"
+                                     alt="{{Car.Description}}" />
+
+                                <img ng-if="media.hasImage"
+                                     ng-src="{{media.lg}}"
+                                     class="ms-thumb"
+                                     alt="{{Car.Description}}" />
+
+
+                                <a ng-href="{{media.lg}}"
+                                   class="ms-lightbox"
+                                   ng-if="media.hasImage"
+                                   rel="prettyPhoto[gallery1]"
+                                   title="{{Car.Description}}"></a>
+                            </div>
+
+                        </div>
+                        <!-- end of masterslider -->
+                    </div>
+                </div>
+                <div class="car-full-specs one-half">
+                    <div class="price-car">
+                        <span class="price-tag">{{Car.RetailCost|retail}}</span>
+                        <span class="small-note" ng-show="Car.PriceNegotiable">* Price negotiable</span>
+                    </div>
+                    <ul class="car-specs-list">
+                        <li>
+                            <span class="label">Suggested Retail Price:</span>
+                            <span class="value">{{Car.SuggestedPrice | currency}}</span>
+                        </li>
+
+                        <li>
+                            <span class="label">Model, Body type:</span>
+                            <span class="value">{{Car.Make}} {{Car.Model}} {{Car.Type}}</span>
+                        </li>
+                        <li>
+                            <span class="label">Vin:</span>
+                            <input type="text" class="vin-input" select-on-click value="{{Car.Vin}}" />
+                        </li>
+                        <li>
+                            <span class="label">Year:</span>
+                            <span class="value">{{Car.Year}}</span>
+                        </li>
+                        <li>
+                            <span class="label">Color:</span>
+                            <span class="value">{{Car.Color}}</span>
+                        </li>
+                        <li>
+                            <span class="label">Miles:</span>
+                            <span class="value">{{Car.Mileage}}</span>
+                        </li>
+                        <li ng-class="{'damaged':Car.IsDamaged,'not-damaged':Car.IsDamaged==false}">
+                            <span class="label">Car Condition:</span>
+                            <span class="value">{{Car.CarCondition}}</span>
+                        </li>
+                        <li>
+                            <span class="label">Title Brand:</span>
+                            <span class="brand-clear value"
+                                  ng-if="Car.Brand.Description=='Clear' || Car.Brand.Description=='Clean'">Clear</span>
+                            <span class="value"
+                                  ng-if="(Car.Rebuildable==null ||Car.Rebuildable) && Car.Brand.Description!='Clear' && Car.Brand.Description!='Clean'">Reconstucted</span>
+                            
+                            <span class="value"
+                                  ng-if="Car.Rebuildable==false && Car.Brand.Description!='Clear' && Car.Brand.Description!='Clean'">{{Car.Brand.Description}}</span>
+                        </li>
+                        @*<li>
+                                <span class="label">Title Status:</span>
+                                <span class="value">{{Car.TitleStatus}}</span>
+                            </li>*@
+                    </ul>
+
+                    <div class="sell-similar-car">
+                        <span class="label">You want to sell a similar car?</span>
+                        <a href="@Url.Action("Contact","Home")" target="_blank" class="value">+ Add an offer</a>
+                    </div>
+                    <div class="sell-similar-car">
+                        <a class="add-to-cart" ng-click="AddToCart(Car)">
+                            <i class="fa fa-cart-plus"></i> Add To My Vehicles
+                        </a>
+                        
+                    </div>
+                   
+                </div>
+            </div>
+
+            <div class="full-width grey-border-bottom">
+                <div class="one-half standard-text-content col-701">
+
+                    <h3><span class="bold">Vehicle</span> information</h3>
+                    <ul>
+                        <li>
+                            <strong>Features: </strong>
+                            <span>{{Car.Features}}</span>
+                        </li>
+                        <li><strong>Other parameters: </strong><span>{{Car.Other}}</span></li>
+                        <li><strong>Safety: </strong><span>{{Car.Safety}}</span></li>
+                        <li>
+                            <strong>Comfort: </strong><span>{{Car.Comfort}}</span>
+                        </li>
+                    </ul>
+
+                    <hr>
+
+                    <h3><span class="bold">More</span> info</h3>
+                    <p ng-bind-html="Car.CommentForClient">
+                        
+                    </p>
+                    <hr>
+
+                    <h3><span class="bold">Contact</span> details</h3>
+                    <p class="heading-note">AutoMarket does not store additional information about the seller except for those contained in the announcement.</p>
+                    <br>
+                    <ul class="icon-list">
+                        <li class="phone">Phone: (215) -295-1515</li>
+                        <li>Fax: (215)-428-4932</li>
+                        <li class="address">St Morrisville, PA 19067</li>
+                        <li class="e-mail">
+                            autoprestigeimports@gmail.com
+                        </li>
+                        <li class="website">
+                            @Request.Url.DnsSafeHost
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            @*<div class="full-width standard-text-content">
+                    <h3><span class="bold">Similar</span> offers</h3>
+
+                    <ul class="offer-small list-content">
+                        <li>
+                            <a href="car-details.html">
+                                <img src="images/mercedes-thumb.jpg" alt="offer car">
+                                <div class="entry-label">
+                                    <h4>Mercedes-Benz CLS</h4>
+                                    <span class="price-tag">54980 Euro</span>
+                                </div>
+                                <div class="entry-overlay">
+                                    <ul class="car-list-details">
+                                        <li>Registration 2002</li>
+                                        <li>3.0 Diesel</li>
+                                        <li>230 HP</li>
+                                        <li>Body Coupe</li>
+                                        <li>120.000 KM</li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="car-details.html">
+                                <img src="images/mercedes-thumb.jpg" alt="offer car">
+                                <div class="entry-label">
+                                    <h4>Mercedes-Benz CLS</h4>
+                                    <span class="price-tag">54980 Euro</span>
+                                </div>
+                                <div class="entry-overlay">
+                                    <ul class="car-list-details">
+                                        <li>Registration 2002</li>
+                                        <li>3.0 Diesel</li>
+                                        <li>230 HP</li>
+                                        <li>Body Coupe</li>
+                                        <li>120.000 KM</li>
+                                    </ul>
+                                </div>
+                                <span class="v-sign">V</span>
+                                <span class="dealer-data">Vehicle Dealer</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="car-details.html">
+                                <img src="images/mercedes-thumb.jpg" alt="offer car">
+                                <div class="entry-label">
+                                    <h4>Mercedes-Benz CLS</h4>
+                                    <span class="price-tag">54980 Euro</span>
+                                </div>
+                                <div class="entry-overlay">
+                                    <ul class="car-list-details">
+                                        <li>Registration 2002</li>
+                                        <li>3.0 Diesel</li>
+                                        <li>230 HP</li>
+                                        <li>Body Coupe</li>
+                                        <li>120.000 KM</li>
+                                    </ul>
+                                </div>
+                                <span class="v-sign">V</span>
+                                <span class="dealer-data">Vehicle Dealer</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="car-details.html">
+                                <img src="images/mercedes-thumb.jpg" alt="offer car">
+                                <div class="entry-label">
+                                    <h4>Mercedes-Benz CLS</h4>
+                                    <span class="price-tag">54980 Euro</span>
+                                </div>
+                                <div class="entry-overlay">
+                                    <ul class="car-list-details">
+                                        <li>Registration 2002</li>
+                                        <li>3.0 Diesel</li>
+                                        <li>230 HP</li>
+                                        <li>Body Coupe</li>
+                                        <li>120.000 KM</li>
+                                    </ul>
+                                </div>
+                                <span class="v-sign">V</span>
+                                <span class="dealer-data">Vehicle Dealer</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>*@
+
+
+        </div>
+    </section>
+</div>
+
+@section scripts{
+    <script src="~/Assets/masterslider/jquery.min.js"></script>
+    <script src="~/Assets/masterslider/jquery.easing.min.js"></script>
+    <script src="~/Assets/masterslider/masterslider.js"></script>
+    <script src="~/Assets/jquery/jquery.prettyPhoto.js"></script>
+}

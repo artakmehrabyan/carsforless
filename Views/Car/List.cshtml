@@ -1,0 +1,299 @@
+﻿@{
+    ViewBag.Title = "Cars";
+
+}
+<div ng-controller="CarListController" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+    <section id="car-pagination">
+        <div class="content-holder">
+            <div class="page-main-heading extra-space">
+                <div class="heading-location">
+                    <h2><span class="bold">Car</span> List</h2>
+                    <p class="page-location">
+                        <a href="@Url.Action("Index","Home")">Home </a>
+                        <span class="greater-than">&gt;&gt;</span>
+                        <a href="@Url.Action("List")">Cars</a>
+                    </p>
+                </div>
+                <div class="extra-info">
+                    <h2 class="bold text-shadow title-color">Used Cars Remarketing Factory Outlet</h2>
+                    <h5>654 W Bridge St, Morrisville, PA 19067, United States</h5>
+                    <h5>Phone: (215) -295-1515</h5>
+                    <h5>Text: ‎(267)800-6119 </h5>
+                    <h5>Fax: (215)-428-4932</h5>
+                    <h5>Email: autoprestigeimports@gmail.com</h5>
+                </div>
+                @*<div id="financingMessage" class=""><img src="@Url.Content("~/Content/img/finance.png")"/></div>*@
+            </div>
+
+            <nav class="default-tabs split-tabs">
+                <ul>
+                    <li class="current-item"><a href="#">All Cars</a></li>
+                    @*<li><a href="#">New Cars</a></li>
+                        <li><a href="#">Used Cars</a></li>*@
+                </ul>
+            </nav>
+
+            <div class="view-select-tabs">
+                <a href="#" id="list-view"
+                   ng-click="SetView('list-view')"
+                   ng-class="{'current':View=='list-view'}"><span>List View</span></a>
+                <a href="#" id="grid-view"
+                   ng-click="SetView('grid-view')"
+                   ng-class="{'current':View=='grid-view'}"><span>Grid View</span></a>
+            </div>
+        </div>
+    </section><!--#car-pagination -->
+
+    <section id="search-list">
+        <div class="content-holder">
+            <div class="full-width">
+                <div class="one-half col-241 search-area">
+                    <form id="search-filters" action="#">
+                        <fieldset class="grey-corner-box">
+                            @*<legend><span class="bold">Search</span> filters</legend>*@
+                            <ul>
+                                <li>
+                                    <div>
+                                        <label for="manufacturer">Make:</label>
+                                        <div class="selector">
+                                            <select id="manufacturer" ng-model="Model.Make">
+                                                <option value=""></option>
+                                                <option ng-selected="item.Name==Model.Make" ng-repeat="item in Manufacturers" value="{{item.Name}}">{{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <label for="model">Model:</label>
+                                        <div class="selector">
+                                            <select id="model" ng-model="Model.Model">
+                                                <option value=""></option>
+                                                <option ng-selected="m==Model.Model" ng-repeat="m in Models" value="{{m.Name}}">{{m.Name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <label for="color">Color:</label>
+                                        <div class="selector">
+                                            <select id="color" ng-model="Model.Color">
+                                                <option value=""></option>
+                                                <option ng-selected="c==Model.Color" ng-repeat="c in Colors" value="{{c}}">{{c}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="select-two">
+                                    <div>
+                                        <label for="min-price">Min Price:</label>
+                                        <div class="selector">
+                                            <input type="text" id="min-price" ng-model="Model.MinPrice" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="max-price">Max Price:</label>
+                                        <div class="selector">
+                                            <input type="text" id="max-price" ng-model="Model.MaxPrice" />
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="select-two">
+                                    <div>
+                                        <label for="min-miles">Min Miles:</label>
+                                        <div class="selector">
+                                            <input type="text" id="min-miles" ng-model="Model.MinMileage" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="max-miles">Max Miles:</label>
+                                        <div class="selector">
+                                            <input type="text" id="max-miles" ng-model="Model.MaxMileage" />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="select-two">
+                                    <div>
+                                        <label for="min-year">Min Year:</label>
+                                        <div class="selector">
+                                            <input type="text" id="min-year" ng-model="Model.MinYear" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="max-year">Max Year:</label>
+                                        <div class="selector">
+                                            <input type="text" id="max-year" ng-model="Model.MaxYear" />
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="search-button">
+                                        <input type="button" value="Search" ng-click="Search()" />
+                                        <a id="clearButton"
+                                           href="javascript:void(0)"
+                                           style="position: relative;"
+                                           class="clear-button"
+                                           ng-click="ClearAll()">Clear All</a>
+                                    </div>
+                                  
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="results-list one-half col-701">
+                    <h1 ng-class="{'color-red':Title=='Damaged Cars'}">{{Title}}</h1><br/>
+                    <div class="sort-view layer-one">
+                        <div id="sort-by">
+                            <select name="sort-by" ng-model="Model.OrderBy">
+                                <option selected>Sort by</option>
+                                <option value="Make">Make</option>
+                                <option value="RetailCost">Price</option>
+                            </select>
+                        </div>
+                        <div id="view-on-page">
+                            <select name="view-on-page" ng-model="Model.Take">
+                                <option selected="selected">View amount</option>
+                                <option value="120">100</option>
+                                <option selected value="240">200</option>
+                                <option value="480">500</option>
+                                <option value="960">1000</option>
+                                <option value="1920">2000</option>
+                                <option value="5760">5000</option>
+                            </select>
+                        </div>
+
+                        <div class="pagination">
+                            <a href="javascript:void(0);"
+                               ng-if="Page>1"
+                               ng-click="GoTo(Page-1)">Prev</a>
+                            <a href="javascript:void(0);"
+                               ng-click="GoTo(p.Page)"
+                               ng-class="{'current-item not-active':p.IsCurrent}"
+                               ng-repeat="p in Pages"><span>{{p.Page}}</span></a>
+                            <span class="space-between" ng-show="(TotalPages > 3 && Page < TotalPages)">...</span>
+                            <a href="javascript:void(0);" ng-show="(TotalPages > 3 && Page < TotalPages)"
+                               ng-click="GoTo(TotalPages)"><span>{{TotalPages}}</span></a>
+                            <a href="javascript:void(0);"
+                               ng-if="(Page < TotalPages && Page != TotalPages)"
+                               ng-click="GoTo(Page+1)"
+                               class="last-button">Next</a>
+                        </div>
+                    </div>
+
+                    <div class="layer-two" ng-include="GetTemplate()">
+
+                    </div><!--.layer-two-->
+
+                    <div class="layer-three">
+                        <div class="pagination">
+                            <a href="javascript:void(0);"
+                               ng-if="Page>1"
+                               ng-click="GoTo(Page-1)">Prev</a>
+                            <a href="javascript:void(0);"
+                               ng-click="GoTo(p.Page)"
+                               ng-class="{'current-item not-active':p.IsCurrent}"
+                               ng-repeat="p in Pages"><span>{{p.Page}}</span></a>
+                            <span class="space-between" ng-show="(TotalPages > 3 && Page < TotalPages)">...</span>
+                            <a href="javascript:void(0);" ng-show="(TotalPages > 3 && Page < TotalPages)" ng-click="GoTo(TotalPages)"><span>{{TotalPages}}</span></a>
+                            <a href="javascript:void(0);"
+                               ng-show="Page < TotalPages && Page != TotalPages"
+                               ng-click="GoTo(Page+1)" class="last-button">Next</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--#search-list-->
+</div>
+<script type="text/ng-template" id="t-grid-view">
+    <div id="cars-list" class="grid-view list-content">
+        <ul class="offer-small" >
+            <!-- Car post -->
+            <li ng-repeat="item in VisibleData">
+                <a href="@Url.Action("Details", "Car")?id={{item.Id}}" class="item-link">
+                    <img ng-show="item.ImageUrl==null" 
+                         ng-src="{{AppServices.Management.GetImageUrl('no-car-image-md.jpg')}}" alt="Picture">
+                    <img ng-show="item.ImageUrl!=null" class="img-shadow" 
+                         ng-src="{{item.ImageUrl}}" alt="Picture">
+                    <div class="entry-label">
+                        <h4 class="car-title">{{item.Make}} {{item.Model}}</h4>
+                        <span class="price-tag">{{item.RetailCost|retail}}</span>
+                        <span class="price-tag">{{item.FinancePrice|currency}}</span>
+                    </div>
+
+                    <div class="entry-overlay">
+                        <ul class="car-list-details item-specs">
+                            <li>Year {{item.Year}}</li>
+                            <li>Body {{item.Type}}</li>
+                            <li>Miles {{item.Mileage}}</li>
+                            <li>Vin {{item.Vin}}</li>
+                        </ul>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<script type="text/ng-template" id="t-list-view">
+    <div id="cars-list" class="list-content list-view">
+        <ul class="detail-list" style="display: block;" >
+            <li ng-repeat="item in VisibleData track by item.Id" class="animated fadeIn">
+                <a href="@Url.Action("Details", "Car")?id={{item.Id}}" class="item-link  lightup-on-hover">
+                    <span class="overlay">Overlay</span>
+                    <img ng-if="item.ImageUrl==null" 
+                         ng-src="{{AppServices.Management.GetImageUrl('no-car-image-md.jpg')}}" alt="Picture">
+                    <img ng-if="item.ImageUrl!=null" class="img-shadow" 
+                         ng-src="{{item.ImageUrl}}" alt="Picture">
+                </a>
+                <div class="text-content">
+                    <div class="layer-one">
+                        <h3>
+                            <a href="@Url.Action("Details", "Car")?id={{item.Id}}" 
+                               class="car-title">{{item.Make}} {{item.Model}}
+                              
+                            </a>
+                            @*<img class="finance animated"  src="@Url.Content("~/Content/img/finance.png")" />*@
+                        </h3>
+                        <span class="price-tag">Cash Price: {{item.RetailCost|retail}}</span><br />
+                        <span  ng-show="item.FinancePrice!=null" class="price-tag finance">Finance Price: {{item.FinancePrice|currency}}</span><br />
+                        <span class="price-tag-suggested" 
+                              ng-show="item.SuggestedPrice!=null">Suggested Retail Price: {{item.SuggestedPrice|retail}}</span>
+                        
+                        
+                    </div>
+                    <ul class="item-specs layer-two">
+                        <li>Year {{item.Year}}</li>
+                        <li>Body {{item.Type}}</li>
+                        <li>Miles {{item.Mileage}}</li>
+                        <li>Vin {{item.Vin}}</li>
+                    </ul>
+                    <ul class="item-specs layer-two">
+                        <li ng-if="(item.Brand.Description=='Clear' || item.Brand.Description=='Clean')" 
+                            ng-class="{'brand-clear':(item.Brand.Description=='Clean' || item.Brand.Description=='Clear')}">Title Brand: <span class="value">Clear</span></li>
+
+                        <li ng-if="(item.Rebuildable) && item.Brand.Description!='Clear' && 
+                            item.Brand.Description!='Clean'">Title Brand: Reconstructed</li>
+
+                        <li ng-if="(item.Rebuildable==false)">Title Brand: {{item.Brand.Description}}
+                        </li>
+
+                        <li ng-class="{'damaged':item.IsDamaged==true,'not-damaged':item.IsDamaged==false}">Car Condition: <span class="value">{{item.CarCondition}}</span></li>
+                    </ul>
+                    <div class="layer-three"> 
+                        <a href="@Url.Action("Details","Car")?id={{item.Id}}" class="details-link"><i class="fa fa-arrow-right"></i> View details</a>
+                        <a href="@Url.Action("ShoppingCart","Car")" class="details-link"><i class="fa fa-car"></i> Go To My Vehicles</a>
+                        <a href="javascript:void(0)" class="details-link" ng-click="AddToCart(item)"><i class="fa fa-cart-plus"></i> Add To My Vehicles</a>
+
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</script>
+
